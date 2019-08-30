@@ -4,7 +4,7 @@ date: 2019-08-26 21:19:59
 tags:
    - array
    - JavaScript
-type:
+categories:
    - JavaScript
 ---
 

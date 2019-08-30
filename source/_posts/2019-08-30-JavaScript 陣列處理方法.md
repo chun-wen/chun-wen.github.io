@@ -13,6 +13,8 @@ categories:
 [ JavaScript  陣列方法簡介](https://oranwind.org/post-post-22/)
 - - - -
 在閱讀完卡斯伯老師文章，我將整理文章中處理陣列方法，並搭配自己的練習輔助說明。對了補充說明：陣列處理方式在IE8以前是不支援的！
+
+<!--more-->
 首先，我們先簡單寫一個陣列
 ```javascript
 var restaurant=[

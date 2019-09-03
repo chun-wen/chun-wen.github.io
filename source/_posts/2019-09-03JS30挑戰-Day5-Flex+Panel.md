@@ -10,15 +10,19 @@ categories:
    - JavaScript
 ---
 
+本篇文章主要紀錄觀看Alex大大直播紀錄後，所做的筆記記錄
+[demo連結](https://chun-wen.github.io/JavaScript30/05%20-%20Flex%20Panel%20Gallery/index-chunwen.html)
+
 參考資料：
 [Alex直播連結](https://www.youtube.com/watch?v=7hGFTNGommU&list=PLEfh-m_KG4dYbxVoYDyT_fmXZHnuKg2Fq&index=5)
 [JS30紀錄-其他人的筆記](https://shunnien.github.io/2017/12/18/Javascript30days-5/)
+<!-- more -->
 - - - -
 ## Css講解
 [Flex整理教學](https://chun-wen.github.io/2019/09/03/2019-09-03Flex%E6%8E%92%E7%89%88%E6%95%B4%E7%90%86/#more)
 ### 使用Flex巢狀結構
 小技巧：可以使用`border : 1px solid red`來觀察排版
-<!-- more -->
+
 ```css
 /* Flex Children，這邊是針對每個p段落再設定flex container*/
     .panel > * {

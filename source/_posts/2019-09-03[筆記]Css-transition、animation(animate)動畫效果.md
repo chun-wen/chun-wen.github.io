@@ -11,12 +11,12 @@ categories:
 參考資料：
 [Day27：小事之 Transition 與 Animation](https://ithelp.ithome.com.tw/articles/10197303)
 [範例](https://codepen.io/chunwen/pen/rRrwKp)
+<!-- more -->
 - - - -
 ## Transition
 轉場是從 A 狀態，轉變成 B 狀態，中間的過程，就叫轉場
 只能定義起始狀態跟結束狀態，中間狀態不能設定
 ![](https://i.imgur.com/hLg9uIp.png)圖片來源：[Day27：小事之 Transition 與 Animation](https://ithelp.ithome.com.tw/articles/10197303)
-<!-- more -->
 有下列幾個屬性：
 1.transition-property(屬性) EX：width、height
 2.transition-duration(時間)

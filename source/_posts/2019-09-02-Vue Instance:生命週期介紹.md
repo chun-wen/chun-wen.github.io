@@ -55,7 +55,7 @@ new Vue({
 var Hello = new Vue({
       el: '#app',
       data: {
-        val: 'Hi Vue!'
+        value: 'Hi Vue!'
       }
     });
 Hello.$mount().value  //"Hi Vue!"
@@ -143,7 +143,7 @@ var vm = new Vue({
 
 ```
 
-### 保留<keep-alive> 才會跳出來下面alert
+### 保留 `keep-alive` 才會跳出來下面alert
 ```javascript
 activated () {
     alert(`activated! ${this.text}`);

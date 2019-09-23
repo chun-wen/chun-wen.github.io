@@ -2,10 +2,10 @@
 title: Vue指令 V-model、V-on介紹
 date: 2019-09-22 13:27:43
 tags:
-   - vue
+   - vue 
    - ironman
 categories:
-   - vue 
+   - vue
 ---
 ## V-model (資料雙向綁定)
 參考資料：

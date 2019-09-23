@@ -4,7 +4,7 @@ date: 2019-09-22 13:27:43
 tags:
    - vue
    - ironman
-type:
+categories:
    - vue 
 ---
 ## V-model (資料雙向綁定)

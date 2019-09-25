@@ -1,19 +1,20 @@
 ---
-title: Vue模板語法V-if、V-show介紹
+title: Vue指令語法V-if、V-show介紹
 date: 2019-09-05 00:40:28
 tags:
   - vue
 categories:
   - vue
 ---
-[官網介紹](https://cn.vuejs.org/v2/guide/conditional.html)
-[練習範例檔案](https://codepen.io/chunwen/pen/GVQbRB?editors=1010#0)
+[官網資料](https://cn.vuejs.org/v2/guide/conditional.html)
+[全部練習範例檔案](https://codepen.io/chunwen/pen/GVQbRB?editors=1010#0)
 <!-- more -->
 - - - -
 ## V-if & V-show
 用途：條件性地渲染內容。這塊內容只會在`指令的表達式返回truthy值`的時候被渲染。
-```javascript
-    <h1> v-if="cond1">Yes</h1>
+[練習連結](https://codepen.io/chunwen/pen/OJLqRQZ)
+```html
+    <h1 v-if="cond1">Yes</h1>
     <h1 v-else>No</h1>
     <hr>
     <h1 v-show="cond1">Yes</h1>
@@ -37,7 +38,7 @@ categories:
 ### 在Template元素上使用`v-if`條件渲染分組
 用途：同時綁定多個元素，維護程式碼整潔，且template不會渲染在畫面上。`template 無法與 v-show 共⽤用`
 ```html
-            <template v-if="showTemplate">
+<template v-if="showTemplate">
               <tr>
                 <td>1</td>
                 <td>安妮</td>
@@ -47,7 +48,6 @@ categories:
                 <td>小明</td>
               </tr>
             </template>
-
 ```
 ### v-else-if切換分頁
 ```html
@@ -57,11 +57,11 @@ categories:
 <a class="nav-link" href="#" @click.prevent="link='c'">標題三</a>
 
           <div class="content">
-            <!-- 記得要用 邏輯運算子 == 來判斷是否相同  -->
+            <!-- 記得要用 邏輯運算子 === 來判斷是否相同  -->
             <!-- ＝是賦予值 -->
-            <div v-if="link=='a'">Ａ</div>
-            <div v-else-if="link=='b'">Ｂ</div>
-            <div v-else-if="link=='c'">Ｃ</div>
+            <div v-if="link === 'a'">Ａ</div>
+            <div v-else-if="link === 'b'">Ｂ</div>
+            <div v-else-if="link === 'c'">Ｃ</div>
           </div>
 ```
 
@@ -76,7 +76,6 @@ Vue渲染網頁時候，並不會從頭開始渲染而是會複用相同元素�
   <label>Email</label>
   <input placeholder="Enter your email address" key="2">
 </template>
-
 ```
 > 備註：key可以自行命名  
 ### V-if & V-show差異：
@@ -88,9 +87,8 @@ Vue渲染網頁時候，並不會從頭開始渲染而是會複用相同元素�
 
 ```
 說明：
-v-if 與 v-show 最大的差別在於對 DOM 的操作，`v-if 會依照條件決定是否將元件渲染⾄至網⾴頁上`。
-V-show一定會產生出物件，但是以CSS方式切換顯示與否（display:none），
-所以當頻繁切換是否顯示時當然使用V-show效能較好。
+v-if 與 v-show 最大的差別在是否對 `DOM` 操作，`v-if` 會依照條件決定是否將元件渲染⾄至網⾴頁上。
+V-show一定會渲染出物件，但是以CSS方式切換顯示與否（display:none），所以當頻繁切換是否顯示時當然使用V-show效能較好。
 
 #### 小結論
 結論：

@@ -7,7 +7,7 @@ tags:
 categories:
    - vue
 ---
-## V-model (資料雙向綁定)
+
 參考資料：
 [官網表單輸入綁定介紹](https://cn.vuejs.org/v2/guide/forms.html)
 [Ch2課堂基礎範本](https://jsbin.com/bafayot/12/edit?html,output)

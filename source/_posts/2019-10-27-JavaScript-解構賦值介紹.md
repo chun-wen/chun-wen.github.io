@@ -7,7 +7,7 @@ tags:
 categories:
    - javascript
 ---
-### 前言：
+前言：
 解構賦值 ( Destructuring Assignment)是一個在 ES6 的新特性，目的用於**提取陣列或物件中的資料**變成獨立變數。
 <!-- more -->
 ----
@@ -19,10 +19,9 @@ categories:
 > 引用卡斯伯老師說的白話文：
   `會將右方的資料往左邊送，然後會一個位置對一個值 (但沒有像鏡子左右顛倒)。`
 
-![images](https://i.imgur.com/qHwxmoy.png)
-圖片來源：[六角學院卡斯伯老師-鐵人賽：ES6 解構賦值](https://wcc723.github.io/javascript/2017/12/25/javascript-destructuring/)
+![images](https://i.imgur.com/qHwxmoy.png)圖片來源：[六角學院卡斯伯老師-鐵人賽：ES6 解構賦值](https://wcc723.github.io/javascript/2017/12/25/javascript-destructuring/)
 
-## 陣列解構賦值方法（Array Destructuring）
+### 陣列解構賦值方法（Array Destructuring）
 過去陣列內的元素在賦值的時候，只能透過直接給值的方式，像是下面這樣：
 ```javascript
 let list = [a, b];
@@ -71,7 +70,7 @@ console.log(Kaohsiung, Taipei)
 //台北 高雄，解構賦值是從右到左
 ```
 
-## 物件解構賦值
+### 物件解構賦值
 首先，必須強調一個觀念。物件的解構賦值強調的是`屬性名稱`，**屬性名稱必須相互對應才能取到值，反之則會無法取值**
 基本方法如下：
 ```javascript

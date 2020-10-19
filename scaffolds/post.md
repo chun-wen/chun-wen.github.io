@@ -1,8 +1,10 @@
 ---
 title: {{ title }}
-date: {{ date }}
 tags:
+  - C#
+  - Asp.net
 categories:
+  - C#
 ---
 <!-- more -->
 ---

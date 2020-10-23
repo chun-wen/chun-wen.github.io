@@ -24,8 +24,8 @@ categories:
 ### C#運作流程
 1. Source Code
 2. 轉譯(編譯器)
-3. 中繼語言(MSIL)
-4. CLR
+3. 中繼語言(MSIL) 目的可以跨語言(C#/C++/VB)
+4. CLR           一個虛擬元件，用來運行.Net
 5. 電腦看得懂的語言
 
 ### C#跟.Net關係

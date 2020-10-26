@@ -21,7 +21,17 @@ categories:
 4. 安裝完成後可以在終端機執行 
 `dotnet new console`就可以建立專案摟～
 
+### Bug
 - 若遇到dotnet command not found，請先注意指令是否有拼錯。
+
+- 出現It was not possible to find any installed .NET Core SDKs C# 問題
+解決方式：在json.setting中加入
+```javaScript
+{    
+  "omnisharp.useGlobalMono": "never"
+}
+```
+[連結](https://github.com/OmniSharp/omnisharp-vscode/issues/4134)
 
 
 

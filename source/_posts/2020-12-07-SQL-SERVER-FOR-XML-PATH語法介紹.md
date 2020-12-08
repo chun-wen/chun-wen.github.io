@@ -34,16 +34,6 @@ FOR XML PATH('')) AS TEMP
 FROM TABLE_U U,1,1,'')
 ```
 
-如果不同 `ROW`的抹個欄位值是空值呢？
-```C#
-SELECT DISTINCT U.ID,
-STUFF((SELECT ',' + C.ColumnGroupBy
-FROM Table AS C
-WHERE C.ID = U.ID AND C.ColumnGroupBy IS NOT NULL
-FOR XML PATH('')) AS TEMP 
-FROM TABLE_U U,1,1,'')
-
-```
 [參考連結](https://social.msdn.microsoft.com/Forums/en-US/a04bac03-3f72-402f-a7ee-7f7e82b74ed7/remove-null-or-blank-in-stuff-sql?forum=transactsql)
 
 > 補充:

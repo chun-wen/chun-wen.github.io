@@ -87,3 +87,8 @@ search:
   field: post
   format: html
   limit: 10000
+
+# Google Analytics
+google_analytics:
+  tracking_id: 266104978
+  localhost_ignored: true

@@ -1,7 +1,7 @@
 ---
 title: {{ title }}
 tags:
-  - Asp.net
+  - hexo
 categories:
 ---
 <!-- more -->

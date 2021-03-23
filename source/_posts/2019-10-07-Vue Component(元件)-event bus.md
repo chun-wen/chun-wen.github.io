@@ -1,12 +1,13 @@
 ---
 title: Vue Component(元件)-event bus
-date: 2019-10-07 22:42:14
 tags:
-   - vue 
-   - ironman
-   - component
+  - vue
+  - ironman
+  - component
 categories:
-   - vue
+  - vue
+abbrlink: 2667842738
+date: 2019-10-07 22:42:14
 ---
 參考資料
 - 五倍紅寶石Vue實體課程講義

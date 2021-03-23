@@ -1,11 +1,12 @@
 ---
 title: 2020-09-28-看鐵人賽學Debug-Network篇
-date: 2020-09-28 23:20:02
 tags:
-   - chrome
-   - debug
+  - chrome
+  - debug
 categories:
-   - web
+  - web
+abbrlink: 3096729793
+date: 2020-09-28 23:20:02
 ---
 今天學習認識Chrome面板中的ＮetWork,文章內容整理自[[Day 15] Network - Overview & Settings](https://ithelp.ithome.com.tw/articles/10245891)
 <!-- more -->

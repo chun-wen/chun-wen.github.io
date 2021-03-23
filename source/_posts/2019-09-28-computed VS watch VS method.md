@@ -1,11 +1,12 @@
 ---
 title: Vue computed VS watch VS method
-date: 2019-09-28 10:22:04
 tags:
-   - vue 
-   - ironman
+  - vue
+  - ironman
 categories:
-   - vue
+  - vue
+abbrlink: 473648596
+date: 2019-09-28 10:22:04
 ---
 參考資料
 1.[用範例理解 Vue.js #6：Computed vs Methods](https://ithelp.ithome.com.tw/articles/10191808)

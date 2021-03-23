@@ -1,11 +1,12 @@
 ---
 title: Vue-router簡介
-date: 2019-10-13 20:57:55
 tags:
-   - vue 
-   - ironman
+  - vue
+  - ironman
 categories:
-   - vue
+  - vue
+abbrlink: 3605758617
+date: 2019-10-13 20:57:55
 ---
 
 參考資料：

@@ -1,11 +1,12 @@
 ---
 title: JavaScript 陣列處理方法
-date: 
 tags:
-   - array
-   - JavaScript
+  - array
+  - JavaScript
 categories:
-   - JavaScript
+  - JavaScript
+abbrlink: 1975097829
+date:
 ---
 
 參考資料：

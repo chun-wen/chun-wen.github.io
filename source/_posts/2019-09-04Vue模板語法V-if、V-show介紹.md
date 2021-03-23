@@ -1,10 +1,11 @@
 ---
 title: Vue指令語法V-if、V-show介紹
-date: 2019-09-05 00:40:28
 tags:
   - vue
 categories:
   - vue
+abbrlink: 2719563524
+date: 2019-09-05 00:40:28
 ---
 [官網資料](https://cn.vuejs.org/v2/guide/conditional.html)
 [全部練習範例檔案](https://codepen.io/chunwen/pen/GVQbRB?editors=1010#0)

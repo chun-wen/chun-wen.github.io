@@ -1,12 +1,13 @@
 ---
 title: Vue Component(元件) is動態切換元件
-date: 2019-10-08 21:41:16
 tags:
-   - vue 
-   - ironman
-   - component
+  - vue
+  - ironman
+  - component
 categories:
-   - vue
+  - vue
+abbrlink: 3284328793
+date: 2019-10-08 21:41:16
 ---
 參考資料
 - [官網動態組件介紹](https://cn.vuejs.org/v2/guide/components.html#%E5%8A%A8%E6%80%81%E7%BB%84%E4%BB%B6)

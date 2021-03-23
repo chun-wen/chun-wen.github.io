@@ -1,11 +1,12 @@
 ---
 title: Javascript ES6解構賦值介紹
-date: 2019-10-27 02:41:22
 tags:
-   - es6
-   - javascript
+  - es6
+  - javascript
 categories:
-   - javascript
+  - javascript
+abbrlink: 87138112
+date: 2019-10-27 02:41:22
 ---
 前言：
 解構賦值 ( Destructuring Assignment)是一個在 ES6 的新特性，目的用於**提取陣列或物件中的資料**變成獨立變數。

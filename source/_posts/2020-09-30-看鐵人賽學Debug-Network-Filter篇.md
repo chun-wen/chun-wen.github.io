@@ -1,11 +1,12 @@
 ---
 title: 2020-09-30-看鐵人賽學Debug-Network-Filter篇
-date: 2020-09-30 21:22:27
 tags:
-   - chrome
-   - debug
+  - chrome
+  - debug
 categories:
-   - web
+  - web
+abbrlink: 2885820487
+date: 2020-09-30 21:22:27
 ---
 今天筆記內容整理自[[Day 16] Network - Filter & Search Requests](https://ithelp.ithome.com.tw/articles/10246590)
 <!-- more -->

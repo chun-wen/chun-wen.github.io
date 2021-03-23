@@ -1,10 +1,11 @@
 ---
 title: Vue Router介紹
-date: 2019-09-20 10:57:22
 tags:
   - vue
 categories:
   - vue
+abbrlink: 4197762796
+date: 2019-09-20 10:57:22
 ---
 參考資料：
 [vue-router的兩種模式的區別](https://juejin.im/post/5a61908c6fb9a01c9064f20a)

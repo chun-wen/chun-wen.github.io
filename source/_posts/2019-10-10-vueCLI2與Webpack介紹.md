@@ -1,12 +1,13 @@
 ---
 title: Vue CLI2與Webpack介紹
-date: 2019-10-13 20:46:35
 tags:
-   - vue 
-   - ironman
-   - vueCLI
+  - vue
+  - ironman
+  - vueCLI
 categories:
-   - vue
+  - vue
+abbrlink: 1215381457
+date: 2019-10-13 20:46:35
 ---
 
 參考資料

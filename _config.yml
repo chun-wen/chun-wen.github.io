@@ -15,8 +15,13 @@ timezone:
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: http://chun-wen.github.io
 root: /
-permalink: :year/:month/:day/:title/
+permalink: :category/:year:month:day/:abbrlink/
 permalink_defaults:
+
+# abbrlink config
+abbrlink:
+  alg: crc32  # 演算法：crc16(default) and crc32 
+  rep: dec    # 進位制：dec(default) and hex
 
 # Directory
 source_dir: source
@@ -59,6 +64,19 @@ index_generator:
 # Category & Tag
 default_category: uncategorized
 category_map:
+  JavaScript: javascript
+  Css: css
+  Hexo: hexo
+  SQL: sql
+  C#: C
+  Design: design
+  Kendo: kendo
+  vue: vue
+  web: web
+  心得: learnexp
+  六角學院: hexschool
+  開發流程: developProccess
+  商業思維: business
 tag_map:
 
 # Date / Time format

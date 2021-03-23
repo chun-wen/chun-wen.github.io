@@ -1,11 +1,12 @@
 ---
 title: 2020-10-04-看鐵人賽學AJAX-用Chrome Dev觀察Network運作流程
-date: 2020-10-04 11:45:32
 tags:
-   - AJAX
-   - JavaScript
+  - AJAX
+  - JavaScript
 categories:
-   - JavaScript
+  - JavaScript
+abbrlink: 1235948296
+date: 2020-10-04 11:45:32
 ---
 今天我們將透過Chrome開發者工具來了解非同步請求背後發生什麼事。就讓我們看下去吧！
 > 註記：`看鐵人賽文章內容`僅用於紀錄、整理其他參賽者文章，若文章有不合適之處，可以於文章下方留言區告知，我會移除文章。謝謝！

@@ -1,13 +1,14 @@
 ---
 title: JS30挑戰-Day5-Flex+Panel
-date: 
 tags:
-   - flex
-   - JavaScript
-   - JavaScript30天挑戰 
-   - css
+  - flex
+  - JavaScript
+  - JavaScript30天挑戰
+  - css
 categories:
-   - JavaScript
+  - JavaScript
+abbrlink: 4027575200
+date:
 ---
 
 本篇文章主要紀錄觀看Alex大大直播紀錄後，所做的筆記記錄

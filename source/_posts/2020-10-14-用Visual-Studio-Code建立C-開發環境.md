@@ -1,11 +1,12 @@
 ---
-title: '2020-10-14-用Visual Studio Code建立C#開發環境'
-date: 2020-10-14 23:23:52
+title: 2020-10-14-用Visual Studio Code建立C#開發環境
 tags:
   - C#
   - Asp.net
 categories:
   - C#
+abbrlink: 2566354860
+date: 2020-10-14 23:23:52
 ---
 記錄第一次在Vs Code上安裝 `.Net Core`的過程。
 <!-- more -->

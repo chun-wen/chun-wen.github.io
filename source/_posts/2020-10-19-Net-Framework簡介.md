@@ -1,11 +1,12 @@
 ---
 title: 2020-10-19-.Net Framework簡介
-date: 2020-10-19 22:28:41
 tags:
   - C#
   - Asp.net
 categories:
   - C#
+abbrlink: 3010872741
+date: 2020-10-19 22:28:41
 ---
 簡介`.Net Framework`
 <!-- more -->

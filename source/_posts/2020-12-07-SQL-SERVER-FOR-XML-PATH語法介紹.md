@@ -5,6 +5,7 @@ tags:
   - Asp.net
 categories:
   - SQL
+abbrlink: 3967556948
 ---
 工作上最近一直遇到將不同 `ROW`的抹個欄位值合併起來，記錄一下
 <!-- more -->

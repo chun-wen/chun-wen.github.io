@@ -4,6 +4,7 @@ tags:
   - Hexo
 categories:
   - Hexo
+abbrlink: 1934885385
 ---
 介紹GA安裝
 <!-- more -->

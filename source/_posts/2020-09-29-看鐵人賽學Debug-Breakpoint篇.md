@@ -1,11 +1,12 @@
 ---
 title: 2020-09-29-看鐵人賽學Debug-Breakpoint篇
-date: 2020-09-29 22:35:49
 tags:
-   - chrome
-   - debug
+  - chrome
+  - debug
 categories:
-   - web
+  - web
+abbrlink: 2715429133
+date: 2020-09-29 22:35:49
 ---
 今天紀錄Debug-Breakpoint篇，內容整理自[[Day 12] Sources - Breakpoints](https://ithelp.ithome.com.tw/articles/10244199)
 

@@ -1,11 +1,12 @@
 ---
 title: Css-transition、animation(animate)動畫效果
-date: 
 tags:
-   - transition
-   - Css
+  - transition
+  - Css
 categories:
-   - Css
+  - Css
+abbrlink: 4076619072
+date:
 ---
 
 參考資料：

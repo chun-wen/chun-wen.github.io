@@ -1,12 +1,13 @@
 ---
 title: Vue Component(元件) props、emit介紹
-date: 2019-10-02 21:06:00
 tags:
-   - vue 
-   - ironman
-   - component
+  - vue
+  - ironman
+  - component
 categories:
-   - vue
+  - vue
+abbrlink: 1526401699
+date: 2019-10-02 21:06:00
 ---
 參考資料
 - [Vue.js Core 30天屠龍記(第23天): props 屬性](https://ithelp.ithome.com.tw/articles/10208500)

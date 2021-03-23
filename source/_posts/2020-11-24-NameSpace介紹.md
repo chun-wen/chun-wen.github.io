@@ -5,6 +5,7 @@ tags:
   - Asp.net
 categories:
   - C#
+abbrlink: 3814092706
 ---
 今天認識NameSpace
 <!-- more -->

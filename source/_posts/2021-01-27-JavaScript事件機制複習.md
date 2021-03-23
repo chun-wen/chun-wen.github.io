@@ -1,9 +1,10 @@
 ---
 title: 2021-01-27-JavaScript事件機制複習
 tags:
-    - JavaScript 
+  - JavaScript
 categories:
-    - JavaScript
+  - JavaScript
+abbrlink: 1363835460
 ---
 記錄一下今天專案上遇到跳窗事件，重複觸發Alert訊息問題。
 <!-- more -->

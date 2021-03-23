@@ -1,11 +1,12 @@
 ---
 title: JS30挑戰-Day7-Array Cardio Day2
-date: 2019-09-14
 tags:
-   - JavaScript
-   - JavaScript30天挑戰 
+  - JavaScript
+  - JavaScript30天挑戰
 categories:
-   - JavaScript
+  - JavaScript
+abbrlink: 324123510
+date: 2019-09-14 00:00:00
 ---
 
 參考資料：

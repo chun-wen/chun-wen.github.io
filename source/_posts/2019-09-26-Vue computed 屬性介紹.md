@@ -1,11 +1,12 @@
 ---
 title: Vue computed 屬性介紹
-date: 2019-09-26 22:48:20
 tags:
-   - vue 
-   - ironman
+  - vue
+  - ironman
 categories:
-   - vue
+  - vue
+abbrlink: 50615246
+date: 2019-09-26 22:48:20
 ---
 
 參考資料：

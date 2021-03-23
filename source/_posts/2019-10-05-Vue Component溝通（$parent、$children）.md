@@ -1,12 +1,13 @@
 ---
 title: Vue Component溝通（$parent、$children）
-date: 2019-10-05 19:08:42
 tags:
-   - vue 
-   - ironman
-   - component
+  - vue
+  - ironman
+  - component
 categories:
-   - vue
+  - vue
+abbrlink: 3021072490
+date: 2019-10-05 19:08:42
 ---
 參考資料
 - [Vue元件間通訊6種方式](https://www.itread01.com/content/1558210804.html)

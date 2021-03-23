@@ -1,11 +1,12 @@
 ---
 title: Vue指令 V-model、V-on介紹
-date: 2019-09-22 13:27:43
 tags:
-   - vue 
-   - ironman
+  - vue
+  - ironman
 categories:
-   - vue
+  - vue
+abbrlink: 378863984
+date: 2019-09-22 13:27:43
 ---
 
 參考資料：

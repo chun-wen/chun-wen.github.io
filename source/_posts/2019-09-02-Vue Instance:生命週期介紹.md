@@ -1,10 +1,11 @@
 ---
 title: Vue Instance/生命週期介紹
-date: 
 tags:
-   - vue 
+  - vue
 categories:
-   - vue
+  - vue
+abbrlink: 3809821719
+date:
 ---
 
 

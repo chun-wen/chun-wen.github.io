@@ -4,6 +4,7 @@ tags:
   - Hexo
 categories:
   - Hexo
+abbrlink: 1226560276
 ---
 本篇文章主要紀錄更新Hexo到5.4版本時，所遇到的一些問題。
 <!-- more -->

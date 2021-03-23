@@ -1,12 +1,13 @@
 ---
 title: Vue Component(元件)-props.sync 溝通方式
-date: 2019-10-06 17:08:12
 tags:
-   - vue 
-   - ironman
-   - component
+  - vue
+  - ironman
+  - component
 categories:
-   - vue
+  - vue
+abbrlink: 1846504743
+date: 2019-10-06 17:08:12
 ---
 
 參考資料

@@ -1,9 +1,9 @@
 ---
 title: Hexo版本更新教學
 tags:
-  - hexo
+  - Hexo
 categories:
-  - hexo
+  - Hexo
 ---
 本篇文章主要紀錄更新Hexo到5.4版本時，所遇到的一些問題。
 <!-- more -->

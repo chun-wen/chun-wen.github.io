@@ -3,9 +3,9 @@ title: Css-transition、animation(animate)動畫效果
 date: 
 tags:
    - transition
-   - css
+   - Css
 categories:
-   - css
+   - Css
 ---
 
 參考資料：

@@ -1,9 +1,9 @@
 ---
 title: Hexo-第三方套件安裝教學
 tags:
-  - hexo
+  - Hexo
 categories:
-  - hexo
+  - Hexo
 ---
 介紹GA安裝
 <!-- more -->

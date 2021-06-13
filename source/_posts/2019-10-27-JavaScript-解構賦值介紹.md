@@ -2,9 +2,9 @@
 title: Javascript ES6解構賦值介紹
 tags:
   - es6
-  - javascript
+  - JavaScript
 categories:
-  - javascript
+  - JavaScript
 abbrlink: 87138112
 date: 2019-10-27 02:41:22
 ---

@@ -8,4 +8,5 @@ categories:
 <!-- more -->
 ---
 參考資料：
+[Clean Code學派的風格實踐：開發可靠、可維護又強健的JavaScript](https://www.books.com.tw/products/0010886265?loc=M_0009_020)
 ---

@@ -4,7 +4,7 @@ tags:
   - transition
   - Css
 categories:
-  - Css
+  - CSS
 abbrlink: 4076619072
 date:
 ---

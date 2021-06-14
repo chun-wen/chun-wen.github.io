@@ -65,7 +65,7 @@ index_generator:
 default_category: uncategorized
 category_map:
   JavaScript: javascript
-  Css: css
+  CSS: css
   Hexo: hexo
   SQL: sql
   C#: csharp

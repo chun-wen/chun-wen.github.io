@@ -64,7 +64,7 @@ index_generator:
 # Category & Tag
 default_category: uncategorized
 category_map:
-  JavaScript: javascript
+  Temp: temp
   Css: css
   Hexo: hexo
   SQL: sql

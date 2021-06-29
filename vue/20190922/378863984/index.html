@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chun-wen.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="參考資料：官網表單輸入綁定介紹Ch2課堂基礎範本參考資料：Summer— data、v-model 與雙向綁定">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue指令 V-model、V-on介紹">
+<meta property="og:url" content="http://chun-wen.github.io/vue/20190922/378863984/index.html">
+<meta property="og:site_name" content="Andy&#39;s blog">
+<meta property="og:description" content="參考資料：官網表單輸入綁定介紹Ch2課堂基礎範本參考資料：Summer— data、v-model 與雙向綁定">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2019-09-22T05:27:43.000Z">
+<meta property="article:modified_time" content="2021-03-23T14:28:44.000Z">
+<meta property="article:author" content="andy">
+<meta property="article:tag" content="vue">
+<meta property="article:tag" content="ironman">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://chun-wen.github.io/vue/20190922/378863984/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>Vue指令 V-model、V-on介紹 | Andy's blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MVMTVD20GY"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-MVMTVD20GY');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Andy's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">If you always do what you've always done, you'll always get what you've always got.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="http://chun-wen.github.io/vue/20190922/378863984/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="andy">
+      <meta itemprop="description" content="記錄一些自學前端的技術文章">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andy's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Vue指令 V-model、V-on介紹
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2019-09-22 13:27:43" itemprop="dateCreated datePublished" datetime="2019-09-22T13:27:43+08:00">2019-09-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2021-03-23 22:28:44" itemprop="dateModified" datetime="2021-03-23T22:28:44+08:00">2021-03-23</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="文章字數">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">文章字數：</span>
+              <span>6.3k</span>
+            </span>
+            <span class="post-meta-item" title="所需閱讀時間">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+              <span>6 分鐘</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>參考資料：<br><a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/guide/forms.html">官網表單輸入綁定介紹</a><br><a target="_blank" rel="noopener" href="https://jsbin.com/bafayot/12/edit?html,output">Ch2課堂基礎範本</a><br><a target="_blank" rel="noopener" href="https://cythilya.github.io/2017/04/14/vue-data-v-model/">參考資料：Summer— data、v-model 與雙向綁定</a></p>
+<span id="more"></span>
+<hr>
+<p>用途：綁定雙向資料，主要用在四個地方：<code>&lt;input&gt;</code>、<code>&lt;select&gt;</code>、<code>&lt;textarea&gt;</code>、自訂components。<code>v-model</code>本質負責監聽用戶的輸入事件以更新數據。<br>備註：</p>
+<blockquote>
+<p>1.V-model會忽略所有表單元素的value、checked、selected的初始值，請記得一定要在data中聲明初始值<br>2.V-model跟html結構上標籤（如：selected）同時出現時，V-model權重比較高，會優先顯示data中的資料  </p>
+</blockquote>
+<h3 id="常見用法介紹"><a href="#常見用法介紹" class="headerlink" title="常見用法介紹"></a>常見用法介紹</h3><p>我們直接來看例子吧. <a target="_blank" rel="noopener" href="https://codepen.io/chunwen/pen/oKMjBx?editors=1010#0">課堂練習範本</a></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">情境一：單行文字</span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">v-model</span>=<span class="string">&quot;message&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Message is &#123;&#123;message&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line">情境二：多行文字</span><br><span class="line"><span class="tag">&lt;<span class="name">textarea</span> <span class="attr">name</span>=<span class="string">&quot;&quot;</span> <span class="attr">id</span>=<span class="string">&quot;&quot;</span> <span class="attr">v-model</span>=<span class="string">&quot;message&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Message is &#123;&#123;message&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line">情境三：checkbox</span><br><span class="line">單選</span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">id</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">v-model</span>=<span class="string">&quot;checked&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;checkbox&quot;</span>&gt;</span>&#123;&#123; checked &#125;&#125;<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">複選</span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">id</span>=<span class="string">&quot;jack&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Jack&quot;</span> <span class="attr">v-model</span>=<span class="string">&quot;checkedNames&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;jack&quot;</span>&gt;</span>Jack<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">id</span>=<span class="string">&quot;john&quot;</span> <span class="attr">value</span>=<span class="string">&quot;John&quot;</span> <span class="attr">v-model</span>=<span class="string">&quot;checkedNames&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">情境四：radio</span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">id</span>=<span class="string">&quot;one&quot;</span> <span class="attr">value</span>=<span class="string">&quot;One&quot;</span> <span class="attr">v-model</span>=<span class="string">&quot;picked&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;one&quot;</span>&gt;</span>One<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">id</span>=<span class="string">&quot;two&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Two&quot;</span> <span class="attr">v-model</span>=<span class="string">&quot;picked&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;two&quot;</span>&gt;</span>Two<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span>&gt;</span>Picked: &#123;&#123; picked &#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"></span><br><span class="line">情境五：select</span><br><span class="line">單選(傳統寫法)</span><br><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">name</span>=<span class="string">&quot;&quot;</span> <span class="attr">id</span>=<span class="string">&quot;&quot;</span> <span class="attr">v-model</span>=<span class="string">&quot;selected&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">option</span> <span class="attr">disabled</span> <span class="attr">value</span>=<span class="string">&quot;&quot;</span>&gt;</span>請選擇<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;小美&quot;</span>&gt;</span>小美<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;可愛小妞&quot;</span>&gt;</span>可愛小妞<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>小明喜歡的女生是 &#123;&#123; selected &#125;&#125;。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line">單選（用v-for製做）</span><br><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">name</span>=<span class="string">&quot;&quot;</span> <span class="attr">id</span>=<span class="string">&quot;&quot;</span> <span class="attr">v-model</span>=<span class="string">&quot;selected2&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">option</span> <span class="attr">disabled</span> <span class="attr">value</span>=<span class="string">&quot;&quot;</span>&gt;</span>請選擇<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">option</span> <span class="attr">v-bind:value</span>=<span class="string">&quot;item&quot;</span> </span></span><br><span class="line"><span class="tag"><span class="attr">v-for</span>=<span class="string">&quot;item in selectData &quot;</span>&gt;</span>&#123;&#123;item&#125;&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">option</span>&gt;</span>  </span><br><span class="line"></span><br><span class="line">//說明：v-model過去綁定通常為靜態，若想改為動態綁定。可以使用v-bind語法來動態綁定</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>小明喜歡的女生是 &#123;&#123; selected2 &#125;&#125;。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line">複選（只要加multipe就可以～）</span><br><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">v-model</span>=<span class="string">&quot;multiSelected&quot;</span> <span class="attr">multiple</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">option</span>&gt;</span>A<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">option</span>&gt;</span>B<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">option</span>&gt;</span>C<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span>&gt;</span>Selected: &#123;&#123; multiSelected &#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"></span><br><span class="line">情境六：checkbox值綁定</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;form-check&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">class</span>=<span class="string">&quot;form-check-input&quot;</span> <span class="attr">id</span>=<span class="string">&quot;sex&quot;</span> <span class="attr">v-model</span>=<span class="string">&quot;sex&quot;</span> <span class="attr">true-value</span>=<span class="string">&quot;男生&quot;</span> <span class="attr">false-value</span>=<span class="string">&quot;女生&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">&quot;form-check-label&quot;</span> <span class="attr">for</span>=<span class="string">&quot;sex&quot;</span>&gt;</span>&#123;&#123; sex &#125;&#125;<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">//說明：這用法挺特別，可以留意一下：true-value、false-value</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>參考資料：<a target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/articles/10214919">Day10 vue.js - v-model 雙向綁定 (2)</a></p>
+<p>Data 格式</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">data:&#123;</span><br><span class="line">  message:<span class="string">&#x27;&#x27;</span>,</span><br><span class="line">  checked:<span class="literal">false</span>, </span><br><span class="line">  checkedNames:[],</span><br><span class="line">  picked: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">  selected:<span class="string">&#x27;&#x27;</span>,</span><br><span class="line">  selectData: [<span class="string">&#x27;小美&#x27;</span>, <span class="string">&#x27;可愛小妞&#x27;</span>, <span class="string">&#x27;漂亮阿姨&#x27;</span>],</span><br><span class="line">  selected2: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">  multiSelected：[],</span><br><span class="line">  sex：<span class="string">&#x27;男生&#x27;</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="修飾符（Modifiers）"><a href="#修飾符（Modifiers）" class="headerlink" title="修飾符（Modifiers）"></a>修飾符（Modifiers）</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">情境一：lazy（輸入文字不會及時更新）</span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">class</span>=<span class="string">&quot;form-control&quot;</span> <span class="attr">v-model.lazy</span>=<span class="string">&quot;lazyMsg&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">情境二：number(轉為純數字)</span><br><span class="line"><span class="tag">&lt;<span class="name">pre</span>&gt;</span>&#123;&#123; age &#125;&#125;<span class="tag">&lt;/<span class="name">pre</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">pre</span>&gt;</span>&#123;&#123;typeof(age)&#125;&#125;<span class="tag">&lt;/<span class="name">pre</span>&gt;</span> //string</span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;number&quot;</span> <span class="attr">class</span>=<span class="string">&quot;form-control&quot;</span> <span class="attr">v-model.number</span>=<span class="string">&quot;age&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">情境三： trim，刪除前後多餘空白       </span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">class</span>=<span class="string">&quot;form-control&quot;</span> <span class="attr">v-model.trim</span>=<span class="string">&quot;trimMsg&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">資料結構：</span><br><span class="line">lazyMsg: &#x27;&#x27;,</span><br><span class="line">age: &#x27;&#x27;,</span><br><span class="line">trimMsg: &#x27;&#x27;</span><br></pre></td></tr></table></figure>
+
+<h2 id="V-on事件"><a href="#V-on事件" class="headerlink" title="V-on事件"></a>V-on事件</h2><p>參考資料：<br><a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/guide/events.html">官網文件說明</a><br><a target="_blank" rel="noopener" href="https://blog.techbridge.cc/2017/07/15/javascript-event-propagation/">好文推薦：DOM 的事件傳遞機制：捕獲與冒泡</a></p>
+<hr>
+<p>v-on用途：監聽DOM事件，並執行JavaScript程式碼運行<br>寫法： <code>v-on:[事件名] 如 v-on:click=&#39;&#39;</code><br>縮寫：<code>@click=&#39;&#39;</code><br>事件名：如click事件(可以使用原來JS事件來撰寫）</p>
+<blockquote>
+<p>備註：JS原生事件如change、close、dblclick、focus、blur都可以綁定，但必須注意這些只能監聽原生DOM事件，而用在自定義元素上時，也可以監聽子組件觸發的<strong>自定義事件</strong> <a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/api/#v-on">官網API說明</a>  </p>
+</blockquote>
+<p>HTML結構 <a target="_blank" rel="noopener" href="https://codepen.io/chunwen/pen/gVjoWQ?editors=1011">練習檔案</a></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">情境一：基礎用法</span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>請切換下方 box 的 className<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span> <span class="attr">:class</span>=<span class="string">&quot;&#123;&#x27;rotate&#x27;: isRotate &#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">hr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;btn btn-outline-primary&quot;</span> @<span class="attr">click</span>=<span class="string">&quot;changeRotate&quot;</span>&gt;</span>切換 box 樣式<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line">情境二：帶入參數(很重要，表格排序作業有使用到)</span><br><span class="line"><span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">&quot;item in arrayData&quot;</span> <span class="attr">class</span>=<span class="string">&quot;my-2&quot;</span>&gt;</span></span><br><span class="line">&#123;&#123; item.name &#125;&#125; 有 &#123;&#123; item.cash &#125;&#125; 元</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;btn btn-sm btn-outline-primary&quot;</span> @<span class="attr">click</span>=<span class="string">&quot;storeMoney(item)&quot;</span>&gt;</span>儲值<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">說明：這邊的storeMoney(item)，參數item會傳入methods中</span><br><span class="line"></span><br><span class="line">情境三：事件修飾符(記得把console.log打開來看結果)</span><br><span class="line">常見的如.stop、.prevent、.capture、.self等等</span><br><span class="line"><span class="tag">&lt;<span class="name">h6</span> <span class="attr">class</span>=<span class="string">&quot;mt-3&quot;</span>&gt;</span>事件偵聽器時使用 self 模式<span class="tag">&lt;/<span class="name">h6</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;p-3 bg-primary&quot;</span> @<span class="attr">click.self</span>=<span class="string">&quot;trigger(&#x27;div&#x27;)&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;btn btn-outline-secondary&quot;</span> @<span class="attr">click.self</span>=<span class="string">&quot;trigger(&#x27;button&#x27;)&quot;</span>&gt;</span>按我<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">情境四：按鍵修飾符</span><br><span class="line">共有三種種類</span><br><span class="line">1. &#123;keyCode | keyAlias&#125; - 事件是從特定鍵觸發時才觸發回調</span><br><span class="line">2. 別名修飾 - .enter, .tab, .delete, .esc, .space, .up等</span><br><span class="line">3. 組合修飾符，實現僅在按下相應按鍵時才觸發鼠標或鍵盤事件的監聽器 - .ctrl, .alt, .shift, .meta</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">h6</span> <span class="attr">class</span>=<span class="string">&quot;mt-3&quot;</span>&gt;</span>別名修飾<span class="tag">&lt;/<span class="name">h6</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">class</span>=<span class="string">&quot;form-control&quot;</span> <span class="attr">v-model</span>=<span class="string">&quot;text&quot;</span> @<span class="attr">keyup.space</span>=<span class="string">&quot;trigger(&#x27;space&#x27;)&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">情境五：滑鼠事件</span><br><span class="line">.left .right .middle</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;p-3 bg-primary&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span> @<span class="attr">click.middle</span>=<span class="string">&quot;trigger(&#x27;Right button&#x27;)&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>JavaScript結構</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">data:&#123;</span><br><span class="line">    isRotate: <span class="literal">false</span>,</span><br><span class="line">    text: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">&#125;,</span><br><span class="line">methods: &#123;</span><br><span class="line">    changeRotate: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">this</span>.isRotate = !<span class="built_in">this</span>.isRotate;</span><br><span class="line">    &#125;,</span><br><span class="line">    storeMoney: <span class="function"><span class="keyword">function</span>(<span class="params">item</span>) </span>&#123;</span><br><span class="line">      item.cash = item.cash + <span class="number">500</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    trigger: <span class="function"><span class="keyword">function</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(name, <span class="string">&#x27;此事件被觸發了&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="問題紀錄："><a href="#問題紀錄：" class="headerlink" title="問題紀錄："></a>問題紀錄：</h3><blockquote>
+<p>Q.官網上有介紹v-on相關用法，我對於id=“example-2”這個例子中這段語法有些疑惑 <a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/guide/events.html#%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95">連結</a>   </p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (event) &#123;</span><br><span class="line">alert(event.target.tagName)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//If（）中不是應該放可以判斷true或false的內容，而這邊放event是什麼意思？</span></span><br></pre></td></tr></table></figure>
+<p>A：if ( ) 除了判斷式也可傳入 JavaScript 的所有型別， 這部份屬於真值與假值的概念，之前在Kuro大大文章中有提到這個概念<a target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/articles/10191343">重新認識JavaScript:Boolean的真假判斷</a> 或直接參考<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Glossary/Truthy">ＭＤＮ介紹</a></p>
+<h3 id="補充this使用時機"><a href="#補充this使用時機" class="headerlink" title="補充this使用時機"></a>補充this使用時機</h3><p>1.methods, computed, created, watch 等 Vue 內的方法都是指向同一個 this也就是 Vue 的實例（instance）<br>2.若使用到處理陣列方法如；filter、forEach、map等等，則需要另外撰寫 <code>vm = this</code> 。若沒有使用到這些陣列處理方法，則可以直接使用this<br>3.data中的資料都<code>不需要另外撰寫this</code>，vue會自動讀取資訊如<br><code>data: &#123; isRotate: false,&#125;</code></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/vue/" rel="tag"># vue</a>
+              <a href="/tags/ironman/" rel="tag"># ironman</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/vue/20190921/1684315816/" rel="prev" title="Vue模板語法、V-text、V-html、V-once介紹">
+      <i class="fa fa-chevron-left"></i> Vue模板語法、V-text、V-html、V-once介紹
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/vue/20190926/50615246/" rel="next" title="Vue computed 屬性介紹">
+      Vue computed 屬性介紹 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A6%8B%E7%94%A8%E6%B3%95%E4%BB%8B%E7%B4%B9"><span class="nav-number">1.</span> <span class="nav-text">常見用法介紹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E9%A3%BE%E7%AC%A6%EF%BC%88Modifiers%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">修飾符（Modifiers）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#V-on%E4%BA%8B%E4%BB%B6"><span class="nav-number"></span> <span class="nav-text">V-on事件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%95%8F%E9%A1%8C%E7%B4%80%E9%8C%84%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">問題紀錄：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A3%9C%E5%85%85this%E4%BD%BF%E7%94%A8%E6%99%82%E6%A9%9F"><span class="nav-number">2.</span> <span class="nav-text">補充this使用時機</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">andy</p>
+  <div class="site-description" itemprop="description">記錄一些自學前端的技術文章</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">99</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/chun-wen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chun-wen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:hsbsbbdn@gmail.com" title="E-Mail → mailto:hsbsbbdn@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">andy</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="總字數">137k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">2:04</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://chun-wen.github.io/vue/20190922/378863984/";
+    this.page.identifier = "vue/20190922/378863984/";
+    this.page.title = "Vue指令 V-model、V-on介紹";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://andyderblog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

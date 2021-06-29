@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chun-wen.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="何謂Vue?我們可以將它視為一個漸進式框架或是函式庫 Vue的特點：1.關注點分離，意思就是Vue只關注畫面與資料的變化，我們不用手動更新操作DOM元素。2.操作物件模型為主的開發模式（就是操作我資料）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue 框架與開發環境介紹">
+<meta property="og:url" content="http://chun-wen.github.io/vue/20190830/67885936/index.html">
+<meta property="og:site_name" content="Andy&#39;s blog">
+<meta property="og:description" content="何謂Vue?我們可以將它視為一個漸進式框架或是函式庫 Vue的特點：1.關注點分離，意思就是Vue只關注畫面與資料的變化，我們不用手動更新操作DOM元素。2.操作物件模型為主的開發模式（就是操作我資料）">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/QC8R8Gd.png">
+<meta property="og:image" content="https://i.imgur.com/aoKVSWt.png">
+<meta property="og:image" content="https://i.imgur.com/9p139yp.png">
+<meta property="og:image" content="https://i.imgur.com/AvTQ0Pb.png">
+<meta property="og:image" content="https://i.imgur.com/MXVdUoK.png">
+<meta property="article:published_time" content="2019-08-30T03:58:35.000Z">
+<meta property="article:modified_time" content="2021-03-23T14:28:44.000Z">
+<meta property="article:author" content="andy">
+<meta property="article:tag" content="vue">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/QC8R8Gd.png">
+
+<link rel="canonical" href="http://chun-wen.github.io/vue/20190830/67885936/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>Vue 框架與開發環境介紹 | Andy's blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MVMTVD20GY"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-MVMTVD20GY');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Andy's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">If you always do what you've always done, you'll always get what you've always got.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="http://chun-wen.github.io/vue/20190830/67885936/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="andy">
+      <meta itemprop="description" content="記錄一些自學前端的技術文章">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andy's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Vue 框架與開發環境介紹
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2019-08-30 11:58:35" itemprop="dateCreated datePublished" datetime="2019-08-30T11:58:35+08:00">2019-08-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2021-03-23 22:28:44" itemprop="dateModified" datetime="2021-03-23T22:28:44+08:00">2021-03-23</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="文章字數">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">文章字數：</span>
+              <span>709</span>
+            </span>
+            <span class="post-meta-item" title="所需閱讀時間">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+              <span>1 分鐘</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="何謂Vue"><a href="#何謂Vue" class="headerlink" title="何謂Vue?"></a>何謂Vue?</h2><p>我們可以將它視為一個漸進式框架或是函式庫</p>
+<h3 id="Vue的特點："><a href="#Vue的特點：" class="headerlink" title="Vue的特點："></a>Vue的特點：</h3><p>1.關注點分離，意思就是Vue只關注<code>畫面</code>與<code>資料的變化</code>，我們不用手動更新操作DOM元素。<br>2.操作物件模型為主的開發模式（就是操作我資料）</p>
+<span id="more"></span>
+
+<h3 id="漸進式框架"><a href="#漸進式框架" class="headerlink" title="漸進式框架"></a>漸進式框架</h3><p>說明：就是你想要用哪部分都可以自行決定。有點像是你買一個可拆式工具箱<br>可以依照自己的需求選擇工具<br><img src="https://i.imgur.com/QC8R8Gd.png" alt=""><br>參考資料：<a target="_blank" rel="noopener" href="https://medium.com/@gotraveltoworld/vue-js-%E4%BD%95%E8%AC%82%E6%BC%B8%E9%80%B2%E5%BC%8F%E6%A1%86%E6%9E%B6-7d0281a7efa9">Vue.js，何謂漸進式框架？</a></p>
+<h2 id="接下來談談何謂MVC，MVVM又是怎樣概念"><a href="#接下來談談何謂MVC，MVVM又是怎樣概念" class="headerlink" title="接下來談談何謂MVC，MVVM又是怎樣概念"></a>接下來談談何謂MVC，MVVM又是怎樣概念</h2><p>MVC示意圖如下<br><img src="https://i.imgur.com/aoKVSWt.png" alt=""></p>
+<blockquote>
+<p>簡單來說使用者就是透過（View）畫面來觸發控制器，控制器再與資料庫這邊請求資料，請求資料後再回傳到畫面上  </p>
+</blockquote>
+<p>MVVM示意圖<br><img src="https://i.imgur.com/9p139yp.png" alt=""></p>
+<blockquote>
+<p>簡單海說就是Vue幫我們處理好<code>Dom Listeners</code>和<code>Data Bindings</code>這兩部分，我們只要處理資料內容，畫面就會即時更動  </p>
+</blockquote>
+<h2 id="元件（components）簡介："><a href="#元件（components）簡介：" class="headerlink" title="元件（components）簡介："></a>元件（components）簡介：</h2><p>什麼是元件？</p>
+<blockquote>
+<p>每個 Vue.js 的應用程式都是從Vue建構式 (vue constructor) 建立根實體 (root vue instance) 開始，再一個個將元件 (Components) 搭建上去而來的，透過元件的方式能讓開發者將程式碼封裝而更好重用。<br><img src="https://i.imgur.com/AvTQ0Pb.png" alt=""><br>備註：子元件都會有一個父元件</p>
+</blockquote>
+<h2 id="如何載入Vue"><a href="#如何載入Vue" class="headerlink" title="如何載入Vue?"></a>如何載入Vue?</h2><p>1.使用CDN載入Vue</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=“https:<span class="comment">//cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js”&gt;&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
+<p>2.使用Vue-CLi建構專案<br><code>npm install vue</code></p>
+<h3 id="版本間差異"><a href="#版本間差異" class="headerlink" title="版本間差異"></a>版本間差異</h3><p>Development version(未壓縮版)<br>Production version(被壓縮過版本)</p>
+<blockquote>
+<p>無法使用Vue tool develop觀看結構！<br>Vue CLi打包過後的版本都會是壓縮版喔！<br><img src="https://i.imgur.com/MXVdUoK.png" alt=""></p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/vue/" rel="tag"># vue</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/hexo/20190826/2844598168/" rel="prev" title="Hexo網站建置筆記">
+      <i class="fa fa-chevron-left"></i> Hexo網站建置筆記
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/javascript/20190830/1975097829/" rel="next" title="JavaScript 陣列處理方法">
+      JavaScript 陣列處理方法 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%95%E8%AC%82Vue"><span class="nav-number">1.</span> <span class="nav-text">何謂Vue?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue%E7%9A%84%E7%89%B9%E9%BB%9E%EF%BC%9A"><span class="nav-number">1.1.</span> <span class="nav-text">Vue的特點：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BC%B8%E9%80%B2%E5%BC%8F%E6%A1%86%E6%9E%B6"><span class="nav-number">1.2.</span> <span class="nav-text">漸進式框架</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A5%E4%B8%8B%E4%BE%86%E8%AB%87%E8%AB%87%E4%BD%95%E8%AC%82MVC%EF%BC%8CMVVM%E5%8F%88%E6%98%AF%E6%80%8E%E6%A8%A3%E6%A6%82%E5%BF%B5"><span class="nav-number">2.</span> <span class="nav-text">接下來談談何謂MVC，MVVM又是怎樣概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%83%E4%BB%B6%EF%BC%88components%EF%BC%89%E7%B0%A1%E4%BB%8B%EF%BC%9A"><span class="nav-number">3.</span> <span class="nav-text">元件（components）簡介：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%BC%89%E5%85%A5Vue"><span class="nav-number">4.</span> <span class="nav-text">如何載入Vue?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%88%E6%9C%AC%E9%96%93%E5%B7%AE%E7%95%B0"><span class="nav-number">4.1.</span> <span class="nav-text">版本間差異</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">andy</p>
+  <div class="site-description" itemprop="description">記錄一些自學前端的技術文章</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">99</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/chun-wen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chun-wen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:hsbsbbdn@gmail.com" title="E-Mail → mailto:hsbsbbdn@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">andy</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="總字數">137k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">2:04</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://chun-wen.github.io/vue/20190830/67885936/";
+    this.page.identifier = "vue/20190830/67885936/";
+    this.page.title = "Vue 框架與開發環境介紹";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://andyderblog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

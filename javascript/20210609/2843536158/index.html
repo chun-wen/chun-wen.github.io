@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chun-wen.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="最近公司專案上剛好碰到製作匯出報表模組開發，而過往我都是透過form submit方式直接將參回拋給Controller，但當我列印發生問題時，我無法由前台正確得知我正確的錯誤訊息為何，因為我的錯誤訊息只會有一組Default文字。而這次因為這個模組開發需要支援多國語系，因此在錯誤訊息方面我就不能在前端hard code。我必須依照不同語系轉換錯誤語言跟錯誤內容。所以就藉此來研究一下該如何透過ax">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2021-06-09-利用axois來下載檔案">
+<meta property="og:url" content="http://chun-wen.github.io/javascript/20210609/2843536158/index.html">
+<meta property="og:site_name" content="Andy&#39;s blog">
+<meta property="og:description" content="最近公司專案上剛好碰到製作匯出報表模組開發，而過往我都是透過form submit方式直接將參回拋給Controller，但當我列印發生問題時，我無法由前台正確得知我正確的錯誤訊息為何，因為我的錯誤訊息只會有一組Default文字。而這次因為這個模組開發需要支援多國語系，因此在錯誤訊息方面我就不能在前端hard code。我必須依照不同語系轉換錯誤語言跟錯誤內容。所以就藉此來研究一下該如何透過ax">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2021-06-09T14:29:42.078Z">
+<meta property="article:modified_time" content="2021-06-09T15:01:02.511Z">
+<meta property="article:author" content="andy">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://chun-wen.github.io/javascript/20210609/2843536158/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>2021-06-09-利用axois來下載檔案 | Andy's blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MVMTVD20GY"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-MVMTVD20GY');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Andy's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">If you always do what you've always done, you'll always get what you've always got.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="http://chun-wen.github.io/javascript/20210609/2843536158/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="andy">
+      <meta itemprop="description" content="記錄一些自學前端的技術文章">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andy's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2021-06-09-利用axois來下載檔案
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+              
+
+              <time title="創建時間：2021-06-09 22:29:42 / 修改時間：23:01:02" itemprop="dateCreated datePublished" datetime="2021-06-09T22:29:42+08:00">2021-06-09</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="文章字數">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">文章字數：</span>
+              <span>2.8k</span>
+            </span>
+            <span class="post-meta-item" title="所需閱讀時間">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+              <span>3 分鐘</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>最近公司專案上剛好碰到製作匯出報表模組開發，而過往我都是透過<code>form submit</code>方式直接將參回拋給<code>Controller</code>，但當我列印發生問題時，<br>我無法由前台正確得知我正確的錯誤訊息為何，因為我的錯誤訊息只會有一組Default文字。而這次因為這個模組開發需要支援多國語系，因此在錯誤訊息方面<br>我就不能在前端<code>hard code</code>。我必須依照不同語系轉換錯誤語言跟錯誤內容。所以就藉此來研究一下該如何透過<code>axios</code>來下載檔案，並回傳正確錯誤訊息。</p>
+<span id="more"></span>
+<hr>
+<p>參考資料：<br><a target="_blank" rel="noopener" href="https://medium.com/programmers-developers/convert-blob-to-string-in-javascript-944c15ad7d52">Convert Blob to String in JavaScript</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.ewdna.com/2008/12/javascriptescape-encodeuri.html">用Javascript替中文網址轉碼</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_27626333/article/details/103562749">axios设置responseType===blob导出文件和失败返回json处理</a></p>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/API/Blob">Blob-MDN</a></p>
+<h2 id="使用axios如何下载文件"><a href="#使用axios如何下载文件" class="headerlink" title="使用axios如何下载文件"></a><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000022423204">使用axios如何下载文件</a></h2><p>一、前提：<br>下載檔案時，Server會回拋資料串流。而一般axios未設定時，預設就為json格式。如果要下載檔案就必須在回傳型態指<br><code>&#123; responseType: &#39;blob&#39; &#125;</code>才能正確接到資料!</p>
+<p>二、接著，我們要判斷下載資料是否為空，這是後我們可以透過下面這段程式碼來判斷</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 因為我的回傳錯誤訊息內容的型態是json，所以假使我接到資料是json格式，及代表我匯出發生問題勒</span></span><br><span class="line"><span class="keyword">if</span> (res.headers[<span class="string">&quot;content-type&quot;</span>].includes(<span class="string">&quot;application/json&quot;</span>))&#123;</span><br><span class="line">   <span class="comment">//如果有錯誤訊息</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span>&#123;</span><br><span class="line">   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>三、再來錯誤訊息部分，由於我們接到的型態是<code>&#123; responseType: &#39;blob&#39; &#125;</code> 所以我們必須將blob轉回json字串，如此才能回拋錯誤訊息。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.先宣告取得blob型態</span></span><br><span class="line"><span class="keyword">const</span> blb = <span class="keyword">new</span> Blob([res.data], &#123; <span class="attr">type</span>: <span class="string">&quot;json&quot;</span> &#125;);</span><br><span class="line"><span class="keyword">let</span> reader = <span class="keyword">new</span> FileReader();</span><br><span class="line"><span class="comment">//3.完全讀完才會進入</span></span><br><span class="line">reader.onload = <span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (e.target.readyState === <span class="number">2</span>) &#123;</span><br><span class="line">        <span class="keyword">let</span> res = &#123;&#125;;</span><br><span class="line">        res = <span class="built_in">JSON</span>.parse(e.target.result);</span><br><span class="line">        <span class="keyword">if</span> (res.Msg.indexOf(<span class="string">&quot;app.&quot;</span>) !== -<span class="number">1</span>) &#123;</span><br><span class="line">            alert(i18n.t(res.Msg));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            alert(res.Msg);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//2.再將blb型態讀出來</span></span><br><span class="line">reader.readAsText(blb);</span><br></pre></td></tr></table></figure>
+
+<p>四、最後，則是檔案匯出的檔名跟匯出方式</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> url = <span class="built_in">window</span>.URL.createObjectURL(<span class="keyword">new</span> Blob([res.data]));</span><br><span class="line"><span class="keyword">const</span> link = <span class="built_in">document</span>.createElement(<span class="string">&#x27;a&#x27;</span>);</span><br><span class="line">link.href = url;</span><br><span class="line"></span><br><span class="line"><span class="comment">//透過decodeURI 將UTF-8轉碼 </span></span><br><span class="line"><span class="keyword">const</span> fileName = <span class="built_in">decodeURI</span>(res.headers[<span class="string">&quot;content-disposition&quot;</span>].split(<span class="string">&quot; &quot;</span>)[<span class="number">1</span>].replace(<span class="string">&quot;filename*=UTF-8&#x27;&#x27;&quot;</span>, <span class="string">&quot;&quot;</span>));</span><br><span class="line"></span><br><span class="line">link.setAttribute(<span class="string">&#x27;download&#x27;</span>, fileName);</span><br><span class="line"><span class="built_in">document</span>.body.appendChild(link);</span><br><span class="line">link.click();</span><br></pre></td></tr></table></figure>
+
+<p>五、完整程式碼如下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">axios.post(url, postData, &#123; <span class="attr">responseType</span>: <span class="string">&#x27;blob&#x27;</span> &#125;).then(<span class="function">(<span class="params">res, fileName</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (res.headers[<span class="string">&quot;content-type&quot;</span>].includes(<span class="string">&quot;application/json&quot;</span>)) &#123;</span><br><span class="line">            <span class="comment">//1.先宣告取得blob型態</span></span><br><span class="line">            <span class="keyword">const</span> blb = <span class="keyword">new</span> Blob([res.data], &#123; <span class="attr">type</span>: <span class="string">&quot;json&quot;</span> &#125;);</span><br><span class="line">            <span class="keyword">let</span> reader = <span class="keyword">new</span> FileReader();</span><br><span class="line">            <span class="comment">//3.完全讀完才會</span></span><br><span class="line">            reader.onload = <span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (e.target.readyState === <span class="number">2</span>) &#123;</span><br><span class="line">                    <span class="keyword">let</span> res = &#123;&#125;;</span><br><span class="line">                    res = <span class="built_in">JSON</span>.parse(e.target.result);</span><br><span class="line">                    <span class="keyword">if</span> (res.Msg.indexOf(<span class="string">&quot;app.&quot;</span>) !== -<span class="number">1</span>) &#123;</span><br><span class="line">                        alert(i18n.t(res.Msg));</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">else</span> &#123;</span><br><span class="line">                        alert(res.Msg);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;;</span><br><span class="line">            <span class="comment">//2.再將blb型態讀出來</span></span><br><span class="line">            reader.readAsText(blb);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">const</span> url = <span class="built_in">window</span>.URL.createObjectURL(<span class="keyword">new</span> Blob([res.data]));</span><br><span class="line">            <span class="keyword">const</span> link = <span class="built_in">document</span>.createElement(<span class="string">&#x27;a&#x27;</span>);</span><br><span class="line">            link.href = url;</span><br><span class="line">            <span class="keyword">const</span> fileName = <span class="built_in">decodeURI</span>(res.headers[<span class="string">&quot;content-disposition&quot;</span>].split(<span class="string">&quot; &quot;</span>)[<span class="number">1</span>].replace(<span class="string">&quot;filename*=UTF-8&#x27;&#x27;&quot;</span>, <span class="string">&quot;&quot;</span>));</span><br><span class="line">            link.setAttribute(<span class="string">&#x27;download&#x27;</span>, fileName);</span><br><span class="line">            <span class="built_in">document</span>.body.appendChild(link);</span><br><span class="line">            link.click();</span><br><span class="line">            <span class="comment">//document.removeChild(&#x27;a&#x27;);</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;).catch(<span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (error.response) &#123;</span><br><span class="line">            alert(error.response.data);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            alert(error.message);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/javascript/20210419/2852757128/" rel="prev" title="2021-04-19-用Reveal.js來做簡報">
+      <i class="fa fa-chevron-left"></i> 2021-04-19-用Reveal.js來做簡報
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/javascript/CleanCode/20210613/1773690215/" rel="next" title="Clean Code系列-原則">
+      Clean Code系列-原則 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8axios%E5%A6%82%E4%BD%95%E4%B8%8B%E8%BD%BD%E6%96%87%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">使用axios如何下载文件</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">andy</p>
+  <div class="site-description" itemprop="description">記錄一些自學前端的技術文章</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">99</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/chun-wen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chun-wen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:hsbsbbdn@gmail.com" title="E-Mail → mailto:hsbsbbdn@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">andy</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="總字數">137k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">2:04</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://chun-wen.github.io/javascript/20210609/2843536158/";
+    this.page.identifier = "javascript/20210609/2843536158/";
+    this.page.title = "2021-06-09-利用axois來下載檔案";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://andyderblog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

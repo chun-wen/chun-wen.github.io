@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chun-wen.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="記錄一些自學前端的技術文章">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Andy&#39;s blog">
+<meta property="og:url" content="http://chun-wen.github.io/page/10/index.html">
+<meta property="og:site_name" content="Andy&#39;s blog">
+<meta property="og:description" content="記錄一些自學前端的技術文章">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:author" content="andy">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://chun-wen.github.io/page/10/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>Andy's blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MVMTVD20GY"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-MVMTVD20GY');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Andy's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">If you always do what you've always done, you'll always get what you've always got.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="http://chun-wen.github.io/javascript/20190903/4027575200/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="andy">
+      <meta itemprop="description" content="記錄一些自學前端的技術文章">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andy's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/javascript/20190903/4027575200/" class="post-title-link" itemprop="url">JS30挑戰-Day5-Flex+Panel</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2019-09-03 12:46:33" itemprop="dateCreated datePublished" datetime="2019-09-03T12:46:33+08:00">2019-09-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2021-03-23 22:28:44" itemprop="dateModified" datetime="2021-03-23T22:28:44+08:00">2021-03-23</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="文章字數">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">文章字數：</span>
+              <span>1.2k</span>
+            </span>
+            <span class="post-meta-item" title="所需閱讀時間">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+              <span>1 分鐘</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>本篇文章主要紀錄觀看Alex大大直播紀錄後，所做的筆記記錄<br><a href="https://chun-wen.github.io/JavaScript30/05%20-%20Flex%20Panel%20Gallery/index-chunwen.html">demo連結</a></p>
+<p>參考資料：<br><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=7hGFTNGommU&list=PLEfh-m_KG4dYbxVoYDyT_fmXZHnuKg2Fq&index=5">Alex直播連結</a><br><a target="_blank" rel="noopener" href="https://shunnien.github.io/2017/12/18/Javascript30days-5/">JS30紀錄-其他人的筆記</a></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/javascript/20190903/4027575200/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="http://chun-wen.github.io/css/20190903/41001978/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="andy">
+      <meta itemprop="description" content="記錄一些自學前端的技術文章">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andy's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/css/20190903/41001978/" class="post-title-link" itemprop="url">Flex排版整理</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2019-09-03 01:23:20" itemprop="dateCreated datePublished" datetime="2019-09-03T01:23:20+08:00">2019-09-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2021-06-14 21:29:58" itemprop="dateModified" datetime="2021-06-14T21:29:58+08:00">2021-06-14</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="文章字數">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">文章字數：</span>
+              <span>4.3k</span>
+            </span>
+            <span class="post-meta-item" title="所需閱讀時間">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+              <span>4 分鐘</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>文章內容來源：主要整理自卡斯伯老師文章與六角學院共筆。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/css/20190903/41001978/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="http://chun-wen.github.io/vue/20190902/3809821719/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="andy">
+      <meta itemprop="description" content="記錄一些自學前端的技術文章">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andy's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/vue/20190902/3809821719/" class="post-title-link" itemprop="url">Vue Instance/生命週期介紹</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2019-09-02 16:52:48" itemprop="dateCreated datePublished" datetime="2019-09-02T16:52:48+08:00">2019-09-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2021-03-23 22:28:44" itemprop="dateModified" datetime="2021-03-23T22:28:44+08:00">2021-03-23</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="文章字數">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">文章字數：</span>
+              <span>2.8k</span>
+            </span>
+            <span class="post-meta-item" title="所需閱讀時間">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+              <span>3 分鐘</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>參考資料：<br><a target="_blank" rel="noopener" href="https://cythilya.github.io/2017/04/11/vue-instance/">Summer-Vue Instance介紹</a></p>
+<hr>
+<h2 id="Vue-Instance-實體"><a href="#Vue-Instance-實體" class="headerlink" title="Vue Instance(實體)"></a>Vue Instance(實體)</h2><p>每個 Vue.js 的應用程式都是從<code>Vue建構式 (vue constructor)</code>建立<code>根實體 (root vue instance)</code>開始，再一個個將元件搭建上去而來的。</p>
+<ul>
+<li>Vue的實體是透過<code>new</code>關鍵字來建立</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/vue/20190902/3809821719/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="http://chun-wen.github.io/vue/20190902/1331664425/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="andy">
+      <meta itemprop="description" content="記錄一些自學前端的技術文章">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andy's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/vue/20190902/1331664425/" class="post-title-link" itemprop="url">Vue指令V-for介紹</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2019-09-02 16:47:00" itemprop="dateCreated datePublished" datetime="2019-09-02T16:47:00+08:00">2019-09-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2021-03-23 22:28:44" itemprop="dateModified" datetime="2021-03-23T22:28:44+08:00">2021-03-23</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="文章字數">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">文章字數：</span>
+              <span>3.1k</span>
+            </span>
+            <span class="post-meta-item" title="所需閱讀時間">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+              <span>3 分鐘</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>參考資料：<br><a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/guide/list.html">官網v-for介紹</a><br><a target="_blank" rel="noopener" href="https://codepen.io/chunwen/pen/xvYyRG?editors=1010">練習檔案</a></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/vue/20190902/1331664425/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="http://chun-wen.github.io/javascript/20190830/1975097829/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="andy">
+      <meta itemprop="description" content="記錄一些自學前端的技術文章">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andy's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/javascript/20190830/1975097829/" class="post-title-link" itemprop="url">JavaScript 陣列處理方法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2019-08-30 12:00:47" itemprop="dateCreated datePublished" datetime="2019-08-30T12:00:47+08:00">2019-08-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2021-03-23 22:28:44" itemprop="dateModified" datetime="2021-03-23T22:28:44+08:00">2021-03-23</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="文章字數">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">文章字數：</span>
+              <span>5.5k</span>
+            </span>
+            <span class="post-meta-item" title="所需閱讀時間">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+              <span>5 分鐘</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>參考資料：<br><a target="_blank" rel="noopener" href="https://wcc723.github.io/javascript/2017/06/29/es6-native-array/">卡斯伯七種常見陣列處理方法</a><br><a target="_blank" rel="noopener" href="https://oranwind.org/post-post-22/"> JavaScript  陣列方法簡介</a></p>
+<hr>
+<p>在閱讀完卡斯伯老師文章，我將整理文章中處理陣列方法，並搭配自己的練習輔助說明。對了補充說明：陣列處理方式在IE8以前是不支援的！</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/javascript/20190830/1975097829/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="http://chun-wen.github.io/vue/20190830/67885936/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="andy">
+      <meta itemprop="description" content="記錄一些自學前端的技術文章">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andy's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/vue/20190830/67885936/" class="post-title-link" itemprop="url">Vue 框架與開發環境介紹</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2019-08-30 11:58:35" itemprop="dateCreated datePublished" datetime="2019-08-30T11:58:35+08:00">2019-08-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2021-03-23 22:28:44" itemprop="dateModified" datetime="2021-03-23T22:28:44+08:00">2021-03-23</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="文章字數">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">文章字數：</span>
+              <span>709</span>
+            </span>
+            <span class="post-meta-item" title="所需閱讀時間">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+              <span>1 分鐘</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="何謂Vue"><a href="#何謂Vue" class="headerlink" title="何謂Vue?"></a>何謂Vue?</h2><p>我們可以將它視為一個漸進式框架或是函式庫</p>
+<h3 id="Vue的特點："><a href="#Vue的特點：" class="headerlink" title="Vue的特點："></a>Vue的特點：</h3><p>1.關注點分離，意思就是Vue只關注<code>畫面</code>與<code>資料的變化</code>，我們不用手動更新操作DOM元素。<br>2.操作物件模型為主的開發模式（就是操作我資料）</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/vue/20190830/67885936/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="http://chun-wen.github.io/hexo/20190826/2844598168/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="andy">
+      <meta itemprop="description" content="記錄一些自學前端的技術文章">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andy's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/hexo/20190826/2844598168/" class="post-title-link" itemprop="url">Hexo網站建置筆記</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2019-08-26 21:19:59" itemprop="dateCreated datePublished" datetime="2019-08-26T21:19:59+08:00">2019-08-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2021-03-23 22:28:44" itemprop="dateModified" datetime="2021-03-23T22:28:44+08:00">2021-03-23</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="文章字數">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">文章字數：</span>
+              <span>2k</span>
+            </span>
+            <span class="post-meta-item" title="所需閱讀時間">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+              <span>2 分鐘</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>參考資料：<br><a target="_blank" rel="noopener" href="https://hsiangfeng.github.io/hexo/20190411/932826160/">架設Hexo+Github</a><br><a target="_blank" rel="noopener" href="https://theme-next.iissnan.com/getting-started.html">Hexo-Next主題配置</a><br><a target="_blank" rel="noopener" href="https://yogapan.github.io/2017/08/11/%E7%94%A8Hexo-Github-Pages%E6%90%AD%E5%BB%BA%E5%80%8B%E4%BA%BA%E9%83%A8%E8%90%BD%E6%A0%BC/#more">用Hexo + Github Pages搭建個人部落格–小蛇蛇的詳細筆記</a><br>（蠻推薦第一次建置網站時參考這篇文章）<br><a target="_blank" rel="noopener" href="https://medium.com/@bebebobohaha/%E4%BD%BF%E7%94%A8-hexo-gitpage-%E6%90%AD%E5%BB%BA%E5%80%8B%E4%BA%BA-blog-5c6ed52f23db">如何搭建個人 Blog 使用 Hexo + Gitpage</a><br><a target="_blank" rel="noopener" href="https://paper.dropbox.com/doc/Hexo---Ajm_olac_2CkcQD26G5RlqICAg-7zSMDUvNPffmjdilVv3AA">六角共筆–使用 Hexo 建置網站</a></p>
+<hr>
+<p>這篇文章僅會紀錄安裝過程中，發生錯誤部分，其餘教學內容可以參考<a target="_blank" rel="noopener" href="https://medium.com/@bebebobohaha/%E4%BD%BF%E7%94%A8-hexo-gitpage-%E6%90%AD%E5%BB%BA%E5%80%8B%E4%BA%BA-blog-5c6ed52f23db">如何搭建個人 Blog 使用 Hexo + Gitpage</a>，自行架設即可。或是參考<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=jOJI9ekTzK8&t=1s">六角影片教學</a></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/hexo/20190826/2844598168/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="http://chun-wen.github.io/javascript/20190826/473544001/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="andy">
+      <meta itemprop="description" content="記錄一些自學前端的技術文章">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andy's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/javascript/20190826/473544001/" class="post-title-link" itemprop="url">JS30挑戰-Day2-CSS+JS</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2019-08-26 19:01:56" itemprop="dateCreated datePublished" datetime="2019-08-26T19:01:56+08:00">2019-08-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2021-03-23 22:28:44" itemprop="dateModified" datetime="2021-03-23T22:28:44+08:00">2021-03-23</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="文章字數">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">文章字數：</span>
+              <span>2k</span>
+            </span>
+            <span class="post-meta-item" title="所需閱讀時間">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+              <span>2 分鐘</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>本篇文章主要紀錄觀看Alex大大直播紀錄後，所做的筆記記錄<br><a href="https://chun-wen.github.io/JavaScript30/02%20-%20JS%20and%20CSS%20Clock/index-chunwen.html">Demo連結</a></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/javascript/20190826/473544001/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="http://chun-wen.github.io/javascript/20190824/943160341/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="andy">
+      <meta itemprop="description" content="記錄一些自學前端的技術文章">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andy's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/javascript/20190824/943160341/" class="post-title-link" itemprop="url">JS30挑戰-Day1-Drum Kit</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2019-08-24 17:30:54" itemprop="dateCreated datePublished" datetime="2019-08-24T17:30:54+08:00">2019-08-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2021-03-23 22:28:44" itemprop="dateModified" datetime="2021-03-23T22:28:44+08:00">2021-03-23</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="文章字數">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">文章字數：</span>
+              <span>1.2k</span>
+            </span>
+            <span class="post-meta-item" title="所需閱讀時間">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+              <span>1 分鐘</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>本篇文章主要紀錄觀看Alex大大直播紀錄後，所做的筆記記錄<br><a href="https://chun-wen.github.io/JavaScript30/01%20-%20JavaScript%20Drum%20Kit/index-chunwen.html">demo連結</a></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/javascript/20190824/943160341/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/9/"><i class="fa fa-angle-left" aria-label="上一頁"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">andy</p>
+  <div class="site-description" itemprop="description">記錄一些自學前端的技術文章</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">99</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/chun-wen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chun-wen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:hsbsbbdn@gmail.com" title="E-Mail → mailto:hsbsbbdn@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">andy</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="總字數">137k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">2:04</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+</body>
+</html>

@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chun-wen.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="參考資料：架設Hexo+GithubHexo-Next主題配置用Hexo + Github Pages搭建個人部落格–小蛇蛇的詳細筆記（蠻推薦第一次建置網站時參考這篇文章）如何搭建個人 Blog 使用 Hexo + Gitpage六角共筆–使用 Hexo 建置網站  這篇文章僅會紀錄安裝過程中，發生錯誤部分，其餘教學內容可以參考如何搭建個人 Blog 使用 Hexo + Gitpage，自行架設即">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo網站建置筆記">
+<meta property="og:url" content="http://chun-wen.github.io/hexo/20190826/2844598168/index.html">
+<meta property="og:site_name" content="Andy&#39;s blog">
+<meta property="og:description" content="參考資料：架設Hexo+GithubHexo-Next主題配置用Hexo + Github Pages搭建個人部落格–小蛇蛇的詳細筆記（蠻推薦第一次建置網站時參考這篇文章）如何搭建個人 Blog 使用 Hexo + Gitpage六角共筆–使用 Hexo 建置網站  這篇文章僅會紀錄安裝過程中，發生錯誤部分，其餘教學內容可以參考如何搭建個人 Blog 使用 Hexo + Gitpage，自行架設即">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/dnSaiR2.png">
+<meta property="og:image" content="https://i.imgur.com/b28TAf1.png">
+<meta property="og:image" content="https://i.imgur.com/KzCP9rG.png">
+<meta property="og:image" content="https://i.imgur.com/s34l8SO.png">
+<meta property="og:image" content="https://i.imgur.com/4SGFZ1n.png">
+<meta property="og:image" content="https://i.imgur.com/enUkxao.png">
+<meta property="og:image" content="https://i.imgur.com/zi19VxG.png">
+<meta property="article:published_time" content="2019-08-26T13:19:59.000Z">
+<meta property="article:modified_time" content="2021-03-23T14:28:44.000Z">
+<meta property="article:author" content="andy">
+<meta property="article:tag" content="Hexo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/dnSaiR2.png">
+
+<link rel="canonical" href="http://chun-wen.github.io/hexo/20190826/2844598168/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>Hexo網站建置筆記 | Andy's blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MVMTVD20GY"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-MVMTVD20GY');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Andy's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">If you always do what you've always done, you'll always get what you've always got.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="http://chun-wen.github.io/hexo/20190826/2844598168/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="andy">
+      <meta itemprop="description" content="記錄一些自學前端的技術文章">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andy's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Hexo網站建置筆記
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2019-08-26 21:19:59" itemprop="dateCreated datePublished" datetime="2019-08-26T21:19:59+08:00">2019-08-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2021-03-23 22:28:44" itemprop="dateModified" datetime="2021-03-23T22:28:44+08:00">2021-03-23</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="文章字數">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">文章字數：</span>
+              <span>2k</span>
+            </span>
+            <span class="post-meta-item" title="所需閱讀時間">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+              <span>2 分鐘</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>參考資料：<br><a target="_blank" rel="noopener" href="https://hsiangfeng.github.io/hexo/20190411/932826160/">架設Hexo+Github</a><br><a target="_blank" rel="noopener" href="https://theme-next.iissnan.com/getting-started.html">Hexo-Next主題配置</a><br><a target="_blank" rel="noopener" href="https://yogapan.github.io/2017/08/11/%E7%94%A8Hexo-Github-Pages%E6%90%AD%E5%BB%BA%E5%80%8B%E4%BA%BA%E9%83%A8%E8%90%BD%E6%A0%BC/#more">用Hexo + Github Pages搭建個人部落格–小蛇蛇的詳細筆記</a><br>（蠻推薦第一次建置網站時參考這篇文章）<br><a target="_blank" rel="noopener" href="https://medium.com/@bebebobohaha/%E4%BD%BF%E7%94%A8-hexo-gitpage-%E6%90%AD%E5%BB%BA%E5%80%8B%E4%BA%BA-blog-5c6ed52f23db">如何搭建個人 Blog 使用 Hexo + Gitpage</a><br><a target="_blank" rel="noopener" href="https://paper.dropbox.com/doc/Hexo---Ajm_olac_2CkcQD26G5RlqICAg-7zSMDUvNPffmjdilVv3AA">六角共筆–使用 Hexo 建置網站</a></p>
+<hr>
+<p>這篇文章僅會紀錄安裝過程中，發生錯誤部分，其餘教學內容可以參考<a target="_blank" rel="noopener" href="https://medium.com/@bebebobohaha/%E4%BD%BF%E7%94%A8-hexo-gitpage-%E6%90%AD%E5%BB%BA%E5%80%8B%E4%BA%BA-blog-5c6ed52f23db">如何搭建個人 Blog 使用 Hexo + Gitpage</a>，自行架設即可。或是參考<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=jOJI9ekTzK8&t=1s">六角影片教學</a></p>
+<span id="more"></span>
+
+<h2 id="初始化檔案結構簡介"><a href="#初始化檔案結構簡介" class="headerlink" title="初始化檔案結構簡介"></a>初始化檔案結構簡介</h2><p><img src="https://i.imgur.com/dnSaiR2.png" alt="">圖片來源：<a target="_blank" rel="noopener" href="https://medium.com/@bebebobohaha/%E4%BD%BF%E7%94%A8-hexo-gitpage-%E6%90%AD%E5%BB%BA%E5%80%8B%E4%BA%BA-blog-5c6ed52f23db">如何搭建個人 Blog 使用 Hexo + Gitpage
+</a></p>
+<blockquote>
+<p>Source、themes這兩部份最常使用，其他folder就看看吧～ </p>
+</blockquote>
+<h2 id="部落格主題更換"><a href="#部落格主題更換" class="headerlink" title="部落格主題更換"></a>部落格主題更換</h2><p>我這邊使用的主題是<a target="_blank" rel="noopener" href="https://theme-next.iissnan.com/">Next</a><br><img src="https://i.imgur.com/b28TAf1.png" alt=""></p>
+<p>首先，我們如何更換預設主題呢？<br>Step1.<code>終端機</code>先簽換到theme目錄下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ cd your-hexo-site </span><br><span class="line">&#x2F;&#x2F;your-hexo-site指的是theme目錄位置</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;將主題複製下來</span><br><span class="line">$ git clone https:&#x2F;&#x2F;github.com&#x2F;iissnan&#x2F;hexo-theme-next themes&#x2F;next</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/KzCP9rG.png" alt=""><br>Step2.開啟_config.yml<br><img src="https://i.imgur.com/s34l8SO.png" alt=""><br>Step3.更改主題資料夾名稱<br><code>theme: next</code><br>Step4.接著終端機開啟指令啟動server<br><code>hexo server</code></p>
+<blockquote>
+<p>補充：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/38781463">hexo本地測試運行重啟後頁面空白,提示: WARN No layout: index.html?</a><br>Ａ：其實就是主題檔案名稱忘了更改  </p>
+</blockquote>
+<h2 id="常用指令介紹"><a href="#常用指令介紹" class="headerlink" title="常用指令介紹"></a>常用指令介紹</h2><p><a target="_blank" rel="noopener" href="https://hexo.io/zh-tw/docs/commands">官網指令介紹</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate  &#x2F;&#x2F;產生靜態檔案</span><br><span class="line">$ hexo deploy    &#x2F;&#x2F;部署網站</span><br><span class="line">$ hexo clean &amp;&amp; $ hexo d -g  </span><br><span class="line">&#x2F;&#x2F;刪除已生成的靜態頁面及快取檔案，並重新部署</span><br><span class="line">提醒：部署網站前會需要先產生靜態頁面</span><br><span class="line"></span><br><span class="line">組合技</span><br><span class="line">$ hexo d -g         &#x2F;&#x2F;＊指令說明： # 產生靜態檔後部署</span><br><span class="line">$ hexo s -g        &#x2F;&#x2F;＊指令說明： # 產生靜態檔後預覽</span><br><span class="line">$ hexo clean     &#x2F;&#x2F;＊指令說明：刪除已生成的靜態頁面及快取檔案</span><br><span class="line">$ hexo new [title]  &#x2F;&#x2F;＊指令說明：建立新文章</span><br></pre></td></tr></table></figure>
+
+<h2 id="文章撰寫"><a href="#文章撰寫" class="headerlink" title="文章撰寫"></a>文章撰寫</h2><h3 id="步驟教學"><a href="#步驟教學" class="headerlink" title="步驟教學"></a>步驟教學</h3><p><a target="_blank" rel="noopener" href="https://hexo.io/zh-tw/docs/writing.html">官網文件說明</a><br>請記得所有文章都會放在<code>source/_posts</code>中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Step1.建立新文章</span><br><span class="line">$ hexo new [layout] &lt;title&gt;    &#x2F;&#x2F;layout預設為post</span><br><span class="line"></span><br><span class="line">Step2.建立分類、標籤</span><br><span class="line">$ hexo new post categories     &#x2F;&#x2F;建立分類</span><br><span class="line">$ hexo new post tags           &#x2F;&#x2F;建立標籤</span><br><span class="line">示意圖如下</span><br></pre></td></tr></table></figure>
+
+<h3 id="新增文章標籤、新增分類"><a href="#新增文章標籤、新增分類" class="headerlink" title="新增文章標籤、新增分類"></a>新增文章標籤、新增分類</h3><p> <a target="_blank" rel="noopener" href="https://linlif.github.io/2017/05/27/Hexo%E4%BD%BF%E7%94%A8%E6%94%BB%E7%95%A5-%E6%B7%BB%E5%8A%A0%E5%88%86%E7%B1%BB%E5%8F%8A%E6%A0%87%E7%AD%BE/">教學文章</a><br><img src="https://i.imgur.com/4SGFZ1n.png" alt=""><br>補充：<a target="_blank" rel="noopener" href="https://markdown.tw/#img">markdown官方教學連結</a> <a target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/articles/10203758?sc=iThelpR">六角教學文</a></p>
+<h3 id="修改網頁左邊欄位顯示資料"><a href="#修改網頁左邊欄位顯示資料" class="headerlink" title="修改網頁左邊欄位顯示資料"></a>修改網頁左邊欄位顯示資料</h3><p>要在themes &gt; _confiig.yml &gt; menu 這邊修改 <a target="_blank" rel="noopener" href="https://github.com/iissnan/hexo-theme-next/wiki/%E5%88%9B%E5%BB%BA%E6%A0%87%E7%AD%BE%E4%BA%91%E9%A1%B5%E9%9D%A2">文章連結</a><br><img src="https://i.imgur.com/enUkxao.png" alt=""></p>
+<h3 id="新增圖片"><a href="#新增圖片" class="headerlink" title="新增圖片"></a>新增圖片</h3><p>目前先將圖片放置在imgur上，在使用markdown引入<br><a target="_blank" rel="noopener" href="https://free.com.tw/imgur/">Imgur簡介</a><br><img src="https://i.imgur.com/zi19VxG.png" alt=""></p>
+<p>補充：firebase教學（有空再看）<br><a target="_blank" rel="noopener" href="https://blog.erguotou.me/hexo-on-firebase.html">利用firebase打造極速靜態博客</a></p>
+<h3 id="文章預覽功能"><a href="#文章預覽功能" class="headerlink" title="文章預覽功能"></a>文章預覽功能</h3><p><code>&lt;!--more--&gt;</code></p>
+<!--more-->以上的部分就是預覽會顯示的部分
+
+<h2 id="網站部署"><a href="#網站部署" class="headerlink" title="網站部署"></a>網站部署</h2><p><a target="_blank" rel="noopener" href="https://youtu.be/jOJI9ekTzK8?t=2110">六角學院影片教學</a></p>
+<h3 id="部署步驟"><a href="#部署步驟" class="headerlink" title="部署步驟"></a>部署步驟</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">第一次使用hexo 記得要先下自動部署指令</span><br><span class="line">npm install hexo-deployer-git --save</span><br><span class="line">接著  只要輸入下方指令就可以了</span><br><span class="line">$hexo d       #開啟部署</span><br></pre></td></tr></table></figure>
+
+<h3 id="部署重點："><a href="#部署重點：" class="headerlink" title="部署重點："></a>部署重點：</h3><p>1.請記得每個人僅有一個 <code>用戶名稱.github.io</code>的靜態網址<br>範例：chun-wen.github.io<br>特色：每個帳戶只有一個，能放在最根目錄的專案（通常就是用來放部落格）<br>branch：master</p>
+<p>2.若要部署其他專案的靜態網頁 <a target="_blank" rel="noopener" href="https://youtu.be/jOJI9ekTzK8?t=2395">影片教學</a><br>寫法：<code>用戶名稱.github.io/專案名稱</code><br>範例：chun-wen.github.io/F2E-PK-Demo/<br>特色：數量無限，可以開無限個pages<br>branch：gh-pages</p>
+<h2 id="套件安裝"><a href="#套件安裝" class="headerlink" title="套件安裝"></a>套件安裝</h2><ul>
+<li>新增文章搜尋功能 <a target="_blank" rel="noopener" href="https://hsiangfeng.github.io/hexo/20190411/932826160/">search格式名詞解釋</a><h3 id="安裝步驟"><a href="#安裝步驟" class="headerlink" title="安裝步驟"></a>安裝步驟</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Step1.於根目錄下執行下面指令</span><br><span class="line">npm install hexo-generator-searchdb --save</span><br><span class="line"></span><br><span class="line">Step2.在最目錄下的＿config.yml 貼上這段程式碼</span><br><span class="line">search:</span><br><span class="line">  path: search.json</span><br><span class="line">  field: post</span><br><span class="line">  format: html</span><br><span class="line">  limit: 10000</span><br><span class="line"></span><br><span class="line">Step3.最後到主題（theme）中開啟主題設定檔 (_config.yml)</span><br><span class="line">將Local search，中enable修改為true即可</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li>留言板(Disqus comments) <a target="_blank" rel="noopener" href="https://youtu.be/jOJI9ekTzK8?t=3384">影片教學</a><br>跟著看文章教學做就OK <a target="_blank" rel="noopener" href="https://yogapan.github.io/2017/08/11/%E7%94%A8Hexo-Github-Pages%E6%90%AD%E5%BB%BA%E5%80%8B%E4%BA%BA%E9%83%A8%E8%90%BD%E6%A0%BC/#more">連結</a><br>補充：如何刪除新增的多餘頁面 <a target="_blank" rel="noopener" href="https://https-chun-wen-github-io.disqus.com/admin/settings/advanced/">文章</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Hexo/" rel="tag"># Hexo</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/javascript/20190826/473544001/" rel="prev" title="JS30挑戰-Day2-CSS+JS">
+      <i class="fa fa-chevron-left"></i> JS30挑戰-Day2-CSS+JS
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/vue/20190830/67885936/" rel="next" title="Vue 框架與開發環境介紹">
+      Vue 框架與開發環境介紹 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E6%AA%94%E6%A1%88%E7%B5%90%E6%A7%8B%E7%B0%A1%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">初始化檔案結構簡介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%83%A8%E8%90%BD%E6%A0%BC%E4%B8%BB%E9%A1%8C%E6%9B%B4%E6%8F%9B"><span class="nav-number">2.</span> <span class="nav-text">部落格主題更換</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4%E4%BB%8B%E7%B4%B9"><span class="nav-number">3.</span> <span class="nav-text">常用指令介紹</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E7%AB%A0%E6%92%B0%E5%AF%AB"><span class="nav-number">4.</span> <span class="nav-text">文章撰寫</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%A9%9F%E6%95%99%E5%AD%B8"><span class="nav-number">4.1.</span> <span class="nav-text">步驟教學</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E%E6%96%87%E7%AB%A0%E6%A8%99%E7%B1%A4%E3%80%81%E6%96%B0%E5%A2%9E%E5%88%86%E9%A1%9E"><span class="nav-number">4.2.</span> <span class="nav-text">新增文章標籤、新增分類</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E7%B6%B2%E9%A0%81%E5%B7%A6%E9%82%8A%E6%AC%84%E4%BD%8D%E9%A1%AF%E7%A4%BA%E8%B3%87%E6%96%99"><span class="nav-number">4.3.</span> <span class="nav-text">修改網頁左邊欄位顯示資料</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E%E5%9C%96%E7%89%87"><span class="nav-number">4.4.</span> <span class="nav-text">新增圖片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E7%AB%A0%E9%A0%90%E8%A6%BD%E5%8A%9F%E8%83%BD"><span class="nav-number">4.5.</span> <span class="nav-text">文章預覽功能</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B6%B2%E7%AB%99%E9%83%A8%E7%BD%B2"><span class="nav-number">5.</span> <span class="nav-text">網站部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E6%AD%A5%E9%A9%9F"><span class="nav-number">5.1.</span> <span class="nav-text">部署步驟</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E9%87%8D%E9%BB%9E%EF%BC%9A"><span class="nav-number">5.2.</span> <span class="nav-text">部署重點：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A5%97%E4%BB%B6%E5%AE%89%E8%A3%9D"><span class="nav-number">6.</span> <span class="nav-text">套件安裝</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%9D%E6%AD%A5%E9%A9%9F"><span class="nav-number">6.1.</span> <span class="nav-text">安裝步驟</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">andy</p>
+  <div class="site-description" itemprop="description">記錄一些自學前端的技術文章</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">99</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/chun-wen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chun-wen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:hsbsbbdn@gmail.com" title="E-Mail → mailto:hsbsbbdn@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">andy</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="總字數">137k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">2:04</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://chun-wen.github.io/hexo/20190826/2844598168/";
+    this.page.identifier = "hexo/20190826/2844598168/";
+    this.page.title = "Hexo網站建置筆記";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://andyderblog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chun-wen.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="參考資料  Vue.js Core 30天屠龍記(第23天): props 屬性 官網監聽子組件事件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue Component(元件) props、emit介紹">
+<meta property="og:url" content="http://chun-wen.github.io/vue/20191002/1526401699/index.html">
+<meta property="og:site_name" content="Andy&#39;s blog">
+<meta property="og:description" content="參考資料  Vue.js Core 30天屠龍記(第23天): props 屬性 官網監聽子組件事件">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20191002/20114645VUYYWBJtdi.png">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20191002/20114645kiYLRY5ttS.png">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20191002/20114645jpkjTWn5Rp.png">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20191002/20114645rekb6vUcF9.png">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20191002/20114645maXrfGHfDH.png">
+<meta property="article:published_time" content="2019-10-02T13:06:00.000Z">
+<meta property="article:modified_time" content="2021-03-23T14:28:44.000Z">
+<meta property="article:author" content="andy">
+<meta property="article:tag" content="vue">
+<meta property="article:tag" content="ironman">
+<meta property="article:tag" content="component">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ithelp.ithome.com.tw/upload/images/20191002/20114645VUYYWBJtdi.png">
+
+<link rel="canonical" href="http://chun-wen.github.io/vue/20191002/1526401699/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>Vue Component(元件) props、emit介紹 | Andy's blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MVMTVD20GY"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-MVMTVD20GY');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Andy's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">If you always do what you've always done, you'll always get what you've always got.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="http://chun-wen.github.io/vue/20191002/1526401699/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="andy">
+      <meta itemprop="description" content="記錄一些自學前端的技術文章">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andy's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Vue Component(元件) props、emit介紹
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2019-10-02 21:06:00" itemprop="dateCreated datePublished" datetime="2019-10-02T21:06:00+08:00">2019-10-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2021-03-23 22:28:44" itemprop="dateModified" datetime="2021-03-23T22:28:44+08:00">2021-03-23</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="文章字數">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">文章字數：</span>
+              <span>3.1k</span>
+            </span>
+            <span class="post-meta-item" title="所需閱讀時間">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+              <span>3 分鐘</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>參考資料</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/articles/10208500">Vue.js Core 30天屠龍記(第23天): props 屬性</a></li>
+<li><a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/guide/components.html#%E7%9B%91%E5%90%AC%E5%AD%90%E7%BB%84%E4%BB%B6%E4%BA%8B%E4%BB%B6">官網監聽子組件事件</a><span id="more"></span>
+</li>
+</ul>
+<hr>
+<h3 id="元件溝通方式"><a href="#元件溝通方式" class="headerlink" title="元件溝通方式"></a>元件溝通方式</h3><p>元件與元件之間的溝通方式主要有下面幾種<br>1.props in, emit out<br>2.event bus<br>3.$parent、$children<br>4.Vuex</p>
+<p>我們今天主要會專注在<code>props</code>、<code>emit</code>這一種最常用的方式做介紹，而其餘內容將在日後慢慢介紹。</p>
+<h3 id="props介紹與使用"><a href="#props介紹與使用" class="headerlink" title="props介紹與使用"></a>props介紹與使用</h3><ul>
+<li>用途：父層元件若要將內容傳遞進去子層元件就需要用到<code>props</code>這個屬性。</li>
+<li>寫法：<code>v-bind:props-in=&quot;msg&quot;</code>，其中，<code>props-in</code>是自定義屬性、<code>msg</code>則會去實體內尋找<br>命名注意：HTML 屬性需要使用 kebab-case ，全小寫並使用分隔符號( - )來設定<br>如：<code>props-in</code>  <a target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/articles/10208500">參考資料</a></li>
+<li>為何需要props屬性？<br>還記得，我們昨天有提到元件內的data必須是function型式，確保每個子元件資料的獨立性嗎？正因為這樣，我們也不能透過父元件直接修改子元件內容，因此父元件才需要用到<code>props</code>這個屬性，來將外層資料傳遞進去子元件中。</li>
+</ul>
+<hr>
+<p>範例：<a target="_blank" rel="noopener" href="https://jsbin.com/hacuvam/edit?html,js,output">練習連結</a><br>HTML部分</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;&#123;msg&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span>  //取得實體內資料：Msg of Parent!</span><br><span class="line">    <span class="tag">&lt;<span class="name">hr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">my-component</span> <span class="attr">v-bind:parent-msg</span>=<span class="string">&quot;msg&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">my-component</span>&gt;</span>  </span><br><span class="line">    //透過自定義屬性：`parent-msg`，將實體內資料：Msg of Parent!傳入元件中</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>JavaScript部分</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//x-template</span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/x-template&quot;</span> <span class="attr">id</span>=<span class="string">&quot;my-component&quot;</span>&gt;</span></span><br><span class="line"><span class="javascript">   &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;component&quot;</span>&gt;</span></span><br><span class="line"><span class="handlebars"><span class="xml">     <span class="tag">&lt;<span class="name">div</span>&gt;</span> ParentMsg: </span><span class="template-variable">&#123;&#123; <span class="name">parentMsg</span> &#125;&#125;</span><span class="xml"> <span class="tag">&lt;/<span class="name">div</span>&gt;</span>   </span></span></span><br><span class="line"><span class="handlebars"><span class="xml">     <span class="tag">&lt;<span class="name">div</span>&gt;</span> ChildMsg: </span><span class="template-variable">&#123;&#123; <span class="name">msg</span> &#125;&#125;</span><span class="xml"> <span class="tag">&lt;/<span class="name">div</span>&gt;</span>      </span></span></span><br><span class="line"><span class="handlebars"><span class="xml">   <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>JavaScript部分</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//global register</span></span><br><span class="line">Vue.component(<span class="string">&#x27;my-component&#x27;</span>, &#123;</span><br><span class="line">     props: [<span class="string">&quot;parentMsg&quot;</span>],</span><br><span class="line">     template: <span class="string">&#x27;#my-component&#x27;</span>,</span><br><span class="line">     data: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> &#123;</span><br><span class="line">         msg: <span class="string">&#x27;Msg of Child!&#x27;</span></span><br><span class="line">       &#125;</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;);</span><br><span class="line"></span><br><span class="line">   <span class="comment">// Vue instance</span></span><br><span class="line">   <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">     el: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">     data: &#123;</span><br><span class="line">       msg: <span class="string">&#x27;Msg of Parent!&#x27;</span></span><br><span class="line">     &#125;</span><br><span class="line">   &#125;);</span><br></pre></td></tr></table></figure>
+<p>圖解：<br><img src="https://ithelp.ithome.com.tw/upload/images/20191002/20114645VUYYWBJtdi.png" alt=""><br>畫面如下<br><img src="https://ithelp.ithome.com.tw/upload/images/20191002/20114645kiYLRY5ttS.png" alt=""></p>
+<hr>
+<h3 id="利用props傳入靜態屬性、動態屬性"><a href="#利用props傳入靜態屬性、動態屬性" class="headerlink" title="利用props傳入靜態屬性、動態屬性"></a>利用props傳入靜態屬性、動態屬性</h3><ul>
+<li>靜態傳入寫法：不需要加入v-bind<br>寫法：<code>props-in=&quot;靜態傳入&quot;</code>，會傳入純文字  (註：props-in是自定義名稱)</li>
+<li>動態傳入寫法：需要加入 v-bind<br>寫法：<code>v-bind:props-in=&quot;動態傳入&quot;</code> 或是 <code>:props-in=&quot;動態傳入&quot;</code>（註：冒號不能省略)<br>範例： <a target="_blank" rel="noopener" href="https://jsbin.com/vaxoder/1/edit?html,js,output">練習連結</a><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">hr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">my-component</span> <span class="attr">parent-msg</span>=<span class="string">&quot;靜態傳入&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">my-component</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">my-component</span> <span class="attr">:parent-msg</span>=<span class="string">&quot;msg&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">my-component</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/x-template&quot;</span> <span class="attr">id</span>=<span class="string">&quot;my-component&quot;</span>&gt;</span></span><br><span class="line"><span class="javascript">    &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;component&quot;</span>&gt;</span></span><br><span class="line"><span class="handlebars"><span class="xml">      <span class="tag">&lt;<span class="name">div</span>&gt;</span> ParentMsg: </span><span class="template-variable">&#123;&#123; <span class="name">parentMsg</span> &#125;&#125;</span><span class="xml"> <span class="tag">&lt;/<span class="name">div</span>&gt;</span>       </span></span></span><br><span class="line"><span class="handlebars"><span class="xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+圖片如下：<br><img src="https://ithelp.ithome.com.tw/upload/images/20191002/20114645jpkjTWn5Rp.png" alt=""></li>
+</ul>
+<hr>
+<h3 id="emit介紹"><a href="#emit介紹" class="headerlink" title="emit介紹"></a>emit介紹</h3><ul>
+<li>目的：當我們今天子元件內容要將資料傳遞到父元件時，就需要使用<code>emit</code>這個屬性。</li>
+<li>備註：會需要使用emit來觸發外層事件，其實是<code>props單向資料流關係</code>，關於這個特性，會在明天介紹props使用注意上再來介紹喔！</li>
+</ul>
+<p>範例：<a target="_blank" rel="noopener" href="https://jsbin.com/huliyem/2/edit?html,js,output">練習連結</a><br>HTML部分</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Parent: &#123;&#123; message &#125;&#125;<span class="tag">&lt;<span class="name">input</span> <span class="attr">v-model</span>=<span class="string">&quot;message&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">hr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">  Child:</span><br><span class="line">  <span class="tag">&lt;<span class="name">my-component</span> <span class="attr">:parent-message</span>=<span class="string">&quot;message&quot;</span> @<span class="attr">update</span>=<span class="string">&quot;selfUpdate&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">my-component</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>說明：我們在<code>my-component</code>上，自定義一個update事件，當子元件update事件觸發時，則會同時觸發父元件<code>selfUpdate</code>事件<br>JavaScript部分</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(<span class="string">&#x27;my-component&#x27;</span>, &#123;</span><br><span class="line">   template: <span class="string">`&lt;div&gt;</span></span><br><span class="line"><span class="string">               &#123;&#123; parentMessage &#125;&#125;</span></span><br><span class="line"><span class="string">               &lt;input v-model=&quot;message&quot;&gt;</span></span><br><span class="line"><span class="string">               &lt;button @click=&quot;updateText&quot;&gt;Update&lt;/button&gt;</span></span><br><span class="line"><span class="string">             &lt;/div&gt;`</span>,</span><br><span class="line">   props: &#123;</span><br><span class="line">     parentMessage: <span class="built_in">String</span> <span class="comment">//字串型別</span></span><br><span class="line">   &#125;,</span><br><span class="line">   <span class="function"><span class="title">data</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">     <span class="keyword">return</span> &#123;</span><br><span class="line">       message: <span class="built_in">this</span>.parentMessage</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;,</span><br><span class="line">   methods: &#123;</span><br><span class="line">     <span class="function"><span class="title">updateText</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">                   <span class="comment">//事件名稱 value</span></span><br><span class="line">       <span class="built_in">this</span>.$emit(<span class="string">&#x27;update&#x27;</span>, <span class="built_in">this</span>.message); <span class="comment">//this.message是指子層的噢！</span></span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br><span class="line"> &#125;);</span><br><span class="line"></span><br><span class="line"> <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">   el: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">   data: &#123;</span><br><span class="line">     message: <span class="string">&#x27;hello&#x27;</span></span><br><span class="line">   &#125;,</span><br><span class="line">   methods: &#123;</span><br><span class="line">     <span class="function"><span class="title">selfUpdate</span>(<span class="params">val</span>)</span> &#123;</span><br><span class="line">       <span class="built_in">this</span>.message = val;</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br><span class="line"> &#125;);</span><br></pre></td></tr></table></figure>
+<p>圖解說明：<br><img src="https://ithelp.ithome.com.tw/upload/images/20191002/20114645rekb6vUcF9.png" alt=""></p>
+<h3 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h3><p>這就是我們常講的<code>props in, emit out</code>的由來<br><img src="https://ithelp.ithome.com.tw/upload/images/20191002/20114645maXrfGHfDH.png" alt=""></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/vue/" rel="tag"># vue</a>
+              <a href="/tags/ironman/" rel="tag"># ironman</a>
+              <a href="/tags/component/" rel="tag"># component</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/vue/20191001/485547154/" rel="prev" title="Vue Component(元件) 介紹、建立方式、特性">
+      <i class="fa fa-chevron-left"></i> Vue Component(元件) 介紹、建立方式、特性
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/vue/20191003/89165536/" rel="next" title="Vue Component(元件) - props使用注意細項(1)">
+      Vue Component(元件) - props使用注意細項(1) <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%83%E4%BB%B6%E6%BA%9D%E9%80%9A%E6%96%B9%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">元件溝通方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#props%E4%BB%8B%E7%B4%B9%E8%88%87%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">props介紹與使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A9%E7%94%A8props%E5%82%B3%E5%85%A5%E9%9D%9C%E6%85%8B%E5%B1%AC%E6%80%A7%E3%80%81%E5%8B%95%E6%85%8B%E5%B1%AC%E6%80%A7"><span class="nav-number">3.</span> <span class="nav-text">利用props傳入靜態屬性、動態屬性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#emit%E4%BB%8B%E7%B4%B9"><span class="nav-number">4.</span> <span class="nav-text">emit介紹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B5%90%E8%AB%96"><span class="nav-number">5.</span> <span class="nav-text">結論</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">andy</p>
+  <div class="site-description" itemprop="description">記錄一些自學前端的技術文章</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">99</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/chun-wen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chun-wen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:hsbsbbdn@gmail.com" title="E-Mail → mailto:hsbsbbdn@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">andy</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="總字數">137k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">2:04</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://chun-wen.github.io/vue/20191002/1526401699/";
+    this.page.identifier = "vue/20191002/1526401699/";
+    this.page.title = "Vue Component(元件) props、emit介紹";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://andyderblog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

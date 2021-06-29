@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chun-wen.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="參考資料：Vue.js官網教學">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue指令V-bind介紹">
+<meta property="og:url" content="http://chun-wen.github.io/vue/20190903/233607298/index.html">
+<meta property="og:site_name" content="Andy&#39;s blog">
+<meta property="og:description" content="參考資料：Vue.js官網教學">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/5pSLFO3.png">
+<meta property="og:image" content="https://i.imgur.com/X5VhkMG.png">
+<meta property="article:published_time" content="2019-09-03T11:09:36.000Z">
+<meta property="article:modified_time" content="2021-03-23T14:28:44.000Z">
+<meta property="article:author" content="andy">
+<meta property="article:tag" content="vue">
+<meta property="article:tag" content="ironman">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/5pSLFO3.png">
+
+<link rel="canonical" href="http://chun-wen.github.io/vue/20190903/233607298/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>Vue指令V-bind介紹 | Andy's blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MVMTVD20GY"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-MVMTVD20GY');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Andy's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">If you always do what you've always done, you'll always get what you've always got.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="http://chun-wen.github.io/vue/20190903/233607298/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="andy">
+      <meta itemprop="description" content="記錄一些自學前端的技術文章">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andy's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Vue指令V-bind介紹
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2019-09-03 19:09:36" itemprop="dateCreated datePublished" datetime="2019-09-03T19:09:36+08:00">2019-09-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2021-03-23 22:28:44" itemprop="dateModified" datetime="2021-03-23T22:28:44+08:00">2021-03-23</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="文章字數">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">文章字數：</span>
+              <span>4.7k</span>
+            </span>
+            <span class="post-meta-item" title="所需閱讀時間">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+              <span>4 分鐘</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>參考資料：<br><a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/api/#v-bind">Vue.js官網教學</a></p>
+<span id="more"></span>
+<hr>
+<h2 id="V-bind"><a href="#V-bind" class="headerlink" title="V-bind"></a>V-bind</h2><p>目的：用來動態新增或綁定一個或多個屬性（src、class、style）<br>縮寫：<code>:</code><br>我們先來看一個範例：<br><a target="_blank" rel="noopener" href="https://jsbin.com/koyixiguxe/edit?html,js,output">範例連結</a></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">img</span> <span class="attr">v-bind:src</span>=<span class="string">&quot;imgSrc&quot;</span> <span class="attr">v-bind:class</span>=<span class="string">&quot;className&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="keyword">var</span> app = <span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="javascript">  el: <span class="string">&#x27;＃app&#x27;</span>,</span></span><br><span class="line">  data: &#123;</span><br><span class="line"><span class="javascript">    imgSrc: <span class="string">&#x27;https://i.imgur.com/b28TAf1.png&#x27;</span>,</span></span><br><span class="line"><span class="javascript">    className:<span class="string">&#x27;img-fluid&#x27;</span></span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>範例中為新增圖片屬性、className屬性<br><img src="https://i.imgur.com/5pSLFO3.png" alt="">圖片來源：<a target="_blank" rel="noopener" href="https://cythilya.github.io/2017/09/10/jquery-attr-vs-prop/">property 跟 attribute差別</a> </p>
+<h2 id="V-bind-動態切換ClassName與Style"><a href="#V-bind-動態切換ClassName與Style" class="headerlink" title="V-bind 動態切換ClassName與Style"></a>V-bind 動態切換ClassName與Style</h2><p>參考資料：<a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/guide/class-and-style.html">官網介紹Class 與Style 綁定</a></p>
+<h4 id="動態加上className、陣列、物件寫法簡介："><a href="#動態加上className、陣列、物件寫法簡介：" class="headerlink" title="動態加上className、陣列、物件寫法簡介："></a>動態加上className、陣列、物件寫法簡介：</h4><p><a target="_blank" rel="noopener" href="https://codepen.io/chunwen/pen/bGbovrm?editors=1010#0">練習連結</a></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">//&#123;&#125;內，前面是自定義className 後面是判斷式（truthiness才會顯示）</span><br><span class="line"> <span class="tag">&lt;<span class="name">div</span> <span class="attr">:class</span>=<span class="string">&quot;&#123; blue: isBlue &#125;&quot;</span>&gt;</span></span><br><span class="line">      1 Hello Vue!</span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    //class:blue</span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">:class</span>=<span class="string">&quot;&#x27;blue&#x27;&quot;</span>&gt;</span>  </span><br><span class="line">      2 Hello Vue!</span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    //class:blue</span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">:class</span>=<span class="string">&quot;largeFont&quot;</span>&gt;</span>  </span><br><span class="line">      3 Hello Vue!</span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    //class:big-size </span><br><span class="line">                    </span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">:class</span>=<span class="string">&quot;[largeFont, pinkBackground] &quot;</span>&gt;</span> </span><br><span class="line">      4 Hello Vue!</span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    //class:big-size pink-bg</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">   el: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">   data: &#123;</span><br><span class="line">     isBlue: <span class="literal">false</span>,</span><br><span class="line">     largeFont: <span class="string">&#x27;big-size&#x27;</span>,</span><br><span class="line">     pinkBackground: <span class="string">&#x27;pink-bg&#x27;</span>,</span><br><span class="line">    &#125;</span><br><span class="line"> &#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="小結論："><a href="#小結論：" class="headerlink" title="小結論："></a>小結論：</h4><blockquote>
+<p>1.加上單引號時 class 是字串，如：<code>:class=&quot;&#39;blue&#39;&quot;</code>，會去讀取已經定義好的 CSS 樣式<br>補充：className有<code>-</code>連結 如：<code>btn-outline-primary</code>需要使用引號<br>寫法如下： <code>:class=&quot;&#39;btn-outline-primary&#39;&quot;</code><br>2.沒有加上單引號則會去取得在 Vue 定義的 data 資料<br>若還是不清楚，可以觀看這範例<a target="_blank" rel="noopener" href="https://codepen.io/chunwen/pen/RXQxYR?editors=1010">練習連結</a> </p>
+</blockquote>
+<h4 id="綁定style行內樣式寫法"><a href="#綁定style行內樣式寫法" class="headerlink" title="綁定style行內樣式寫法"></a>綁定style行內樣式寫法</h4><p>這種寫法跟css寫法很像喔～<br>寫法：<code>前面是css屬性名稱 後面值請去實體(vue instance)尋找</code><br><a target="_blank" rel="noopener" href="https://jsbin.com/hukafoleji/3/edit?html,js,output">範例連結</a> </p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-bind:style</span>=<span class="string">&quot;&#123; color: activeColor, fontSize: fontSize + &#x27;px&#x27; &#125;&quot;</span>&gt;</span>Hello Vue1!<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">hr</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">:style</span>=<span class="string">&quot;styleObject1&quot;</span>&gt;</span></span><br><span class="line">      Hello Vue2!</span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">:style</span>=<span class="string">&quot;[styleObject1, styleObject2]&quot;</span>&gt;</span></span><br><span class="line">      Hello Vue3!</span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">     el: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">     data: &#123;</span><br><span class="line">       activeColor: <span class="string">&#x27;red&#x27;</span>,</span><br><span class="line">       fontSize: <span class="number">30</span>,</span><br><span class="line">       styleObject1: &#123;</span><br><span class="line">         color: <span class="string">&#x27;green&#x27;</span>,</span><br><span class="line">         <span class="string">&#x27;font-size&#x27;</span>: <span class="string">&#x27;100px&#x27;</span>,  <span class="comment">//有-，加上‘’即可</span></span><br><span class="line">         marginBottom: <span class="string">&#x27;50px&#x27;</span></span><br><span class="line">       &#125;,</span><br><span class="line">       styleObject2: &#123;</span><br><span class="line">         color:<span class="string">&#x27;black&#x27;</span>,     <span class="comment">//後面屬性會蓋掉前面顏色</span></span><br><span class="line">         backgroundColor: <span class="string">&#x27;cyan&#x27;</span>,</span><br><span class="line">         lineHeight: <span class="string">&#x27;2em&#x27;</span></span><br><span class="line">       &#125;</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：<br>1.Css屬性有<code>-</code>，記得加上<code>&#39;&#39;</code>雙引號，才不會噴錯喔！</p>
+</blockquote>
+<hr>
+<h3 id="延伸閱讀：V-bind動態切換ClassName與Style"><a href="#延伸閱讀：V-bind動態切換ClassName與Style" class="headerlink" title="延伸閱讀：V-bind動態切換ClassName與Style"></a>延伸閱讀：V-bind動態切換ClassName與Style</h3><blockquote>
+<p>同樣介紹綁定樣式寫法，但相對上面例子更為複雜。建議先理解上面例子後，再來閱讀下面內容<br><a target="_blank" rel="noopener" href="https://codepen.io/chunwen/pen/QepYbg">練習檔案連結</a> </p>
+</blockquote>
+<h4 id="物件寫法整理如下"><a href="#物件寫法整理如下" class="headerlink" title="物件寫法整理如下"></a>物件寫法整理如下</h4><p>使用物件寫法共分兩種  </p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">1.物件寫法ㄧ</span><br><span class="line">//&#123;&#125;內，前面是className 後面是判斷式（true才會顯示）</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">“box”</span> <span class="attr">:class</span>=<span class="string">“&#123;‘rotate’:isTransform</span> , ‘<span class="attr">bg-danger</span>’<span class="attr">:boxColor</span>&#125;”&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;btn btn-outline-primary&quot;</span> @<span class="attr">click</span>=<span class="string">&quot;isTransform = !isTransform&quot;</span>&gt;</span>選轉物件<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">說明：isTransform = !isTransform 可以參考下方備註</span><br><span class="line"></span><br><span class="line">2.物件寫法二（很少使用，所以知道用法就好，不用深入）</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">“box”</span> <span class="attr">:class</span>=<span class="string">“objectClass”</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;btn btn-outline-primary&quot;</span></span></span><br><span class="line">&lt;input type=&quot;checkbox&quot; class=&quot;form-check-input&quot; id=&quot;classToggle2&quot; v-model=&quot;objectClass[&#x27;bg-danger&#x27;] &quot;&gt;</span><br><span class="line"></span><br><span class="line">data中資料</span><br><span class="line">objectClass: &#123;</span><br><span class="line">    &#x27;rotate&#x27;: false,</span><br><span class="line">    &#x27;bg-danger&#x27;: false &#125;,</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>其實兩種寫法都只是在切換true或false而已，來動態新增class<br>備註：點擊按鈕就把 isTransform 的結果顛倒過來 </p>
+</blockquote>
+<h4 id="陣列寫法整理如下"><a href="#陣列寫法整理如下" class="headerlink" title="陣列寫法整理如下"></a>陣列寫法整理如下</h4><p>陣列寫法也有兩種：適合用在長度不確定  </p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">1.直接綁定className</span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">“btn”</span> <span class="attr">:class</span>=<span class="string">“[</span> <span class="attr">activeClass</span>, <span class="attr">errorClass</span>, <span class="attr">border</span>]”&gt;</span>請操作本元件<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line">補充一下：data資料會這樣撰寫</span><br><span class="line">data: &#123;</span><br><span class="line">       activeClass: &#x27;active&#x27;,</span><br><span class="line">       errorClass: &#x27;text-warning&#x27;,</span><br><span class="line">       border:&#x27;border&#x27;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">2.使用陣列傳入</span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;btn&quot;</span> <span class="attr">:class</span>=<span class="string">&quot;arrayClass&quot;</span>&gt;</span>請操作本元件<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;form-check&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">class</span>=<span class="string">&quot;form-check-input&quot;</span> <span class="attr">id</span>=<span class="string">&quot;classToggle4&quot;</span> <span class="attr">v-model</span>=<span class="string">&quot;arrayClass&quot;</span> <span class="attr">value</span>=<span class="string">&quot;active&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">label</span> <span class="attr">class</span>=<span class="string">&quot;form-check-label&quot;</span> <span class="attr">for</span>=<span class="string">&quot;classToggle4&quot;</span>&gt;</span>啟用元素狀態<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>上面範例2使用陣列傳入原理：</p>
+<blockquote>
+<p>藉由v-model綁定<code>arrayClass</code>，並透過value動態傳入className<br>補充：<a target="_blank" rel="noopener" href="https://www.w3school.com.cn/tags/att_input_value.asp">HTML input標籤的value 屬性</a>  </p>
+</blockquote>
+<h4 id="動態新增ClassName結論："><a href="#動態新增ClassName結論：" class="headerlink" title="動態新增ClassName結論："></a>動態新增ClassName結論：</h4><blockquote>
+<p>一、物件<br>1.物件寫法一中，className是否要加引號都沒差，但遇到有<code>-</code>className就一定要加<br>二、陣列<br>1.加上單引號時 class 是字串，會去讀取已經定義好的 CSS 樣式<br>補充：className有<code>-</code>連結 如：<code>btn-outline-primary</code>’需要使用引號<br>2.沒有加上單引號則會去取得在 Vue 定義的 data 資料  </p>
+</blockquote>
+<h4 id="綁定style行內樣式寫法-1"><a href="#綁定style行內樣式寫法-1" class="headerlink" title="綁定style行內樣式寫法"></a>綁定style行內樣式寫法</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">總共有下列四種方式</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span> <span class="attr">:style</span>=<span class="string">&quot;&#123;[&#x27;background-color&#x27;]:&#x27;blue&#x27;&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span> <span class="attr">:style</span>=<span class="string">&quot;styleObject&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span> <span class="attr">:style</span>=<span class="string">&quot;[&#123;&#x27;backgroundColor&#x27;:&#x27;green&#x27;&#125;,&#123;&#x27;borderWidth&#x27;:&#x27;20px&#x27;&#125;]&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span> <span class="attr">:style</span>=<span class="string">&quot;[styleObject,styleObject2]&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">styleObject: &#123;</span><br><span class="line">  backgroundColor: &#x27;red&#x27;,</span><br><span class="line">  borderWidth: &#x27;5px&#x27;</span><br><span class="line">&#125;,</span><br><span class="line">styleObject2: &#123;</span><br><span class="line">  boxShadow: &#x27;3px 3px 5px rgba(0, 0, 0, 0.16)&#x27;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<p>結果如下圖：<br><img src="https://i.imgur.com/X5VhkMG.png" alt=""></p>
+<blockquote>
+<p>撰寫時，注意事項：<br>1.如果屬性名稱（attribute）有<code>-</code>，要用<code>[]</code>選取<br>Q1:什麼時候用v-bind、什麼時候用v-model?<br>A: v-bind 是將狀態綁定到元素上<br>而 v-model 是接收資料，所以基本上 v-model 只會用在 input, textarea, select  </p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/vue/" rel="tag"># vue</a>
+              <a href="/tags/ironman/" rel="tag"># ironman</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/css/20190903/4076619072/" rel="prev" title="Css-transition、animation(animate)動畫效果">
+      <i class="fa fa-chevron-left"></i> Css-transition、animation(animate)動畫效果
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/javascript/20190903/14473383/" rel="next" title="JS30挑戰-day3-Update CSS Variables with JS">
+      JS30挑戰-day3-Update CSS Variables with JS <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#V-bind"><span class="nav-number">1.</span> <span class="nav-text">V-bind</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#V-bind-%E5%8B%95%E6%85%8B%E5%88%87%E6%8F%9BClassName%E8%88%87Style"><span class="nav-number">2.</span> <span class="nav-text">V-bind 動態切換ClassName與Style</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8B%95%E6%85%8B%E5%8A%A0%E4%B8%8AclassName%E3%80%81%E9%99%A3%E5%88%97%E3%80%81%E7%89%A9%E4%BB%B6%E5%AF%AB%E6%B3%95%E7%B0%A1%E4%BB%8B%EF%BC%9A"><span class="nav-number">2.0.1.</span> <span class="nav-text">動態加上className、陣列、物件寫法簡介：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%8F%E7%B5%90%E8%AB%96%EF%BC%9A"><span class="nav-number">2.0.2.</span> <span class="nav-text">小結論：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B6%81%E5%AE%9Astyle%E8%A1%8C%E5%85%A7%E6%A8%A3%E5%BC%8F%E5%AF%AB%E6%B3%95"><span class="nav-number">2.0.3.</span> <span class="nav-text">綁定style行內樣式寫法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80%EF%BC%9AV-bind%E5%8B%95%E6%85%8B%E5%88%87%E6%8F%9BClassName%E8%88%87Style"><span class="nav-number">2.1.</span> <span class="nav-text">延伸閱讀：V-bind動態切換ClassName與Style</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%A9%E4%BB%B6%E5%AF%AB%E6%B3%95%E6%95%B4%E7%90%86%E5%A6%82%E4%B8%8B"><span class="nav-number">2.1.1.</span> <span class="nav-text">物件寫法整理如下</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%99%A3%E5%88%97%E5%AF%AB%E6%B3%95%E6%95%B4%E7%90%86%E5%A6%82%E4%B8%8B"><span class="nav-number">2.1.2.</span> <span class="nav-text">陣列寫法整理如下</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8B%95%E6%85%8B%E6%96%B0%E5%A2%9EClassName%E7%B5%90%E8%AB%96%EF%BC%9A"><span class="nav-number">2.1.3.</span> <span class="nav-text">動態新增ClassName結論：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B6%81%E5%AE%9Astyle%E8%A1%8C%E5%85%A7%E6%A8%A3%E5%BC%8F%E5%AF%AB%E6%B3%95-1"><span class="nav-number">2.1.4.</span> <span class="nav-text">綁定style行內樣式寫法</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">andy</p>
+  <div class="site-description" itemprop="description">記錄一些自學前端的技術文章</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">99</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/chun-wen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chun-wen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:hsbsbbdn@gmail.com" title="E-Mail → mailto:hsbsbbdn@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">andy</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="總字數">137k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">2:04</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://chun-wen.github.io/vue/20190903/233607298/";
+    this.page.identifier = "vue/20190903/233607298/";
+    this.page.title = "Vue指令V-bind介紹";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://andyderblog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

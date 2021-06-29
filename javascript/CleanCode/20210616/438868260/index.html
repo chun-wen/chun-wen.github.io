@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chun-wen.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="前言：近期在開發公司內部產品系統時，寫完後再進行功能測試時，往往會遇到蠻多 bug ，一方面是自己未考慮周全，另一方面也是因為自己在撰寫上有些壞習慣。因此，希望藉由 Clean Code 這本書協助自己撰寫 JavaScript 本質上優化、讓程式能夠更具可靠性。而此系列文章就是用來紀錄 Clean Code 這本書相關重點內容。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2021-06-16-Clean Code敵人題">
+<meta property="og:url" content="http://chun-wen.github.io/javascript/CleanCode/20210616/438868260/index.html">
+<meta property="og:site_name" content="Andy&#39;s blog">
+<meta property="og:description" content="前言：近期在開發公司內部產品系統時，寫完後再進行功能測試時，往往會遇到蠻多 bug ，一方面是自己未考慮周全，另一方面也是因為自己在撰寫上有些壞習慣。因此，希望藉由 Clean Code 這本書協助自己撰寫 JavaScript 本質上優化、讓程式能夠更具可靠性。而此系列文章就是用來紀錄 Clean Code 這本書相關重點內容。">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2021-06-16T10:33:53.393Z">
+<meta property="article:modified_time" content="2021-06-16T10:35:43.651Z">
+<meta property="article:author" content="andy">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://chun-wen.github.io/javascript/CleanCode/20210616/438868260/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>2021-06-16-Clean Code敵人題 | Andy's blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MVMTVD20GY"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-MVMTVD20GY');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Andy's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">If you always do what you've always done, you'll always get what you've always got.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="http://chun-wen.github.io/javascript/CleanCode/20210616/438868260/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="andy">
+      <meta itemprop="description" content="記錄一些自學前端的技術文章">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andy's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2021-06-16-Clean Code敵人題
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+              
+
+              <time title="創建時間：2021-06-16 18:33:53 / 修改時間：18:35:43" itemprop="dateCreated datePublished" datetime="2021-06-16T18:33:53+08:00">2021-06-16</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="文章字數">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">文章字數：</span>
+              <span>553</span>
+            </span>
+            <span class="post-meta-item" title="所需閱讀時間">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+              <span>1 分鐘</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>前言：<br>近期在開發公司內部產品系統時，寫完後再進行功能測試時，往往會遇到蠻多 bug ，一方面是自己未考慮周全，另一方面也是因為自己在撰寫上有些壞習慣。因此，希望藉由 Clean Code 這本書協助自己撰寫 JavaScript 本質上優化、讓程式能夠更具可靠性。而此系列文章就是用來紀錄 Clean Code 這本書相關重點內容。</p>
+<span id="more"></span>
+<hr>
+<p>參考資料：<br><a target="_blank" rel="noopener" href="https://www.books.com.tw/products/0010886265?loc=M_0009_020">Clean Code學派的風格實踐：開發可靠、可維護又強健的JavaScript</a></p>
+<hr>
+<h3 id="1-JavaScript"><a href="#1-JavaScript" class="headerlink" title="1. JavaScript"></a>1. JavaScript</h3><ul>
+<li>過於彈性的語言，讓他自身就是一個不嚴謹的語言</li>
+</ul>
+<h3 id="2-管理"><a href="#2-管理" class="headerlink" title="2. 管理"></a>2. 管理</h3><ul>
+<li>交付壓力下導致問題：<ul>
+<li>錯誤性成常態</li>
+<li>糟糕的使用者體驗 </li>
+<li>接手人員心累</li>
+</ul>
+</li>
+</ul>
+<p>造成這樣的主因有兩個</p>
+<ol>
+<li>Programmer 缺乏工作知識的認識，導致開發時從未思考長期影響</li>
+<li>時間壓力關係，讓開發者選擇直接道路而非最佳解</li>
+<li>對自己的程式不負責任</li>
+</ol>
+<p>該如何改善這問題：</p>
+<ol>
+<li>未經測試，請勿交付</li>
+<li>經常更新自己的技術債</li>
+<li>定期與利害關係人溝通</li>
+</ol>
+<h3 id="3-自我"><a href="#3-自我" class="headerlink" title="3. 自我"></a>3. 自我</h3><ol>
+<li>賣弄語法</li>
+<li>堅持己見</li>
+<li>缺乏自信</li>
+</ol>
+<ul>
+<li>缺乏果斷性- 以預設路線進行程式撰寫</li>
+<li>缺乏勇氣- 缺乏推動新程式碼的應用</li>
+<li>缺乏溝通- 因沒有自信而沒有跟重要利害關係人溝通</li>
+</ul>
+<h3 id="4-貨物崇拜-不明白程式為何這樣撰寫，直接複製貼上"><a href="#4-貨物崇拜-不明白程式為何這樣撰寫，直接複製貼上" class="headerlink" title="4.貨物崇拜(不明白程式為何這樣撰寫，直接複製貼上)"></a>4.貨物崇拜(不明白程式為何這樣撰寫，直接複製貼上)</h3><ul>
+<li>適用性(是解決目前問題的最佳解嗎?)</li>
+<li>可靠性(是否足夠穩定且正確)</li>
+<li>可用性(能否簡單直覺應用)</li>
+<li>相容性(是否能和現有程式碼整合)</li>
+<li>適應性(能適應彈性需求嗎)</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/hexo/20210614/2726884443/" rel="prev" title="2021-06-14-Hexo分類大小寫問題">
+      <i class="fa fa-chevron-left"></i> 2021-06-14-Hexo分類大小寫問題
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-JavaScript"><span class="nav-number">1.</span> <span class="nav-text">1. JavaScript</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E7%AE%A1%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">2. 管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E8%87%AA%E6%88%91"><span class="nav-number">3.</span> <span class="nav-text">3. 自我</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E8%B2%A8%E7%89%A9%E5%B4%87%E6%8B%9C-%E4%B8%8D%E6%98%8E%E7%99%BD%E7%A8%8B%E5%BC%8F%E7%82%BA%E4%BD%95%E9%80%99%E6%A8%A3%E6%92%B0%E5%AF%AB%EF%BC%8C%E7%9B%B4%E6%8E%A5%E8%A4%87%E8%A3%BD%E8%B2%BC%E4%B8%8A"><span class="nav-number">4.</span> <span class="nav-text">4.貨物崇拜(不明白程式為何這樣撰寫，直接複製貼上)</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">andy</p>
+  <div class="site-description" itemprop="description">記錄一些自學前端的技術文章</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">99</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/chun-wen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chun-wen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:hsbsbbdn@gmail.com" title="E-Mail → mailto:hsbsbbdn@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">andy</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="總字數">137k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">2:04</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://chun-wen.github.io/javascript/CleanCode/20210616/438868260/";
+    this.page.identifier = "javascript/CleanCode/20210616/438868260/";
+    this.page.title = "2021-06-16-Clean Code敵人題";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://andyderblog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

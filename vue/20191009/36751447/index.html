@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chun-wen.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="參考資料  五倍紅寶石課程 官網插槽介紹">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue Component(元件)-slot元件插槽">
+<meta property="og:url" content="http://chun-wen.github.io/vue/20191009/36751447/index.html">
+<meta property="og:site_name" content="Andy&#39;s blog">
+<meta property="og:description" content="參考資料  五倍紅寶石課程 官網插槽介紹">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20191009/20114645YYilPuEj6G.png">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20191009/20114645DNIetTy2Ci.png">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20191009/20114645IWKZBTkNyY.png">
+<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20191009/20114645wwTeKanLW0.png">
+<meta property="article:published_time" content="2019-10-09T02:18:51.000Z">
+<meta property="article:modified_time" content="2021-03-23T14:28:44.000Z">
+<meta property="article:author" content="andy">
+<meta property="article:tag" content="vue">
+<meta property="article:tag" content="ironman">
+<meta property="article:tag" content="component">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ithelp.ithome.com.tw/upload/images/20191009/20114645YYilPuEj6G.png">
+
+<link rel="canonical" href="http://chun-wen.github.io/vue/20191009/36751447/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>Vue Component(元件)-slot元件插槽 | Andy's blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MVMTVD20GY"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-MVMTVD20GY');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Andy's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">If you always do what you've always done, you'll always get what you've always got.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="http://chun-wen.github.io/vue/20191009/36751447/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="andy">
+      <meta itemprop="description" content="記錄一些自學前端的技術文章">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andy's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Vue Component(元件)-slot元件插槽
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2019-10-09 10:18:51" itemprop="dateCreated datePublished" datetime="2019-10-09T10:18:51+08:00">2019-10-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2021-03-23 22:28:44" itemprop="dateModified" datetime="2021-03-23T22:28:44+08:00">2021-03-23</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="文章字數">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">文章字數：</span>
+              <span>3.1k</span>
+            </span>
+            <span class="post-meta-item" title="所需閱讀時間">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+              <span>3 分鐘</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>參考資料</p>
+<ul>
+<li>五倍紅寶石課程</li>
+<li><a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/guide/components-slots.html">官網插槽介紹</a><span id="more"></span>
+</li>
+</ul>
+<hr>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在介紹slot之前，我們必須先瞭解一個觀念：編譯作用域<br>我們先來看個範例<br><a target="_blank" rel="noopener" href="https://codepen.io/chunwen/pen/GRKxWJW?editors=1010">codepen連結</a></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;parent&quot;</span>&gt;</span>&#123;&#123;msg&#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">child</span>&gt;</span>&#123;&#123;msg&#125;&#125;<span class="tag">&lt;/<span class="name">child</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>猜猜看，<code>child</code>元件中是否會印出父層的<code>msg：I&#39;mparent</code>內容？<br>答案是不會的！原因是<code>目前child所處的位置是父層作用域</code>，當然不會印出子層內容～ </p>
+<p>補充：在Vue生命週期中，Vue會在created階段時判斷是否有<code>template</code>，如果有vue則會去編譯template內容，也因此，child元件不會顯示I’mparent內容<br><img src="https://ithelp.ithome.com.tw/upload/images/20191009/20114645YYilPuEj6G.png" alt="https://ithelp.ithome.com.tw/upload/images/20191009/20114645YYilPuEj6G.png"></p>
+<p>圖示結果：<br><img src="https://ithelp.ithome.com.tw/upload/images/20191009/20114645DNIetTy2Ci.png" alt="https://ithelp.ithome.com.tw/upload/images/20191009/20114645DNIetTy2Ci.png"></p>
+<h4 id="小結論："><a href="#小結論：" class="headerlink" title="小結論："></a>小結論：</h4><p>1.父層作用域在父層編譯<br>2.子層作用域在子層編譯<br>若要突破作用域編譯問題，就要使用到<code>slot</code></p>
+<hr>
+<h3 id="Slot簡介"><a href="#Slot簡介" class="headerlink" title="Slot簡介"></a>Slot簡介</h3><p>參考資料：<a target="_blank" rel="noopener" href="https://cythilya.github.io/2017/10/11/vue-component-slot/">Summer 夏天Vue.js: Slot</a><br>突破作用域，將父層內容傳遞進來！通常會應用在如果內容不一定要放入component中時，可以透過slot傳遞一整個html結構進來。</p>
+<p>Slot 是一種用於內容分配（Content Distribution / Transclusion）的元件，適用於複雜或巢狀元件的實作上，可以想像成是空間預留的方法，在迭代過程中再把內容塞進去。</p>
+<p>卡斯伯老師在課堂上將slot分為三種：<br>1.沒有slot的狀態</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">no-slot-component</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>這是一段沒有插槽使用的狀態<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">no-slot-component</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>說明：即使寫p段落文字在子元件中，在html上依舊不會顯示。因為元件中的內容都會被模板替換掉。這就是上方提到作用域編譯的問題～</p>
+<p>2.單組slot<br>特點：在模板中添加<code>&lt;slot&gt;&lt;slot/&gt;</code><br>HTML部分</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">single-slot-component</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>使用這段取代原本的 Slot。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">single-slot-component</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>template部分</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/x-template&quot;</span> <span class="attr">id</span>=<span class="string">&quot;singleSlotComponent&quot;</span>&gt;</span></span><br><span class="line"><span class="javascript">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;alert alert-warning&quot;</span>&gt;</span></span><br><span class="line"><span class="handlebars"><span class="xml">  <span class="tag">&lt;<span class="name">h6</span>&gt;</span>我是一個元件<span class="tag">&lt;/<span class="name">h6</span>&gt;</span></span></span></span><br><span class="line"><span class="handlebars"><span class="xml">  <span class="tag">&lt;<span class="name">slot</span>&gt;</span></span></span></span><br><span class="line">    如果沒有內容，則會顯示此段落。</span><br><span class="line"><span class="handlebars"><span class="xml">  <span class="tag">&lt;/<span class="name">slot</span>&gt;</span></span></span></span><br><span class="line"><span class="handlebars"><span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span></span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>畫面上，就可以將<code>&lt;p&gt;使用這段取代原本的 Slot。&lt;/p&gt;</code>呈現在畫面上！如下<br><img src="https://ithelp.ithome.com.tw/upload/images/20191009/20114645IWKZBTkNyY.png" alt="https://ithelp.ithome.com.tw/upload/images/20191009/20114645IWKZBTkNyY.png"></p>
+<p>3.多組slot(具名插槽)<br>簡單來說，將內容放入指定位置<br>寫法：<br>1.在html加入<code>slot</code><br>2.在元件模板插入 <code>name</code><br><a target="_blank" rel="noopener" href="https://codepen.io/chunwen/pen/gOOpLmN?editors=1010#0">練習連結</a><br>HTML部分</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">child</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">p</span>&gt;</span>123<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">h1</span> <span class="attr">class</span>=<span class="string">&quot;header&quot;</span> <span class="attr">slot</span>=<span class="string">&quot;header&quot;</span>&gt;</span>這是 HEADER<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"></span><br><span class="line">      <span class="tag">&lt;<span class="name">p</span>&gt;</span>A paragraph for the main content.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">p</span>&gt;</span>And another one.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line">      <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;footer&quot;</span> <span class="attr">slot</span>=<span class="string">&quot;footer&quot;</span>&gt;</span>這是 FOOTER<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">child</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span> <span class="attr">id</span>=<span class="string">&quot;child-template&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;container&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">header</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">slot</span> <span class="attr">name</span>=<span class="string">&quot;header&quot;</span>&gt;</span>Default Header<span class="tag">&lt;/<span class="name">slot</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">hr</span>&gt;</span></span><br><span class="line"></span><br><span class="line">      <span class="tag">&lt;<span class="name">main</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">slot</span>&gt;</span>Default Body<span class="tag">&lt;/<span class="name">slot</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">main</span>&gt;</span></span><br><span class="line"></span><br><span class="line">      <span class="tag">&lt;<span class="name">hr</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">footer</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">slot</span> <span class="attr">name</span>=<span class="string">&quot;footer&quot;</span>&gt;</span>Default Footer<span class="tag">&lt;/<span class="name">slot</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>補充：html結構中若不想顯示標籤如a、header，可以使用<code>&lt;template&gt;</code>，這樣就不會顯示標籤摟～</p>
+</blockquote>
+<h3 id="練習一下"><a href="#練習一下" class="headerlink" title="練習一下"></a>練習一下</h3><p>猜猜看下面這個範例<code>child元件</code>，會印出什麼內容？<br><a target="_blank" rel="noopener" href="https://codepen.io/chunwen/pen/OJJVRGq?editors=1010#0">練習連結</a><br>HTML部分</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;parent&quot;</span>&gt;</span>&#123;&#123; msg &#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">child</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span>This &quot;msg&quot; is from parent: &#123;&#123; msg &#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">child</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span> <span class="attr">id</span>=<span class="string">&quot;child-template&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;child&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;&#123; msg &#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!-- 預設slot文字 --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">slot</span>&gt;</span> Default Slot Content <span class="tag">&lt;/<span class="name">slot</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>JavaSvript部分</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// children component</span></span><br><span class="line">    Vue.component(<span class="string">&#x27;child&#x27;</span>, &#123;</span><br><span class="line">      template: <span class="string">&#x27;#child-template&#x27;</span>,</span><br><span class="line">      data: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">          msg: <span class="string">&#x27;I\&#x27;m child.&#x27;</span></span><br><span class="line">        &#125;;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// parent component</span></span><br><span class="line">    <span class="keyword">var</span> parent = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">      el: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">      data: &#123;</span><br><span class="line">        msg: <span class="string">&#x27;I\&#x27;m parent.&#x27;</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>答案是：<br><img src="https://ithelp.ithome.com.tw/upload/images/20191009/20114645wwTeKanLW0.png" alt="https://ithelp.ithome.com.tw/upload/images/20191009/20114645wwTeKanLW0.png"></p>
+<p>原因：之所以child中的msg會印出<code>I&#39;m parent</code>字樣，就是因為child所在區域，還是在父層。因此編譯作用域還是在父層內。</p>
+<h4 id="後記"><a href="#後記" class="headerlink" title="後記"></a>後記</h4><p>在2.6.0中，我們為具名插槽和作用域插槽引入了一個新的統一的語法(即v-slot指令)。它取代了slot和slot-scope</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/vue/" rel="tag"># vue</a>
+              <a href="/tags/ironman/" rel="tag"># ironman</a>
+              <a href="/tags/component/" rel="tag"># component</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/vue/20191008/3284328793/" rel="prev" title="Vue Component(元件) is動態切換元件">
+      <i class="fa fa-chevron-left"></i> Vue Component(元件) is動態切換元件
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/vue/20191013/1215381457/" rel="next" title="Vue CLI2與Webpack介紹">
+      Vue CLI2與Webpack介紹 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%8F%E7%B5%90%E8%AB%96%EF%BC%9A"><span class="nav-number">1.1.</span> <span class="nav-text">小結論：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Slot%E7%B0%A1%E4%BB%8B"><span class="nav-number">2.</span> <span class="nav-text">Slot簡介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B7%B4%E7%BF%92%E4%B8%80%E4%B8%8B"><span class="nav-number">3.</span> <span class="nav-text">練習一下</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BE%8C%E8%A8%98"><span class="nav-number">3.1.</span> <span class="nav-text">後記</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">andy</p>
+  <div class="site-description" itemprop="description">記錄一些自學前端的技術文章</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">99</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/chun-wen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chun-wen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:hsbsbbdn@gmail.com" title="E-Mail → mailto:hsbsbbdn@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">andy</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="總字數">137k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">2:04</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://chun-wen.github.io/vue/20191009/36751447/";
+    this.page.identifier = "vue/20191009/36751447/";
+    this.page.title = "Vue Component(元件)-slot元件插槽";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://andyderblog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

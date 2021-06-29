@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chun-wen.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="文章內容來源：主要整理自卡斯伯老師文章與六角學院共筆。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flex排版整理">
+<meta property="og:url" content="http://chun-wen.github.io/css/20190903/41001978/index.html">
+<meta property="og:site_name" content="Andy&#39;s blog">
+<meta property="og:description" content="文章內容來源：主要整理自卡斯伯老師文章與六角學院共筆。">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/1lgd3M1.png">
+<meta property="og:image" content="https://i.imgur.com/65I3rBe.png">
+<meta property="og:image" content="https://i.imgur.com/08WlFJx.png">
+<meta property="og:image" content="https://i.imgur.com/CTl1bn6.png">
+<meta property="og:image" content="https://i.imgur.com/lKQ6ATr.png">
+<meta property="og:image" content="https://i.imgur.com/joBKJab.png">
+<meta property="og:image" content="https://i.imgur.com/gkBhyNk.png">
+<meta property="article:published_time" content="2019-09-02T17:23:20.000Z">
+<meta property="article:modified_time" content="2021-06-14T13:29:58.000Z">
+<meta property="article:author" content="andy">
+<meta property="article:tag" content="Flex">
+<meta property="article:tag" content="Css">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/1lgd3M1.png">
+
+<link rel="canonical" href="http://chun-wen.github.io/css/20190903/41001978/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>Flex排版整理 | Andy's blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MVMTVD20GY"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-MVMTVD20GY');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Andy's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">If you always do what you've always done, you'll always get what you've always got.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="http://chun-wen.github.io/css/20190903/41001978/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="andy">
+      <meta itemprop="description" content="記錄一些自學前端的技術文章">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andy's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Flex排版整理
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2019-09-03 01:23:20" itemprop="dateCreated datePublished" datetime="2019-09-03T01:23:20+08:00">2019-09-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2021-06-14 21:29:58" itemprop="dateModified" datetime="2021-06-14T21:29:58+08:00">2021-06-14</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="文章字數">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">文章字數：</span>
+              <span>4.3k</span>
+            </span>
+            <span class="post-meta-item" title="所需閱讀時間">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+              <span>4 分鐘</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>文章內容來源：主要整理自卡斯伯老師文章與六角學院共筆。</p>
+<span id="more"></span>
+<hr>
+<p><code>Flex 中分為外容器與內元件(如下圖)，並靠調整外容器、內元件屬性</code>達成以下常見目的：<br>1.垂直置中<br>2.水平置中<br>3.三欄內容不等高，但希望外框顯示為等高 父元素設定display:flex<br>4.三個物件水平等距排列(數值彈性)    justify-content:space-around</p>
+<p><img src="https://i.imgur.com/1lgd3M1.png" alt=""></p>
+<h2 id="外層元素與內層元素簡介"><a href="#外層元素與內層元素簡介" class="headerlink" title="外層元素與內層元素簡介"></a>外層元素與內層元素簡介</h2><p>Flex 外容器屬性：</p>
+<ul>
+<li>display：flex, inline-flex 必備屬性</li>
+<li>flex-direction：決定 flex 軸線 →  <a target="_blank" rel="noopener" href="https://codepen.io/chunwen/pen/JzdNNN">https://codepen.io/chunwen/pen/JzdNNN</a></li>
+<li>justify-content：主軸線的對齊 → <a target="_blank" rel="noopener" href="https://codepen.io/chunwen/pen/wOaeXz">https://codepen.io/chunwen/pen/wOaeXz</a></li>
+<li>flex-wrap：決定換行的屬性 → <a target="_blank" rel="noopener" href="https://codepen.io/Wcc723/pen/xroRaB">https://codepen.io/Wcc723/pen/xroRaB</a></li>
+<li>align-items：交錯軸線的對齊 →  <a target="_blank" rel="noopener" href="https://codepen.io/chunwen/pen/wOaeXz">https://codepen.io/chunwen/pen/wOaeXz</a></li>
+<li>align-content：整體的對齊  → <a target="_blank" rel="noopener" href="https://codepen.io/chunwen/pen/qvdPmj">https://codepen.io/chunwen/pen/qvdPmj</a></li>
+</ul>
+<p>Flex 內元件屬性：</p>
+<ul>
+<li>flex<ul>
+<li>flex-grow：伸展比 //其數值與其它物件可分配伸展比有關</li>
+<li>flex-shrink：收縮比</li>
+<li>flex-basis：絕對值</li>
+</ul>
+</li>
+<li>order：排序 → <a target="_blank" rel="noopener" href="https://codepen.io/Wcc723/pen/OgKGjw">https://codepen.io/Wcc723/pen/OgKGjw</a></li>
+<li>align-self：單一個物件的交錯軸對齊 → <a target="_blank" rel="noopener" href="https://codepen.io/Wcc723/pen/pwMBem">https://codepen.io/Wcc723/pen/pwMBem</a></li>
+</ul>
+<blockquote>
+<p>補充：flex各種預設值  </p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">flex-direction：row</span><br><span class="line">justify-content：flex-start</span><br><span class="line">align-items：stretch</span><br><span class="line">flex-wrap：nowrap</span><br><span class="line">flex-shrink:1;</span><br><span class="line">flex-grow:0;</span><br><span class="line">order:0;</span><br></pre></td></tr></table></figure>
+
+<h3 id="以下將開始介紹"><a href="#以下將開始介紹" class="headerlink" title="以下將開始介紹"></a>以下將開始介紹</h3><ol>
+<li>軸線</li>
+<li>外部元件特性</li>
+<li>內部元件介紹</li>
+</ol>
+<ul>
+<li>軸線(分為兩種)<br>flex排版起頭觀念，搞懂後基本上就會30%。flex軸線主要有分兩種</li>
+</ul>
+<p>1.主軸線<br>2.交錯軸<br><img src="https://i.imgur.com/65I3rBe.png" alt=""><br>這時我們會介紹到外層屬性的flex-direction：<br>Flex-direction 就是來改變上圖中的軸線方向，可以將軸線做水平反轉、轉為垂直、垂直反轉等。<br>flex-direction:row(一開始預設狀態)<br>flex-direction:row-reverse<br><code>&gt;&gt;交錯軸上方是Start 下方是End</code><br>flex-direction:column<br>flex-direction:column-reverse<br><code>&gt;&gt;交錯軸左方是 Start 右方是End</code><br>備註：主軸線是可以調整方向的！<br>Tips：記得是主軸線調整方向喔!交錯軸永遠都跟主軸垂直<br><img src="https://i.imgur.com/08WlFJx.png" alt=""><br>練習一下：<br><a target="_blank" rel="noopener" href="https://codepen.io/chunwen/pen/OqLKWw">https://codepen.io/chunwen/pen/OqLKWw</a></p>
+<h2 id="外部元件特性"><a href="#外部元件特性" class="headerlink" title="外部元件特性"></a>外部元件特性</h2><h3 id="display：flex-inline-flex"><a href="#display：flex-inline-flex" class="headerlink" title="display：flex, inline-flex"></a>display：flex, inline-flex</h3><p>display 是我們熟知的 CSS 屬性，對於 Flexbox 來說，多了有兩種方式可以設定，預設為「flex」，其布局方式與 block 幾乎類似，都會強迫換行，但設定display:flex的子元素卻具備了更多彈性的設定，此外另外一種方式則是「inline-flex」，和 inline-block 也是幾乎雷同，意義上都是一個display:flex的元素外面包覆display:inline的屬性，在後方的元素不會換行。</p>
+<p><img src="https://i.imgur.com/CTl1bn6.png" alt="">圖片來源：<a target="_blank" rel="noopener" href="https://www.oxxostudio.tw/articles/201501/css-flexbox.html">深入解析 CSS Flexbox</a></p>
+<h3 id="flex-direction"><a href="#flex-direction" class="headerlink" title="flex-direction"></a>flex-direction</h3><p>flex-direction 決定 flex 主軸線 的「排列方向」，分別有下列四種。範例： <a target="_blank" rel="noopener" href="https://codepen.io/chunwen/pen/JzdNNN">https://codepen.io/chunwen/pen/JzdNNN</a></p>
+<p>row：預設值，由左到右，從上到下<br>row-reverse：與 row 相反<br>column：從上到下，再由左到右<br>column-reverse：與 column 相反</p>
+<h3 id="justify-content-決定了主軸線的對齊方式"><a href="#justify-content-決定了主軸線的對齊方式" class="headerlink" title="justify-content(決定了主軸線的對齊方式)"></a>justify-content(決定了主軸線的對齊方式)</h3><p>justify-content <strong>決定了主軸線的對齊方式</strong>，回顧上面講的 Flexbox 盒子模型，具有 main start 與 main end 左右兩個端點，justify-content 就是按照這個方式做設定，而其中的設定值總共有下列五個。( 範例： <a target="_blank" rel="noopener" href="https://codepen.io/chunwen/pen/wOaeXz">https://codepen.io/chunwen/pen/wOaeXz</a> )</p>
+<p>flex-start：預設值，對齊最左邊的 main start<br>flex-end：對齊最左邊的 main end<br>center：水平置中<br>space-between：平均分配內容元素，左右元素將會與 main start 和 main end 貼齊<br>space-around：平均分配內容元素，間距也是平均分配</p>
+<blockquote>
+<p>備註： 27分開始，使用margin-right:auto，auto可以把剩餘空間推擠出來  </p>
+</blockquote>
+<h3 id="align-items-決定了交錯軸對齊方式"><a href="#align-items-決定了交錯軸對齊方式" class="headerlink" title="align-items(決定了交錯軸對齊方式)"></a>align-items(決定了交錯軸對齊方式)</h3><p>align-items 剛好和 justify-content 相反，<strong>align-items 決定了交錯軸對齊方式</strong>，回想一下最上面講的 Flexbox 盒子模型，具有 cross start 與 cross end 左右兩個端點，align-items 與 align-self 就是按照這個方式做設定，設定值總共有下列五個。( 範例： <a target="_blank" rel="noopener" href="https://codepen.io/chunwen/pen/wOaeXz">https://codepen.io/chunwen/pen/wOaeXz</a> )</p>
+<p>flex-start：對齊最上面的 cross start<br>flex-end：對齊最下面的 cross end<br>center：垂直置中<br>stretch：預設值，將內容元素全部撐開至 Flexbox 的高度<br>baseline：以所有內容元素的基線作為對齊標準</p>
+<p>::Tips：:: 注意 stretch 在高度被限制的情況下不會正常伸展</p>
+<h3 id="align-content"><a href="#align-content" class="headerlink" title="align-content"></a>align-content</h3><p>主要針對多行版本(範例： <a target="_blank" rel="noopener" href="https://codepen.io/chunwen/pen/qvdPmj">https://codepen.io/chunwen/pen/qvdPmj</a> )</p>
+<h3 id="flex-wrap"><a href="#flex-wrap" class="headerlink" title="flex-wrap"></a>flex-wrap</h3><p> <a target="_blank" rel="noopener" href="https://codepen.io/chunwen/pen/ywWxXR">範例</a><br>這個屬性負責的是讓內容的元素換行，因為當我們把父元素的 display 設定為 flex 或 inline-flex 的時候，子元素就是以單行的方式，彈性撐滿父元素，所以就要利用 flex-wrap 來換行，共有三個設定值。</p>
+<p>nowrap：預設值，單行<br>wrap：多行<br>wrap-reverse：多行，但內容元素反轉<br><img src="https://i.imgur.com/lKQ6ATr.png" alt="">圖片來源：<a target="_blank" rel="noopener" href="https://www.oxxostudio.tw/articles/201501/css-flexbox.html">深入解析 CSS Flexbox</a></p>
+<h2 id="內層元素"><a href="#內層元素" class="headerlink" title="內層元素"></a>內層元素</h2><h3 id="align-self"><a href="#align-self" class="headerlink" title="align-self"></a>align-self</h3><p>align-self 的設定與 align-items 相同，但目的不同，align-self 的作用在於覆寫已經套用 align-items 的屬性， align-items 是針對子元素</p>
+<h3 id="order"><a href="#order" class="headerlink" title="order"></a>order</h3><p>剛剛在 flex-wrap 的屬性裏頭看到了可以把元素反轉，order 這個屬性更是可以直接指定一個數字，就可以由小到大的排列順序，沒有寫的話就往後排。<br>(範本： <a target="_blank" rel="noopener" href="https://codepen.io/chunwen/pen/PLqJRX">https://codepen.io/chunwen/pen/PLqJRX</a> )</p>
+<p>Tips：順序由小排到大，order:1開始，接續2、3、4中間不能斷</p>
+<h3 id="flex-影片42分開始"><a href="#flex-影片42分開始" class="headerlink" title="flex(影片42分開始)"></a>flex(影片42分開始)</h3><p><a target="_blank" rel="noopener" href="https://codepen.io/chunwen/pen/JzqZLr">範例</a><br>flex 其實是由三個屬性組合而成，依照先後順序分別是「flex-grow」、「flex-shrink」和「flex-basis」，至於三個屬性的解釋如下：</p>
+<p>flex-grow：數字，無單位，當子元素的 flex-basis 長度「小」於它自己在父元素分配到的長度，按照數字做相對應的「伸展」比例分配，<strong>預設值為 0</strong>，不會進行彈性變化，不可為負值，設為 1 則會進行彈性變化。</p>
+<p>flex-shrink：數字，無單位，當子元素的 flex-basis 長度「大」於它自己在父元素分配到的長度，按照數字做相對應的「壓縮」比例分配，<strong>預設值為 1</strong>，設為 0 的話不會進行彈性變化，不可為負值。</p>
+<p>flex-basis：子元素的基本大小，作為父元素的大小比較基準，<strong>預設值為 0</strong>，也因為預設值為 0，所以沒有設定此屬性的時候，會以直接採用 flex-grow 屬性，flex-basis 也可以設為 auto，如果設為 auto，就表示子元素以自己的基本大小為單位。</p>
+<p>三個屬性可以分開設定，也可以合在一起用一個 flex 統一設定</p>
+<h3 id="Flex-grow-公式"><a href="#Flex-grow-公式" class="headerlink" title="Flex-grow 公式"></a>Flex-grow 公式</h3><p>(剩餘可分配寬度 / 總分配等分) * 分配等分 + 固定佔有寬度=一個元素寬度 原理說明： <a target="_blank" rel="noopener" href="https://css-tricks.com/flex-grow-is-weird/">https://css-tricks.com/flex-grow-is-weird/</a></p>
+<p><img src="https://i.imgur.com/joBKJab.png" alt=""></p>
+<h3 id="Flex-shrink-公式"><a href="#Flex-shrink-公式" class="headerlink" title="Flex-shrink 公式"></a>Flex-shrink 公式</h3><p>相反計算方式<br>固定空間 - (多餘可分配的空間 / 總分配等分 * 分配等分)</p>
+<p><em>白話文: 多的空間拿出來分一分</em></p>
+<h2 id="Flex語法"><a href="#Flex語法" class="headerlink" title="Flex語法"></a>Flex語法</h2><p>參考資料:<br><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/flex">MDN</a> <a target="_blank" rel="noopener" href="https://www.w3schools.com/cssref/css3_pr_flex.asp">W3c</a><br>flex 屬性可以指定1個，2個或3個值<br>單值語法：</p>
+<ol>
+<li>一個無單位數( <number>) :它會被當作<flex-grow>的值 EX：flex : 1</li>
+<li>一個有效的寬度( width)值:它會被當作 <flex-basis>的值 EX：flex : 30px</li>
+<li>關鍵字none，auto或initial<br>EX：flex：auto 等於 flex：1 1 auto<br>flex：initial 等於 0 1 auto<br>flex：none 等於 0 0 auto</li>
+</ol>
+<p>雙值語法 ： ::第一個值必須為一個無單位數，並且它會被當作 <flex-grow> 的值:: 。第二個值必須為以下之一：</p>
+<ol>
+<li>一個無單位數：它會被當作 <flex-shrink> 的值</li>
+<li>一個有效的寬度值:它會被當作 <flex-basis> 的值</li>
+</ol>
+<p>三值語法：</p>
+<ol>
+<li>第一個值必須為一個無單位數，並且它會被當作 <flex-grow> 的值。</li>
+<li>第二個值必須為一個無單位數，並且它會被當作 <flex-shrink> 的值。</li>
+<li>第三個值必須為一個有效的寬度值，並且它會被當作 <flex-basis> 的值。</li>
+</ol>
+<hr>
+<p>問答<br>Q：flex: 0 0 30%;這行是什麼意思??</p>
+<p>flex是(flex-grow、flex-shrink 和 flex-basis)縮寫<br>因此上面分別代表<br>flex-grow：0<br>flex-shrink：0<br>flex-basis：30%</p>
+<blockquote>
+<blockquote>
+<p>flex 寬度設百分比 是依照父元素寬度(不含padding值)<br>Q：這三個區塊的高度一樣是下了什麼語法呢?我好像沒有看到min-height/max-height語法在上面? <a target="_blank" rel="noopener" href="https://codepen.io/chunwen/pen/bZZWpG">練習</a></p>
+</blockquote>
+</blockquote>
+<p><img src="https://i.imgur.com/gkBhyNk.png" alt=""></p>
+<p>A：在.item-group 上設置 display: flex 就可以使內部的子元素等高嚕!</p>
+<hr>
+<h2 id="參考資料-建議閱讀順序"><a href="#參考資料-建議閱讀順序" class="headerlink" title="參考資料(建議閱讀順序)"></a>參考資料(建議閱讀順序)</h2><p>說明為何要使用flex-box/介紹flex練習小遊戲 ： <a target="_blank" rel="noopener" href="https://bitsofco.de/6-reasons-to-start-using-flexbox/">6 Reasons to Start Using Flexbox</a> (1)<br>六角學院 <a target="_blank" rel="noopener" href="https://paper.dropbox.com/doc/Flex-tvaJQP4EtjCMAK0pgnpGt">flex共筆</a> (2)<br>六角學院卡斯柏 <a target="_blank" rel="noopener" href="https://wcc723.github.io/css/2017/07/21/css-flex/">blog</a> (2)<br>六角學院 <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=lmBM7_OTDBQ">影片教學</a> (3)</p>
+<p>若還有不了解地方可以再參考下面文件<br><a target="_blank" rel="noopener" href="http://fokayx.com/2015/12/24/CSS-Flex-Guide.html">介紹清楚且排版舒適</a> (1)<br>非常詳細 <a target="_blank" rel="noopener" href="https://www.oxxostudio.tw/articles/201501/css-flexbox.html">部落格</a> (2)<br><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=_nCBQ6AIzDU">Alex排版教學</a> (3 缺點：時間太長)<br><a target="_blank" rel="noopener" href="https://css-tricks.com/almanac/properties/f/flex/">https://css-tricks.com/almanac/properties/f/flex/</a> (3)</p>
+<p>練習工具：<br>好玩的青蛙遊戲： <a target="_blank" rel="noopener" href="https://flexboxfroggy.com/">https://flexboxfroggy.com/</a> </p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Flex/" rel="tag"># Flex</a>
+              <a href="/tags/Css/" rel="tag"># Css</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/vue/20190902/3809821719/" rel="prev" title="Vue Instance/生命週期介紹">
+      <i class="fa fa-chevron-left"></i> Vue Instance/生命週期介紹
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/javascript/20190903/4027575200/" rel="next" title="JS30挑戰-Day5-Flex+Panel">
+      JS30挑戰-Day5-Flex+Panel <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%96%E5%B1%A4%E5%85%83%E7%B4%A0%E8%88%87%E5%85%A7%E5%B1%A4%E5%85%83%E7%B4%A0%E7%B0%A1%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">外層元素與內層元素簡介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A5%E4%B8%8B%E5%B0%87%E9%96%8B%E5%A7%8B%E4%BB%8B%E7%B4%B9"><span class="nav-number">1.1.</span> <span class="nav-text">以下將開始介紹</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%96%E9%83%A8%E5%85%83%E4%BB%B6%E7%89%B9%E6%80%A7"><span class="nav-number">2.</span> <span class="nav-text">外部元件特性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#display%EF%BC%9Aflex-inline-flex"><span class="nav-number">2.1.</span> <span class="nav-text">display：flex, inline-flex</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flex-direction"><span class="nav-number">2.2.</span> <span class="nav-text">flex-direction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#justify-content-%E6%B1%BA%E5%AE%9A%E4%BA%86%E4%B8%BB%E8%BB%B8%E7%B7%9A%E7%9A%84%E5%B0%8D%E9%BD%8A%E6%96%B9%E5%BC%8F"><span class="nav-number">2.3.</span> <span class="nav-text">justify-content(決定了主軸線的對齊方式)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#align-items-%E6%B1%BA%E5%AE%9A%E4%BA%86%E4%BA%A4%E9%8C%AF%E8%BB%B8%E5%B0%8D%E9%BD%8A%E6%96%B9%E5%BC%8F"><span class="nav-number">2.4.</span> <span class="nav-text">align-items(決定了交錯軸對齊方式)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#align-content"><span class="nav-number">2.5.</span> <span class="nav-text">align-content</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flex-wrap"><span class="nav-number">2.6.</span> <span class="nav-text">flex-wrap</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%A7%E5%B1%A4%E5%85%83%E7%B4%A0"><span class="nav-number">3.</span> <span class="nav-text">內層元素</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#align-self"><span class="nav-number">3.1.</span> <span class="nav-text">align-self</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#order"><span class="nav-number">3.2.</span> <span class="nav-text">order</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flex-%E5%BD%B1%E7%89%8742%E5%88%86%E9%96%8B%E5%A7%8B"><span class="nav-number">3.3.</span> <span class="nav-text">flex(影片42分開始)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flex-grow-%E5%85%AC%E5%BC%8F"><span class="nav-number">3.4.</span> <span class="nav-text">Flex-grow 公式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flex-shrink-%E5%85%AC%E5%BC%8F"><span class="nav-number">3.5.</span> <span class="nav-text">Flex-shrink 公式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Flex%E8%AA%9E%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">Flex語法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99-%E5%BB%BA%E8%AD%B0%E9%96%B1%E8%AE%80%E9%A0%86%E5%BA%8F"><span class="nav-number">5.</span> <span class="nav-text">參考資料(建議閱讀順序)</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">andy</p>
+  <div class="site-description" itemprop="description">記錄一些自學前端的技術文章</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">99</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/chun-wen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chun-wen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:hsbsbbdn@gmail.com" title="E-Mail → mailto:hsbsbbdn@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">andy</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="總字數">137k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">2:04</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://chun-wen.github.io/css/20190903/41001978/";
+    this.page.identifier = "css/20190903/41001978/";
+    this.page.title = "Flex排版整理";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://andyderblog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

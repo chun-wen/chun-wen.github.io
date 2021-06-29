@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chun-wen.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="參考資料：Summer-Vue Instance介紹  Vue Instance(實體)每個 Vue.js 的應用程式都是從Vue建構式 (vue constructor)建立根實體 (root vue instance)開始，再一個個將元件搭建上去而來的。  Vue的實體是透過new關鍵字來建立">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue Instance&#x2F;生命週期介紹">
+<meta property="og:url" content="http://chun-wen.github.io/vue/20190902/3809821719/index.html">
+<meta property="og:site_name" content="Andy&#39;s blog">
+<meta property="og:description" content="參考資料：Summer-Vue Instance介紹  Vue Instance(實體)每個 Vue.js 的應用程式都是從Vue建構式 (vue constructor)建立根實體 (root vue instance)開始，再一個個將元件搭建上去而來的。  Vue的實體是透過new關鍵字來建立">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/EEJQMXF.png">
+<meta property="og:image" content="https://i.imgur.com/7PMY4RZ.png">
+<meta property="og:image" content="https://i.imgur.com/bYvFdBi.png">
+<meta property="og:image" content="https://i.imgur.com/XoDkgjK.png">
+<meta property="article:published_time" content="2019-09-02T08:52:48.000Z">
+<meta property="article:modified_time" content="2021-03-23T14:28:44.000Z">
+<meta property="article:author" content="andy">
+<meta property="article:tag" content="vue">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/EEJQMXF.png">
+
+<link rel="canonical" href="http://chun-wen.github.io/vue/20190902/3809821719/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>Vue Instance/生命週期介紹 | Andy's blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MVMTVD20GY"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-MVMTVD20GY');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Andy's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">If you always do what you've always done, you'll always get what you've always got.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="http://chun-wen.github.io/vue/20190902/3809821719/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="andy">
+      <meta itemprop="description" content="記錄一些自學前端的技術文章">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andy's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Vue Instance/生命週期介紹
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2019-09-02 16:52:48" itemprop="dateCreated datePublished" datetime="2019-09-02T16:52:48+08:00">2019-09-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2021-03-23 22:28:44" itemprop="dateModified" datetime="2021-03-23T22:28:44+08:00">2021-03-23</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="文章字數">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">文章字數：</span>
+              <span>2.8k</span>
+            </span>
+            <span class="post-meta-item" title="所需閱讀時間">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+              <span>3 分鐘</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>參考資料：<br><a target="_blank" rel="noopener" href="https://cythilya.github.io/2017/04/11/vue-instance/">Summer-Vue Instance介紹</a></p>
+<hr>
+<h2 id="Vue-Instance-實體"><a href="#Vue-Instance-實體" class="headerlink" title="Vue Instance(實體)"></a>Vue Instance(實體)</h2><p>每個 Vue.js 的應用程式都是從<code>Vue建構式 (vue constructor)</code>建立<code>根實體 (root vue instance)</code>開始，再一個個將元件搭建上去而來的。</p>
+<ul>
+<li>Vue的實體是透過<code>new</code>關鍵字來建立</li>
+</ul>
+<span id="more"></span>
+
+<h3 id="建立Vue-Instance"><a href="#建立Vue-Instance" class="headerlink" title="建立Vue Instance"></a>建立Vue Instance</h3><p>使用 vue constructor 建立 vue instance「vm」，vm 為 view model 的簡稱</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    <span class="comment">//option object</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="建立Vue-Instance寫法2"><a href="#建立Vue-Instance寫法2" class="headerlink" title="建立Vue Instance寫法2"></a>建立Vue Instance寫法2</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">  <span class="function"><span class="title">data</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      isShowing: <span class="literal">false</span> </span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="小結論"><a href="#小結論" class="headerlink" title="小結論"></a>小結論</h4><p>兩者寫法都是可行，差異僅在於<code>是否賦予一個值到變數上</code>，而這個變數是可以用來以後取值使用。老師也說到後面章節（Vue Cli）會比較多時後使用寫法2。原因就是不太需要使用該變數做任何操作<br>補充：同一個頁面上<code>可以建立兩個以上的Vue實體</code>在是沒有問題，只有巢狀會出錯</p>
+<h2 id="Vue實體基本屬性-43分40秒開始"><a href="#Vue實體基本屬性-43分40秒開始" class="headerlink" title="Vue實體基本屬性(43分40秒開始)"></a>Vue實體基本屬性(43分40秒開始)</h2><p><img src="https://i.imgur.com/EEJQMXF.png" alt="">圖片來源：五倍紅寶石Vue實戰課程</p>
+<h3 id="el-amp-data"><a href="#el-amp-data" class="headerlink" title="el&amp;data"></a>el&amp;data</h3><ul>
+<li>el：就是用來綁定網頁dom元素與Vue實體可以控制的範圍的<code>媒介</code><blockquote>
+<p>但，當實體沒有el屬性，就只能透過<code>vm.$mount()</code>來進行手動掛載<br>備註：<br>1.這用法很少用，所以知道就好 <a target="_blank" rel="noopener" href="https://kknews.cc/code/eykopbz.html">文章參考</a><br>2.vm是指上面圖片宣告的變數（這邊是可以自定義）  </p>
+</blockquote>
+</li>
+<li>Data: 用來存放實體綁定的資料<br>實體內：透過this.XXX 取得資料<br>實體外：透過Hello.$data.value 取得資料  <code>Hello這個變數是可以自行命名</code><blockquote>
+<p>實體外指的就是下方Hello實體物件範圍外<br>在子元件內時，須以 <strong>function</strong>的形式來來回傳。 </p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Hello = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">      el: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">      data: &#123;</span><br><span class="line">        value: <span class="string">&#x27;Hi Vue!&#x27;</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">Hello.$mount().value  <span class="comment">//&quot;Hi Vue!&quot;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>備註：Data內屬性不可由＄或＿開頭 如：$abc、＿abc  </p>
+</blockquote>
+</li>
+</ul>
+<h3 id="傳入選項物件"><a href="#傳入選項物件" class="headerlink" title="傳入選項物件"></a>傳入選項物件</h3><p>當實體（Vue instance）被創建後，物件可以傳入包含el、data、methods、watch、mounted、props、computed</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    el: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">    data: &#123;</span><br><span class="line">    message:<span class="string">&quot;hello vue.js!&quot;</span></span><br><span class="line">     &#125;,</span><br><span class="line">    methods:&#123; <span class="comment">//略    </span></span><br><span class="line">&#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="擴充建構式"><a href="#擴充建構式" class="headerlink" title="擴充建構式"></a>擴充建構式</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> component = Vue.extend(&#123;</span><br><span class="line">    data: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span>&#123; </span><br><span class="line">     message:<span class="string">&#x27;hello &#x27;</span></span><br><span class="line">     &#125;</span><br><span class="line">   &#125;,</span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">var</span> cp = <span class="keyword">new</span> component();</span><br><span class="line"><span class="built_in">console</span>.log(cp.message) <span class="comment">//hello</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>data選項，需要注意<code>在Vue.extend()中它必須是函數</code>  </p>
+</blockquote>
+<h2 id="Vue-元件實體生命週期-Instance-Lifecycle-Hooks"><a href="#Vue-元件實體生命週期-Instance-Lifecycle-Hooks" class="headerlink" title="Vue 元件實體生命週期(Instance Lifecycle Hooks)"></a>Vue 元件實體生命週期(Instance Lifecycle Hooks)</h2><p>Vue.js 提供實體生命週期鉤子 (instance lifecycle hooks)，讓我們在 instance 不同時期做一些事情。示意圖如下 <a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/guide/instance.html#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%9B%BE%E7%A4%BA">完整版請參考官網</a><br><img src="https://i.imgur.com/7PMY4RZ.png" alt=""></p>
+<h3 id="Vue生命週期hooks-說明："><a href="#Vue生命週期hooks-說明：" class="headerlink" title="Vue生命週期hooks 說明："></a>Vue生命週期hooks 說明：</h3><p><img src="https://i.imgur.com/bYvFdBi.png" alt=""><br>圖片來源：五倍紅寶石Vue實戰課程</p>
+<h3 id="Vue執行順序："><a href="#Vue執行順序：" class="headerlink" title="Vue執行順序："></a>Vue執行順序：</h3><p><img src="https://i.imgur.com/XoDkgjK.png" alt=""><br>圖片來源：五倍紅寶石Vue實戰課程<br>補充：</p>
+<blockquote>
+<p>Q1：vm.$mount() 圖片中<code>vm</code>指的是我們自行命名變數？<strong>對</strong><br>Q2：如果要透過 ajax / fetch 取得 API 回傳資料交給 Vue.js 處 理理時，應該在哪個階段執⾏？<br>Ａ：created階段之後都ok(包括created、beforeMount 與 mounted)，因為元件實體已經被建立，我們可以取得data資料。老師建議放created階段，不建議在放在mounted 因為資料若為空陣列網頁畫面可能會有一段空白，但可以用loading圖蓋過. <a target="_blank" rel="noopener" href="https://www.udemy.com/vue-hexschool/learn/lecture/10271478#questions/7853862">六角問答</a>  </p>
+</blockquote>
+<h3 id="Lifecycle-hook-functions-使用"><a href="#Lifecycle-hook-functions-使用" class="headerlink" title="Lifecycle hook functions 使用"></a>Lifecycle hook functions 使用</h3><p>引用Summer部落格上內容<a target="_blank" rel="noopener" href="https://cythilya.github.io/2017/04/11/vue-instance/">Summer-Vue Instance介紹</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  beforeCreate: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">//vue instance 被 constructor 建立前</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;beforeCreate&#x27;</span>);</span><br><span class="line">  &#125;,</span><br><span class="line">  created: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">//vue instance 被 constructor 建立後，在這裡完成 data binding</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;created&#x27;</span>);</span><br><span class="line">  &#125;,</span><br><span class="line">  beforeMount: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">//綁定 DOM 之前</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;beforeMount&#x27;</span>);</span><br><span class="line">  &#125;,</span><br><span class="line">  mounted: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">//綁定 DOM 之後</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;mounted&#x27;</span>);</span><br><span class="line">  &#125;,</span><br><span class="line">  beforeUpdate: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">//資料更新，但尚未更新 DOM</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;beforeUpdate&#x27;</span>);</span><br><span class="line">  &#125;,</span><br><span class="line">  updated: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">//因資料更新，而更新 DOM</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;updated&#x27;</span>);</span><br><span class="line">  &#125;,</span><br><span class="line">  beforeDestroy: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">//移除 vue instance 之前</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;beforeDestroy&#x27;</span>);</span><br><span class="line">  &#125;,</span><br><span class="line">  destroyed: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">//移除 vue instance 之後</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;destroyed&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="保留-keep-alive-才會跳出來下面alert"><a href="#保留-keep-alive-才會跳出來下面alert" class="headerlink" title="保留 keep-alive 才會跳出來下面alert"></a>保留 <code>keep-alive</code> 才會跳出來下面alert</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">activated () &#123;</span><br><span class="line">    alert(<span class="string">`activated! <span class="subst">$&#123;<span class="built_in">this</span>.text&#125;</span>`</span>);</span><br><span class="line">  &#125;,</span><br><span class="line">  deactivated () &#123;</span><br><span class="line">    alert(<span class="string">`deactivated! <span class="subst">$&#123;<span class="built_in">this</span>.text&#125;</span>`</span>);</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/vue/" rel="tag"># vue</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/vue/20190902/1331664425/" rel="prev" title="Vue指令V-for介紹">
+      <i class="fa fa-chevron-left"></i> Vue指令V-for介紹
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/css/20190903/41001978/" rel="next" title="Flex排版整理">
+      Flex排版整理 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Vue-Instance-%E5%AF%A6%E9%AB%94"><span class="nav-number">1.</span> <span class="nav-text">Vue Instance(實體)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8BVue-Instance"><span class="nav-number">1.1.</span> <span class="nav-text">建立Vue Instance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8BVue-Instance%E5%AF%AB%E6%B3%952"><span class="nav-number">1.2.</span> <span class="nav-text">建立Vue Instance寫法2</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%8F%E7%B5%90%E8%AB%96"><span class="nav-number">1.2.1.</span> <span class="nav-text">小結論</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vue%E5%AF%A6%E9%AB%94%E5%9F%BA%E6%9C%AC%E5%B1%AC%E6%80%A7-43%E5%88%8640%E7%A7%92%E9%96%8B%E5%A7%8B"><span class="nav-number">2.</span> <span class="nav-text">Vue實體基本屬性(43分40秒開始)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#el-amp-data"><span class="nav-number">2.1.</span> <span class="nav-text">el&amp;data</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%82%B3%E5%85%A5%E9%81%B8%E9%A0%85%E7%89%A9%E4%BB%B6"><span class="nav-number">2.2.</span> <span class="nav-text">傳入選項物件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%B4%E5%85%85%E5%BB%BA%E6%A7%8B%E5%BC%8F"><span class="nav-number">2.3.</span> <span class="nav-text">擴充建構式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vue-%E5%85%83%E4%BB%B6%E5%AF%A6%E9%AB%94%E7%94%9F%E5%91%BD%E9%80%B1%E6%9C%9F-Instance-Lifecycle-Hooks"><span class="nav-number">3.</span> <span class="nav-text">Vue 元件實體生命週期(Instance Lifecycle Hooks)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue%E7%94%9F%E5%91%BD%E9%80%B1%E6%9C%9Fhooks-%E8%AA%AA%E6%98%8E%EF%BC%9A"><span class="nav-number">3.1.</span> <span class="nav-text">Vue生命週期hooks 說明：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue%E5%9F%B7%E8%A1%8C%E9%A0%86%E5%BA%8F%EF%BC%9A"><span class="nav-number">3.2.</span> <span class="nav-text">Vue執行順序：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Lifecycle-hook-functions-%E4%BD%BF%E7%94%A8"><span class="nav-number">3.3.</span> <span class="nav-text">Lifecycle hook functions 使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%9D%E7%95%99-keep-alive-%E6%89%8D%E6%9C%83%E8%B7%B3%E5%87%BA%E4%BE%86%E4%B8%8B%E9%9D%A2alert"><span class="nav-number">3.4.</span> <span class="nav-text">保留 keep-alive 才會跳出來下面alert</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">andy</p>
+  <div class="site-description" itemprop="description">記錄一些自學前端的技術文章</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">99</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/chun-wen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chun-wen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:hsbsbbdn@gmail.com" title="E-Mail → mailto:hsbsbbdn@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">andy</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="總字數">137k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">2:04</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://chun-wen.github.io/vue/20190902/3809821719/";
+    this.page.identifier = "vue/20190902/3809821719/";
+    this.page.title = "Vue Instance/生命週期介紹";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://andyderblog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

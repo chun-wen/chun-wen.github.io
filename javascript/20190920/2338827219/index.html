@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chun-wen.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="參考資料：JSON 格式與 JavaScript 解析教學範例 連結❲筆記❳ JavaScript中物件(object)和JSON格式的轉換">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JSON介紹">
+<meta property="og:url" content="http://chun-wen.github.io/javascript/20190920/2338827219/index.html">
+<meta property="og:site_name" content="Andy&#39;s blog">
+<meta property="og:description" content="參考資料：JSON 格式與 JavaScript 解析教學範例 連結❲筆記❳ JavaScript中物件(object)和JSON格式的轉換">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2019-09-20T03:27:24.000Z">
+<meta property="article:modified_time" content="2021-03-23T14:28:44.000Z">
+<meta property="article:author" content="andy">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="JSON">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://chun-wen.github.io/javascript/20190920/2338827219/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>JSON介紹 | Andy's blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MVMTVD20GY"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-MVMTVD20GY');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Andy's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">If you always do what you've always done, you'll always get what you've always got.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="http://chun-wen.github.io/javascript/20190920/2338827219/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="andy">
+      <meta itemprop="description" content="記錄一些自學前端的技術文章">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andy's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JSON介紹
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2019-09-20 11:27:24" itemprop="dateCreated datePublished" datetime="2019-09-20T11:27:24+08:00">2019-09-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2021-03-23 22:28:44" itemprop="dateModified" datetime="2021-03-23T22:28:44+08:00">2021-03-23</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="文章字數">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">文章字數：</span>
+              <span>2.1k</span>
+            </span>
+            <span class="post-meta-item" title="所需閱讀時間">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+              <span>2 分鐘</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>參考資料：<br>JSON 格式與 JavaScript 解析教學範例 <a target="_blank" rel="noopener" href="https://footmark.info/javascript/json-format-and-javascript/#sj_chapter-1">連結</a><br><a target="_blank" rel="noopener" href="https://pjchender.blogspot.com/2016/01/javascriptobjectjson.html">❲筆記❳ JavaScript中物件(object)和JSON格式的轉換</a></p>
+<span id="more"></span>
+<hr>
+<h2 id="JSON-JavaScript-Object-Notation-："><a href="#JSON-JavaScript-Object-Notation-：" class="headerlink" title="JSON(JavaScript Object Notation)："></a>JSON(JavaScript Object Notation)：</h2><p>是一種輕量級交換結構，存在目的在於讓資料與資料間能夠更方便解讀<br>而我們該如何取得json資料呢?最常見的就是政府公開資訊站 <a target="_blank" rel="noopener" href="https://data.gov.tw/">連結</a></p>
+<h3 id="格式："><a href="#格式：" class="headerlink" title="格式："></a>格式：</h3><p>JSON字串可以包含（物件）或陣列資料（Array）。就像下面範例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj=[</span><br><span class="line">    <span class="number">123</span>,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="string">&#x27;objec&#x27;</span>:<span class="number">123</span>,</span><br><span class="line">        <span class="string">&#x27;test&#x27;</span>:[</span><br><span class="line">                <span class="number">124</span>,<span class="number">125</span>,<span class="number">126</span></span><br><span class="line">               ]</span><br><span class="line">      &#125;</span><br><span class="line">]</span><br><span class="line">或</span><br><span class="line">&#123;<span class="string">&quot;array&quot;</span>: [<span class="string">&quot;string&quot;</span>, <span class="number">10</span>, <span class="number">1.0</span>, -<span class="number">1</span>, <span class="literal">true</span>, <span class="literal">false</span>, <span class="literal">null</span>]&#125;</span><br></pre></td></tr></table></figure>
+<p>注意部分：</p>
+<ol>
+<li>JSON就是一組字串</li>
+<li>使用<code>&#123; &#125;</code>建立物件時，JSON格式，該屬性名稱一定要有<code>引號</code>（非常重要！！）</li>
+<li>若物件中的值為function，是無法透過JSON傳遞的。</li>
+</ol>
+<hr>
+<h3 id="JSON-stringify-、JSON-parse-介紹"><a href="#JSON-stringify-、JSON-parse-介紹" class="headerlink" title="JSON.stringify( ) 、JSON.parse( )介紹"></a>JSON.stringify( ) 、JSON.parse( )介紹</h3><p>JSON.parse( ) <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse">連結</a><br>用來將JSON格式轉回物件或陣列<br>補充：<a target="_blank" rel="noopener" href="https://www.udemy.com/javascript-learning/learn/lecture/6992622#questions/7530232">JSON.parse() 不容許尾部有逗號</a><br> <code>JSON.parse(‘[1, 2, 3, 4, ]’);</code><br>JSON.stringify( ) <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify">連結</a><br>用來將物件或陣列轉回JSON格式，儲存在localStorage中</p>
+<hr>
+<h3 id="補充："><a href="#補充：" class="headerlink" title="補充："></a>補充：</h3><p>1.chrome上的 <a target="_blank" rel="noopener" href="https://chrome.google.com/webstore/detail/jsonview/chklaanhfefbnpoihckbnefhakgolnmc">JSON套件</a><br>目的：幫助我們瀏覽上更為方便，不會很混亂<br>2.下載到本機後開啟json資料<br><a target="_blank" rel="noopener" href="https://jsoneditoronline.org/">https://jsoneditoronline.org/</a> </p>
+<h3 id="json如何擷取格式呢"><a href="#json如何擷取格式呢" class="headerlink" title="json如何擷取格式呢?"></a>json如何擷取格式呢?</h3><p>Step1.先到公開資訊站<br>Step2.找尋想查詢資料 <a target="_blank" rel="noopener" href="https://data.gov.tw/dataset/28318">範例</a><br>Step3.按右鍵檢查網頁原始碼 將網頁資料複製<br>Step4.放入編輯器中，利用object、array特性擷取資料</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> data=</span><br><span class="line">&#123;<span class="string">&quot;success&quot;</span>:<span class="literal">true</span>,<span class="string">&quot;result&quot;</span>:&#123;<span class="string">&quot;resource_id&quot;</span>:<span class="string">&quot;382000000A-000352-001&quot;</span>&#125;&#125;</span><br><span class="line"><span class="built_in">console</span>.log(data.result.records[<span class="number">0</span>].ar);</span><br></pre></td></tr></table></figure>
+<hr>
+<p>問題集：<br>Q1：若本身就是以中文命名的物件<br>EX：” 地 點”(中間有空格)、”速限(km/h)”，這該如何抓取?</p>
+<p>以下抓取會出現錯誤:<br>console.log(HsinchuSpeed[i].地 點)<br>console.log(HsinchuSpeed[i].速限(km/h))</p>
+<p>A：可以透過 bracket notation 方法選取</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">蘋果:<span class="string">&#x27;red&#x27;</span>,</span><br><span class="line">香蕉:<span class="string">&#x27;yellow&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ERROR</span></span><br><span class="line"><span class="comment">// console.log(obj.蘋果);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 正確</span></span><br><span class="line"><span class="built_in">console</span>.log(obj[<span class="string">&quot;蘋果&quot;</span>]);</span><br></pre></td></tr></table></figure>
+<p>Q2：為何else中，還要再寫一次變數，不然回出現undefined:undefined沒有下大雨<br>Q3：if函式中的var 是全域變數嗎?為何不能直接給else函式中使用?</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> length = data.length;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt;length; i++) &#123;</span><br><span class="line"><span class="keyword">if</span>(data[i].Rainfall6hr&gt;<span class="number">5</span>)&#123;</span><br><span class="line"><span class="keyword">var</span> County=data[i].County;</span><br><span class="line"><span class="keyword">var</span> Township=data[i].Township;</span><br><span class="line"><span class="built_in">console</span>.log(County+<span class="string">&quot;:&quot;</span>+Township+<span class="string">&quot;下大雨&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span>&#123;</span><br><span class="line"><span class="comment">// var County=data[i].County;</span></span><br><span class="line"><span class="comment">// var Township=data[i].Township;</span></span><br><span class="line"><span class="built_in">console</span>.log(County+<span class="string">&quot;:&quot;</span>+Township+<span class="string">&quot;沒有下大雨&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>A2： 因為你變數宣告在 if 裡面，如果判斷式不成立時不會執行裡面的程式碼唷。應該要宣告在 if 之前，這樣 if else 的判斷式都能使用到 修改如下<br>A3：呈上一題，原因是因為沒有執行，所以也不會被宣告</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> total = data.length;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; total; i++) &#123;</span><br><span class="line">  <span class="keyword">var</span> country = data[i].County;</span><br><span class="line">  <span class="keyword">var</span> countrySite = data[i].SiteName;</span><br><span class="line">  <span class="keyword">if</span> (data[i].Rainfall10min == <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(country + <span class="string">&quot;的&quot;</span> + countrySite + <span class="string">&quot;放晴了&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (data[i].Rainfall10min &gt; <span class="number">0</span>) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(country + <span class="string">&quot;的&quot;</span> + countrySite + <span class="string">&quot;現在正在下雨&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+              <a href="/tags/JSON/" rel="tag"># JSON</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/vue/20190920/4197762796/" rel="prev" title="Vue Router介紹">
+      <i class="fa fa-chevron-left"></i> Vue Router介紹
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/vue/20190921/1684315816/" rel="next" title="Vue模板語法、V-text、V-html、V-once介紹">
+      Vue模板語法、V-text、V-html、V-once介紹 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#JSON-JavaScript-Object-Notation-%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">JSON(JavaScript Object Notation)：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%BC%E5%BC%8F%EF%BC%9A"><span class="nav-number">1.1.</span> <span class="nav-text">格式：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSON-stringify-%E3%80%81JSON-parse-%E4%BB%8B%E7%B4%B9"><span class="nav-number">1.2.</span> <span class="nav-text">JSON.stringify( ) 、JSON.parse( )介紹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A3%9C%E5%85%85%EF%BC%9A"><span class="nav-number">1.3.</span> <span class="nav-text">補充：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#json%E5%A6%82%E4%BD%95%E6%93%B7%E5%8F%96%E6%A0%BC%E5%BC%8F%E5%91%A2"><span class="nav-number">1.4.</span> <span class="nav-text">json如何擷取格式呢?</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">andy</p>
+  <div class="site-description" itemprop="description">記錄一些自學前端的技術文章</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">99</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/chun-wen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chun-wen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:hsbsbbdn@gmail.com" title="E-Mail → mailto:hsbsbbdn@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">andy</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="總字數">137k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">2:04</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://chun-wen.github.io/javascript/20190920/2338827219/";
+    this.page.identifier = "javascript/20190920/2338827219/";
+    this.page.title = "JSON介紹";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://andyderblog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

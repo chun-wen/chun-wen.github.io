@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chun-wen.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="參考資料：卡斯伯七種常見陣列處理方法 JavaScript  陣列方法簡介  在閱讀完卡斯伯老師文章，我將整理文章中處理陣列方法，並搭配自己的練習輔助說明。對了補充說明：陣列處理方式在IE8以前是不支援的！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 陣列處理方法">
+<meta property="og:url" content="http://chun-wen.github.io/javascript/20190830/1975097829/index.html">
+<meta property="og:site_name" content="Andy&#39;s blog">
+<meta property="og:description" content="參考資料：卡斯伯七種常見陣列處理方法 JavaScript  陣列方法簡介  在閱讀完卡斯伯老師文章，我將整理文章中處理陣列方法，並搭配自己的練習輔助說明。對了補充說明：陣列處理方式在IE8以前是不支援的！">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2019-08-30T04:00:47.000Z">
+<meta property="article:modified_time" content="2021-03-23T14:28:44.000Z">
+<meta property="article:author" content="andy">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="array">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://chun-wen.github.io/javascript/20190830/1975097829/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>JavaScript 陣列處理方法 | Andy's blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MVMTVD20GY"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-MVMTVD20GY');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Andy's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">If you always do what you've always done, you'll always get what you've always got.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="http://chun-wen.github.io/javascript/20190830/1975097829/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="andy">
+      <meta itemprop="description" content="記錄一些自學前端的技術文章">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andy's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JavaScript 陣列處理方法
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2019-08-30 12:00:47" itemprop="dateCreated datePublished" datetime="2019-08-30T12:00:47+08:00">2019-08-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2021-03-23 22:28:44" itemprop="dateModified" datetime="2021-03-23T22:28:44+08:00">2021-03-23</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="文章字數">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">文章字數：</span>
+              <span>5.5k</span>
+            </span>
+            <span class="post-meta-item" title="所需閱讀時間">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+              <span>5 分鐘</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>參考資料：<br><a target="_blank" rel="noopener" href="https://wcc723.github.io/javascript/2017/06/29/es6-native-array/">卡斯伯七種常見陣列處理方法</a><br><a target="_blank" rel="noopener" href="https://oranwind.org/post-post-22/"> JavaScript  陣列方法簡介</a></p>
+<hr>
+<p>在閱讀完卡斯伯老師文章，我將整理文章中處理陣列方法，並搭配自己的練習輔助說明。對了補充說明：陣列處理方式在IE8以前是不支援的！</p>
+<span id="more"></span>
+<p>首先，我們先簡單寫一個陣列</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> restaurant=[</span><br><span class="line">  &#123;</span><br><span class="line">    option:<span class="string">&#x27;taiwanese&#x27;</span>,</span><br><span class="line">    price:<span class="number">100</span>,</span><br><span class="line">    location:<span class="string">&#x27;Taipei&#x27;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    option:<span class="string">&#x27;Korean&#x27;</span>,</span><br><span class="line">    price:<span class="number">200</span>,</span><br><span class="line">    location:<span class="string">&#x27;Yilan&#x27;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    option:<span class="string">&#x27;Thailand&#x27;</span>,</span><br><span class="line">    price:<span class="number">300</span>,</span><br><span class="line">    location:<span class="string">&#x27;Taoyuan&#x27;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    option:<span class="string">&#x27;American&#x27;</span>,</span><br><span class="line">    price:<span class="number">450</span>,</span><br><span class="line">    location:<span class="string">&#x27;Taichung&#x27;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    option:<span class="string">&#x27;Italian&#x27;</span>,</span><br><span class="line">    price:<span class="number">900</span>,</span><br><span class="line">    location:<span class="string">&#x27;Kaohsiung&#x27;</span></span><br><span class="line">  &#125;,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<h3 id="forEach（）方法"><a href="#forEach（）方法" class="headerlink" title="forEach（）方法"></a>forEach（）方法</h3><p>簡介：會對陣列每個元素都執行一次，但不會有回傳值</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> forEach = </span><br><span class="line">restaurant.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">item, index, array</span>) </span>&#123;</span><br><span class="line">         <span class="keyword">return</span> item; <span class="comment">//沒有東西</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(forEach) <span class="comment">//undefined</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> forEach = </span><br><span class="line">restaurant.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">item, index, array</span>) </span>&#123;</span><br><span class="line">         item.price = item.price+<span class="number">100</span>;</span><br><span class="line">         <span class="comment">// console.log(item.option)</span></span><br><span class="line">         <span class="comment">// console.log(index)</span></span><br><span class="line">         <span class="comment">// console.log(array)</span></span><br><span class="line">         <span class="built_in">console</span>.log(item.price); <span class="comment">//200 300 400 ....</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>說明：item以這裡為範例的話，代表物件中的值  </p>
+</blockquote>
+<h3 id="map（）方法"><a href="#map（）方法" class="headerlink" title="map（）方法"></a>map（）方法</h3><p>簡介：跟forEach相比多了回傳值，並透過函式回傳值組合成一個新的陣列<br><code>適合將原始的變數運算後重新組合一個新的陣列</code><br>特性：<br>1.如果不回傳則是<code>undefined</code><br>2,回傳數量等於原始陣列長度</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> mapArray=restaurant.map(<span class="function"><span class="keyword">function</span> (<span class="params">item,index,array</span>) </span>&#123; </span><br><span class="line">            <span class="keyword">if</span>( item.price=== <span class="number">900</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;item.option&#125;</span>好貴`</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">              <span class="comment">// return false   //不符合條件的會回傳false</span></span><br><span class="line">              <span class="comment">// return `$&#123;item.option&#125;好便宜`</span></span><br><span class="line">            &#125;</span><br><span class="line">           &#125;);</span><br><span class="line">           <span class="built_in">console</span>.log(mapArray)</span><br><span class="line">說明：<span class="keyword">else</span>&#123;&#125;可以選擇<span class="keyword">return</span> <span class="literal">false</span>或 <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;item.option&#125;</span>好便宜`</span></span><br><span class="line">並用<span class="built_in">console</span>.log(mapArray)觀察結果</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>補充：return 一個值必須使用有一個變數接受資料！  </p>
+</blockquote>
+<h3 id="filter（）方法"><a href="#filter（）方法" class="headerlink" title="filter（）方法"></a>filter（）方法</h3><p>會回傳符合條件的元素，得到一個新陣列。若不符合條件則會得到一個空陣列。適合用在搜尋與過濾資料  <code>會獲得一個陣列</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> filterArray=</span><br><span class="line">restaurant.filter(<span class="function"><span class="keyword">function</span>(<span class="params">item,index,array</span>)</span>&#123;</span><br><span class="line"><span class="keyword">return</span> item.price&gt;=<span class="number">300</span>; <span class="comment">//取得價錢大於300餐廳</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(filterArray) <span class="comment">//(3)[&#123;…&#125;, &#123;…&#125;, &#123;…&#125;]</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="find（）方法"><a href="#find（）方法" class="headerlink" title="find（）方法"></a>find（）方法</h3><p>只會回傳一次值，且是第一個滿足條件的元素值，若沒有則會回傳<code>undefined</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> findArray =</span><br><span class="line">restaurant.find(<span class="function"><span class="keyword">function</span>(<span class="params">item,index,array</span>)</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> item.option===<span class="string">&#x27;Thailand&#x27;</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(findArray) </span><br><span class="line"><span class="comment">//&#123;option: &quot;Thailand&quot;, price: 300, location: &quot;Taoyuan&quot;&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="every（）方法"><a href="#every（）方法" class="headerlink" title="every（）方法"></a>every（）方法</h3><p>用來檢查所有陣列是否符合條件，僅會回傳一個值<code>true</code>或<code>false</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> everyArray = </span><br><span class="line">restaurant.every(<span class="function"><span class="keyword">function</span> (<span class="params">item, index</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> item.price &gt;= <span class="number">100</span></span><br><span class="line">          &#125;);</span><br><span class="line">          <span class="built_in">console</span>.log(everyArray) <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+<h3 id="some（）方法"><a href="#some（）方法" class="headerlink" title="some（）方法"></a>some（）方法</h3><p>都是回傳 true or false，差異僅在 every() 需完全符合，some() 僅需要部分符合。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> someArray = </span><br><span class="line">restaurant.some(<span class="function"><span class="keyword">function</span> (<span class="params">item, index</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> item.price &gt; <span class="number">300</span></span><br><span class="line">          &#125;);</span><br><span class="line">          <span class="built_in">console</span>.log(someArray); <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+<h3 id="reduce（）方法"><a href="#reduce（）方法" class="headerlink" title="reduce（）方法"></a>reduce（）方法</h3><p>將Accumulator及陣列中每項元素（由左至右）傳入回呼函式，<code>並產生一個值</code><br>參數介紹：<br>Accumulator:：<br>前一個參數，如果是第一個陣列的話，值是以另外傳入或初始化的值<br>currentValue: 當前變數<br>currentIndex: 當前索引<br>array: 全部陣列</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> reduceArray=</span><br><span class="line">restaurant.reduce(<span class="function"><span class="keyword">function</span>(<span class="params">accumulator,currentValue,currentIndex,array</span>)</span>&#123;</span><br><span class="line"> <span class="comment">// console.log(accumulator,currentValue,currentIndex,array);</span></span><br><span class="line">            <span class="keyword">return</span> accumulator +currentValue.price</span><br><span class="line">          &#125;,<span class="number">0</span>)</span><br><span class="line"><span class="built_in">console</span>.log(reduceArray); <span class="comment">//累加的值為1950</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>下面內容為文章內容以外，更新一些常用陣列方法</p>
+<h3 id="Sort（）方法"><a href="#Sort（）方法" class="headerlink" title="Sort（）方法"></a>Sort（）方法</h3><p><a target="_blank" rel="noopener" href="https://youtu.be/8JzVwrzkUrM?list=PLEfh-m_KG4dYbxVoYDyT_fmXZHnuKg2Fq&t=1324">Sort影片教學</a> <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/sort">MDN參考資料</a><br>這要用來針對資料進行排序，會return -1、0、1       <code>會回傳一個陣列</code><br>原理說明：<br>預設的排序順序是根據字串的 Unicode 編碼位置（code points）而定。<br>穩定排序：指的是如果比較數值相同，不會調整原始資料順序<br>用法有兩種：<br>1.直接針對資料sort（），通常用在value、數值           =&gt;預設升冪排列<br>2.針對資料進行減法運算（比較推薦使用，如下範例）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> ary=[<span class="number">1</span>,<span class="number">110</span>,<span class="number">23</span>,<span class="number">54</span>]</span><br><span class="line">ary.sort(<span class="function">(<span class="params">a,b</span>)=&gt;</span>a.year-b.year); <span class="comment">// 1,0,-1</span></span><br></pre></td></tr></table></figure>
+<p>補充說明：升冪（以a為比較基準點）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">compare</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (在某排序標準下 a 小於 b) &#123;</span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>;   </span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (在某排序標準下 a 大於 b) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;     </span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// a 必須等於 b</span></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>補充說明：降冪（以b為比較基準點）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">compare</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (在某排序標準下 b 小於 a) &#123;</span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>;   </span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (在某排序標準下 b 大於 a) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;     </span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// b 必須等於 a</span></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>範例（搭配三元運算子）：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">     <span class="keyword">let</span> ans = inventors.sort(<span class="function"><span class="keyword">function</span>(<span class="params">a,b</span>)</span>&#123;</span><br><span class="line">     <span class="keyword">return</span> (a.year &gt; b.year) ? <span class="number">1</span>: (b.year &gt; a.year) ? -<span class="number">1</span>:<span class="number">0</span>           </span><br><span class="line">&#125;)</span><br><span class="line">     <span class="built_in">console</span>.table(ans);</span><br></pre></td></tr></table></figure>
+<h3 id="includes（）"><a href="#includes（）" class="headerlink" title="includes（）"></a>includes（）</h3><p>這個語法是ES7提供，會判斷陣列是否包含特定的元素，並以此來回傳true或false。<br>語法：<code>arr.includes(searchElement[, fromIndex])</code><br>特性：<br>1.當fromIndex為負數，並且超過陣列長度則會搜尋整個陣列<br>2.當fromIndex為正數，並且超過陣列長度則會回傳false<br>3.當fromIndex為負數，但沒有超過陣列長度則會將<code>array.length +fromIndex</code>開始向後搜尋</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> ary =[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line"><span class="built_in">console</span>.log(ary.includes(<span class="number">2</span>))  <span class="comment">//true</span></span><br><span class="line"><span class="built_in">console</span>.log(ary.includes(<span class="number">4</span>))  <span class="comment">//false</span></span><br><span class="line"></span><br><span class="line">[<span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>].includes(<span class="number">3</span>, -<span class="number">3</span>);     <span class="comment">//true</span></span><br><span class="line">[<span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>].includes(<span class="number">3</span>, -<span class="number">2</span>);     <span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+<h3 id="indexOf（）"><a href="#indexOf（）" class="headerlink" title="indexOf（）"></a>indexOf（）</h3><p>會回傳給定元素於陣列中<code>第一個被找到之索引</code>，若不存在於陣列中則回傳 -1。 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf">MDN介紹</a><br>語法：<br><code>arr.indexOf(searchElement[, fromIndex])</code><br>特點：<br>1.fromIndex為正數，則會從左到右開始搜尋<br>2.fromIndex為負數，則會從陣列尾端開始搜尋，會搜尋到最後一個的索引值為 -1</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> array = [<span class="number">2</span>, <span class="number">9</span>, <span class="number">9</span>];</span><br><span class="line">array.indexOf(<span class="number">2</span>);     <span class="comment">// 0</span></span><br><span class="line">array.indexOf(<span class="number">7</span>);     <span class="comment">// -1</span></span><br><span class="line">array.indexOf(<span class="number">9</span>, <span class="number">2</span>);  <span class="comment">// 2</span></span><br><span class="line">array.indexOf(<span class="number">2</span>, -<span class="number">1</span>); <span class="comment">// -1   出現-1表示搜尋不存在</span></span><br><span class="line">array.indexOf(<span class="number">2</span>, -<span class="number">3</span>); <span class="comment">// 0</span></span><br></pre></td></tr></table></figure>
+<h3 id="slice（）"><a href="#slice（）" class="headerlink" title="slice（）"></a>slice（）</h3><p>會回傳一個新陣列物件，為原陣列選擇之 begin 至 end（不含 end）部分的淺拷貝（shallow copy）。而原本的陣列將不會被修改。 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/slice">MDN</a><br>語法：<br><code>arr.slice([begin[, end]])</code><br>特點：<br>Begin : 預設起始索引為0，若為負數則從最末端開始<br>End：預設起始索引為0，若為負數則從最末端開始<br>舉例來說，slice(1,4)提取了陣列中第二個元素至第四個元素前為止（元素索引 1、2 以及 3）來拷貝。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fruits = [<span class="string">&#x27;Banana&#x27;</span>, <span class="string">&#x27;Orange&#x27;</span>, <span class="string">&#x27;Lemon&#x27;</span>, <span class="string">&#x27;Apple&#x27;</span>, <span class="string">&#x27;Mango&#x27;</span>];</span><br><span class="line"><span class="keyword">var</span> slice =fruits.slice(<span class="number">0</span>,<span class="number">2</span>). <span class="comment">//[&quot;Banana&quot;,&quot;Orange&quot;]</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="splice（）"><a href="#splice（）" class="headerlink" title="splice（）"></a>splice（）</h3><p>藉由刪除既有元素並／或加入新元素來改變一個陣列的內容。會回傳一個陣列<br><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/splice">MDN</a><br>語法：<br><code>array.splice(start[, deleteCount[, item1[, item2[, …]]]])</code><br>特點：<br>Start 增加/刪除項目的位置，負數代表從後方算起。<br>deleteCount 刪除的個數，如為0或沒有填寫則不會刪除。<br>Item… 添加的新項目。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myFish = [<span class="string">&#x27;angel&#x27;</span>, <span class="string">&#x27;clown&#x27;</span>, <span class="string">&#x27;mandarin&#x27;</span>, <span class="string">&#x27;sturgeon&#x27;</span>];</span><br><span class="line"><span class="keyword">var</span> removed = myFish.splice(<span class="number">1</span>,<span class="number">2</span>,<span class="string">&#x27;chunwen&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(myFish)   <span class="comment">//[&quot;angel&quot;, &quot;chunwen&quot;, &quot;sturgeon&quot;]</span></span><br><span class="line"><span class="built_in">console</span>.log(removed)  <span class="comment">//[&quot;clown&quot;, &quot;mandarin&quot;]</span></span><br></pre></td></tr></table></figure>
+<h3 id="join（）"><a href="#join（）" class="headerlink" title="join（）"></a>join（）</h3><p>將所有的元素連接、合併成一個字串，並回傳此字串 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/join">MDN</a><br>語法：<br><code>arr.join([separator])</code><br>特點：<br>Sperator若未傳入參數預設是用逗點隔開<code>,</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = [<span class="string">&#x27;Wind&#x27;</span>, <span class="string">&#x27;Rain&#x27;</span>, <span class="string">&#x27;Fire&#x27;</span>];</span><br><span class="line">a.join();      <span class="comment">// &#x27;Wind,Rain,Fire&#x27;</span></span><br><span class="line">a.join(<span class="string">&#x27;, &#x27;</span>);  <span class="comment">// &#x27;Wind, Rain, Fire&#x27;</span></span><br><span class="line">a.join(<span class="string">&#x27; + &#x27;</span>); <span class="comment">// &#x27;Wind + Rain + Fire&#x27;</span></span><br><span class="line">a.join(<span class="string">&#x27;&#x27;</span>);    <span class="comment">// &#x27;WindRainFire&#x27;</span></span><br></pre></td></tr></table></figure>
+<h3 id="reverse（）"><a href="#reverse（）" class="headerlink" title="reverse（）"></a>reverse（）</h3><p>反轉陣列，會改變原本陣列內容！ <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/reverse">MDN</a><br>語法：<br><code>a.reverse()</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> food=[<span class="string">&#x27;apple&#x27;</span>,<span class="string">&#x27;book&#x27;</span>,<span class="string">&#x27;cat&#x27;</span>];</span><br><span class="line"><span class="keyword">var</span> reverseFood = food.reverse();</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(food)         <span class="comment">//[&quot;cat&quot;, &quot;book&quot;, &quot;apple&quot;]</span></span><br><span class="line"><span class="built_in">console</span>.log(reverseFood) <span class="comment">//[&quot;cat&quot;, &quot;book&quot;, &quot;apple&quot;]</span></span><br></pre></td></tr></table></figure>
+
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+              <a href="/tags/array/" rel="tag"># array</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/vue/20190830/67885936/" rel="prev" title="Vue 框架與開發環境介紹">
+      <i class="fa fa-chevron-left"></i> Vue 框架與開發環境介紹
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/vue/20190902/1331664425/" rel="next" title="Vue指令V-for介紹">
+      Vue指令V-for介紹 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#forEach%EF%BC%88%EF%BC%89%E6%96%B9%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">forEach（）方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#map%EF%BC%88%EF%BC%89%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">map（）方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#filter%EF%BC%88%EF%BC%89%E6%96%B9%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">filter（）方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#find%EF%BC%88%EF%BC%89%E6%96%B9%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">find（）方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#every%EF%BC%88%EF%BC%89%E6%96%B9%E6%B3%95"><span class="nav-number">5.</span> <span class="nav-text">every（）方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#some%EF%BC%88%EF%BC%89%E6%96%B9%E6%B3%95"><span class="nav-number">6.</span> <span class="nav-text">some（）方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reduce%EF%BC%88%EF%BC%89%E6%96%B9%E6%B3%95"><span class="nav-number">7.</span> <span class="nav-text">reduce（）方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sort%EF%BC%88%EF%BC%89%E6%96%B9%E6%B3%95"><span class="nav-number">8.</span> <span class="nav-text">Sort（）方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#includes%EF%BC%88%EF%BC%89"><span class="nav-number">9.</span> <span class="nav-text">includes（）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#indexOf%EF%BC%88%EF%BC%89"><span class="nav-number">10.</span> <span class="nav-text">indexOf（）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#slice%EF%BC%88%EF%BC%89"><span class="nav-number">11.</span> <span class="nav-text">slice（）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#splice%EF%BC%88%EF%BC%89"><span class="nav-number">12.</span> <span class="nav-text">splice（）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#join%EF%BC%88%EF%BC%89"><span class="nav-number">13.</span> <span class="nav-text">join（）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reverse%EF%BC%88%EF%BC%89"><span class="nav-number">14.</span> <span class="nav-text">reverse（）</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">andy</p>
+  <div class="site-description" itemprop="description">記錄一些自學前端的技術文章</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">99</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/chun-wen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chun-wen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:hsbsbbdn@gmail.com" title="E-Mail → mailto:hsbsbbdn@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">andy</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="總字數">137k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">2:04</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://chun-wen.github.io/javascript/20190830/1975097829/";
+    this.page.identifier = "javascript/20190830/1975097829/";
+    this.page.title = "JavaScript 陣列處理方法";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://andyderblog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

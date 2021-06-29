@@ -78,6 +78,7 @@ category_map:
   開發流程: developProccess
   商業思維: business
 tag_map:
+  Array: array
 
 # Date / Time format
 ## Hexo uses Moment.js to parse and display date

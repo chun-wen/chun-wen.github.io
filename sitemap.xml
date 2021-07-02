@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://chun-wen.github.io/javascript/20210702/1400660814/</loc>
+    
+    <lastmod>2021-07-02</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://chun-wen.github.io/javascript/react/20210701/2015230267/</loc>
+    
+    <lastmod>2021-07-02</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://chun-wen.github.io/javascript/20210629/2009783409/</loc>
     
     <lastmod>2021-06-30</lastmod>
@@ -107,35 +121,7 @@
   </url>
   
   <url>
-    <loc>http://chun-wen.github.io/javascript/20201004/1235948296/</loc>
-    
-    <lastmod>2021-03-23</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://chun-wen.github.io/javascript/20190914/324123510/</loc>
-    
-    <lastmod>2021-03-23</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://chun-wen.github.io/javascript/20190913/2391042330/</loc>
-    
-    <lastmod>2021-03-23</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://chun-wen.github.io/javascript/20190920/2338827219/</loc>
-    
-    <lastmod>2021-03-23</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://chun-wen.github.io/vue/20190920/4197762796/</loc>
+    <loc>http://chun-wen.github.io/javascript/20201013/581564741/</loc>
     
     <lastmod>2021-03-23</lastmod>
     
@@ -143,6 +129,13 @@
   
   <url>
     <loc>http://chun-wen.github.io/vue/20190921/1684315816/</loc>
+    
+    <lastmod>2021-03-23</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://chun-wen.github.io/vue/20190920/4197762796/</loc>
     
     <lastmod>2021-03-23</lastmod>
     
@@ -191,13 +184,6 @@
   </url>
   
   <url>
-    <loc>http://chun-wen.github.io/vue/20191001/485547154/</loc>
-    
-    <lastmod>2021-03-23</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://chun-wen.github.io/vue/20191002/1526401699/</loc>
     
     <lastmod>2021-03-23</lastmod>
@@ -205,7 +191,7 @@
   </url>
   
   <url>
-    <loc>http://chun-wen.github.io/vue/20191003/89165536/</loc>
+    <loc>http://chun-wen.github.io/vue/20191001/485547154/</loc>
     
     <lastmod>2021-03-23</lastmod>
     
@@ -219,14 +205,14 @@
   </url>
   
   <url>
-    <loc>http://chun-wen.github.io/vue/20191005/3021072490/</loc>
+    <loc>http://chun-wen.github.io/vue/20191003/89165536/</loc>
     
     <lastmod>2021-03-23</lastmod>
     
   </url>
   
   <url>
-    <loc>http://chun-wen.github.io/vue/20191006/1846504743/</loc>
+    <loc>http://chun-wen.github.io/vue/20191005/3021072490/</loc>
     
     <lastmod>2021-03-23</lastmod>
     
@@ -240,7 +226,7 @@
   </url>
   
   <url>
-    <loc>http://chun-wen.github.io/vue/20191008/3284328793/</loc>
+    <loc>http://chun-wen.github.io/vue/20191006/1846504743/</loc>
     
     <lastmod>2021-03-23</lastmod>
     
@@ -248,6 +234,13 @@
   
   <url>
     <loc>http://chun-wen.github.io/vue/20191009/36751447/</loc>
+    
+    <lastmod>2021-03-23</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://chun-wen.github.io/vue/20191008/3284328793/</loc>
     
     <lastmod>2021-03-23</lastmod>
     
@@ -282,13 +275,6 @@
   </url>
   
   <url>
-    <loc>http://chun-wen.github.io/javascript/20190830/1975097829/</loc>
-    
-    <lastmod>2021-03-23</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://chun-wen.github.io/design/20200921/4011424401/</loc>
     
     <lastmod>2021-03-23</lastmod>
@@ -296,7 +282,7 @@
   </url>
   
   <url>
-    <loc>http://chun-wen.github.io/javascript/20200922/1670271006/</loc>
+    <loc>http://chun-wen.github.io/javascript/20190830/1975097829/</loc>
     
     <lastmod>2021-03-23</lastmod>
     
@@ -310,14 +296,14 @@
   </url>
   
   <url>
-    <loc>http://chun-wen.github.io/design/20200924/4208839988/</loc>
+    <loc>http://chun-wen.github.io/javascript/20200922/1670271006/</loc>
     
     <lastmod>2021-03-23</lastmod>
     
   </url>
   
   <url>
-    <loc>http://chun-wen.github.io/design/20200925/133919869/</loc>
+    <loc>http://chun-wen.github.io/design/20200924/4208839988/</loc>
     
     <lastmod>2021-03-23</lastmod>
     
@@ -331,7 +317,7 @@
   </url>
   
   <url>
-    <loc>http://chun-wen.github.io/web/20200928/3096729793/</loc>
+    <loc>http://chun-wen.github.io/design/20200925/133919869/</loc>
     
     <lastmod>2021-03-23</lastmod>
     
@@ -339,6 +325,13 @@
   
   <url>
     <loc>http://chun-wen.github.io/web/20200929/2715429133/</loc>
+    
+    <lastmod>2021-03-23</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://chun-wen.github.io/web/20200928/3096729793/</loc>
     
     <lastmod>2021-03-23</lastmod>
     
@@ -359,7 +352,7 @@
   </url>
   
   <url>
-    <loc>http://chun-wen.github.io/javascript/20190826/473544001/</loc>
+    <loc>http://chun-wen.github.io/javascript/20201004/1235948296/</loc>
     
     <lastmod>2021-03-23</lastmod>
     
@@ -373,21 +366,14 @@
   </url>
   
   <url>
+    <loc>http://chun-wen.github.io/javascript/20190826/473544001/</loc>
+    
+    <lastmod>2021-03-23</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://chun-wen.github.io/javascript/20201007/2795520726/</loc>
-    
-    <lastmod>2021-03-23</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://chun-wen.github.io/javascript/20201013/581564741/</loc>
-    
-    <lastmod>2021-03-23</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://chun-wen.github.io/csharp/20201014/2566354860/</loc>
     
     <lastmod>2021-03-23</lastmod>
     
@@ -401,14 +387,14 @@
   </url>
   
   <url>
-    <loc>http://chun-wen.github.io/csharp/20201020/4080637490/</loc>
+    <loc>http://chun-wen.github.io/csharp/20201014/2566354860/</loc>
     
     <lastmod>2021-03-23</lastmod>
     
   </url>
   
   <url>
-    <loc>http://chun-wen.github.io/csharp/20201023/4037847477/</loc>
+    <loc>http://chun-wen.github.io/csharp/20201020/4080637490/</loc>
     
     <lastmod>2021-03-23</lastmod>
     
@@ -422,7 +408,7 @@
   </url>
   
   <url>
-    <loc>http://chun-wen.github.io/csharp/20201027/3840182822/</loc>
+    <loc>http://chun-wen.github.io/csharp/20201023/4037847477/</loc>
     
     <lastmod>2021-03-23</lastmod>
     
@@ -436,7 +422,7 @@
   </url>
   
   <url>
-    <loc>http://chun-wen.github.io/csharp/20201102/3612700585/</loc>
+    <loc>http://chun-wen.github.io/csharp/20201027/3840182822/</loc>
     
     <lastmod>2021-03-23</lastmod>
     
@@ -450,14 +436,14 @@
   </url>
   
   <url>
-    <loc>http://chun-wen.github.io/csharp/20201109/3558058750/</loc>
+    <loc>http://chun-wen.github.io/csharp/20201102/3612700585/</loc>
     
     <lastmod>2021-03-23</lastmod>
     
   </url>
   
   <url>
-    <loc>http://chun-wen.github.io/csharp/20201110/2499837370/</loc>
+    <loc>http://chun-wen.github.io/csharp/20201109/3558058750/</loc>
     
     <lastmod>2021-03-23</lastmod>
     
@@ -471,7 +457,7 @@
   </url>
   
   <url>
-    <loc>http://chun-wen.github.io/csharp/20201113/1830728438/</loc>
+    <loc>http://chun-wen.github.io/csharp/20201110/2499837370/</loc>
     
     <lastmod>2021-03-23</lastmod>
     
@@ -479,6 +465,13 @@
   
   <url>
     <loc>http://chun-wen.github.io/csharp/20201115/954422930/</loc>
+    
+    <lastmod>2021-03-23</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://chun-wen.github.io/csharp/20201113/1830728438/</loc>
     
     <lastmod>2021-03-23</lastmod>
     
@@ -499,6 +492,13 @@
   </url>
   
   <url>
+    <loc>http://chun-wen.github.io/javascript/20190920/2338827219/</loc>
+    
+    <lastmod>2021-03-23</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://chun-wen.github.io/csharp/20201126/437291380/</loc>
     
     <lastmod>2021-03-23</lastmod>
@@ -506,14 +506,14 @@
   </url>
   
   <url>
-    <loc>http://chun-wen.github.io/csharp/20201206/610857498/</loc>
+    <loc>http://chun-wen.github.io/csharp/20201201/3321559859/</loc>
     
     <lastmod>2021-03-23</lastmod>
     
   </url>
   
   <url>
-    <loc>http://chun-wen.github.io/csharp/20201201/3321559859/</loc>
+    <loc>http://chun-wen.github.io/csharp/20201206/610857498/</loc>
     
     <lastmod>2021-03-23</lastmod>
     
@@ -569,13 +569,6 @@
   </url>
   
   <url>
-    <loc>http://chun-wen.github.io/vue/20190902/3809821719/</loc>
-    
-    <lastmod>2021-03-23</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://chun-wen.github.io/learnexp/business/20210201/2245458834/</loc>
     
     <lastmod>2021-03-23</lastmod>
@@ -590,7 +583,7 @@
   </url>
   
   <url>
-    <loc>http://chun-wen.github.io/csharp/20210209/2408193491/</loc>
+    <loc>http://chun-wen.github.io/vue/20190902/3809821719/</loc>
     
     <lastmod>2021-03-23</lastmod>
     
@@ -604,7 +597,7 @@
   </url>
   
   <url>
-    <loc>http://chun-wen.github.io/csharp/20210219/1596813939/</loc>
+    <loc>http://chun-wen.github.io/csharp/20210209/2408193491/</loc>
     
     <lastmod>2021-03-23</lastmod>
     
@@ -688,6 +681,20 @@
   </url>
   
   <url>
+    <loc>http://chun-wen.github.io/javascript/20190911/688811109/</loc>
+    
+    <lastmod>2021-03-23</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://chun-wen.github.io/javascript/20190914/324123510/</loc>
+    
+    <lastmod>2021-03-23</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://chun-wen.github.io/vue/20190910/1942507300/</loc>
     
     <lastmod>2021-03-23</lastmod>
@@ -695,7 +702,14 @@
   </url>
   
   <url>
-    <loc>http://chun-wen.github.io/javascript/20190911/688811109/</loc>
+    <loc>http://chun-wen.github.io/csharp/20210219/1596813939/</loc>
+    
+    <lastmod>2021-03-23</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://chun-wen.github.io/javascript/20190913/2391042330/</loc>
     
     <lastmod>2021-03-23</lastmod>
     
@@ -718,7 +732,7 @@
 
   <url>
     <loc>http://chun-wen.github.io/</loc>
-    <lastmod>2021-06-30</lastmod>
+    <lastmod>2021-07-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -726,217 +740,224 @@
   
   <url>
     <loc>http://chun-wen.github.io/tags/JavaScript30%E5%A4%A9%E6%8C%91%E6%88%B0/</loc>
-    <lastmod>2021-06-30</lastmod>
+    <lastmod>2021-07-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://chun-wen.github.io/tags/JavaScript/</loc>
-    <lastmod>2021-06-30</lastmod>
+    <lastmod>2021-07-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://chun-wen.github.io/tags/Hexo/</loc>
-    <lastmod>2021-06-30</lastmod>
+    <lastmod>2021-07-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://chun-wen.github.io/tags/array/</loc>
-    <lastmod>2021-06-30</lastmod>
+    <lastmod>2021-07-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://chun-wen.github.io/tags/vue/</loc>
-    <lastmod>2021-06-30</lastmod>
+    <lastmod>2021-07-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://chun-wen.github.io/tags/ironman/</loc>
-    <lastmod>2021-06-30</lastmod>
+    <lastmod>2021-07-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://chun-wen.github.io/tags/Flex/</loc>
-    <lastmod>2021-06-30</lastmod>
+    <lastmod>2021-07-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://chun-wen.github.io/tags/Css/</loc>
-    <lastmod>2021-06-30</lastmod>
+    <lastmod>2021-07-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://chun-wen.github.io/tags/flex/</loc>
-    <lastmod>2021-06-30</lastmod>
+    <lastmod>2021-07-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://chun-wen.github.io/tags/css/</loc>
-    <lastmod>2021-06-30</lastmod>
+    <lastmod>2021-07-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://chun-wen.github.io/tags/transition/</loc>
-    <lastmod>2021-06-30</lastmod>
+    <lastmod>2021-07-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://chun-wen.github.io/tags/SASS/</loc>
-    <lastmod>2021-06-30</lastmod>
+    <lastmod>2021-07-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://chun-wen.github.io/tags/SCSS/</loc>
-    <lastmod>2021-06-30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://chun-wen.github.io/tags/JSON/</loc>
-    <lastmod>2021-06-30</lastmod>
+    <lastmod>2021-07-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://chun-wen.github.io/tags/component/</loc>
-    <lastmod>2021-06-30</lastmod>
+    <lastmod>2021-07-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://chun-wen.github.io/tags/vueCLI/</loc>
-    <lastmod>2021-06-30</lastmod>
+    <lastmod>2021-07-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://chun-wen.github.io/tags/vuex/</loc>
-    <lastmod>2021-06-30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://chun-wen.github.io/tags/es6/</loc>
-    <lastmod>2021-06-30</lastmod>
+    <lastmod>2021-07-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://chun-wen.github.io/tags/UI/</loc>
-    <lastmod>2021-06-30</lastmod>
+    <lastmod>2021-07-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://chun-wen.github.io/tags/UX/</loc>
-    <lastmod>2021-06-30</lastmod>
+    <lastmod>2021-07-02</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://chun-wen.github.io/tags/es6/</loc>
+    <lastmod>2021-07-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://chun-wen.github.io/tags/Chrome/</loc>
-    <lastmod>2021-06-30</lastmod>
+    <lastmod>2021-07-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://chun-wen.github.io/tags/chrome/</loc>
-    <lastmod>2021-06-30</lastmod>
+    <lastmod>2021-07-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://chun-wen.github.io/tags/debug/</loc>
-    <lastmod>2021-06-30</lastmod>
+    <lastmod>2021-07-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://chun-wen.github.io/tags/AJAX/</loc>
-    <lastmod>2021-06-30</lastmod>
+    <lastmod>2021-07-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://chun-wen.github.io/tags/C/</loc>
-    <lastmod>2021-06-30</lastmod>
+    <lastmod>2021-07-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://chun-wen.github.io/tags/Asp-net/</loc>
-    <lastmod>2021-06-30</lastmod>
+    <lastmod>2021-07-02</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://chun-wen.github.io/tags/JSON/</loc>
+    <lastmod>2021-07-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://chun-wen.github.io/tags/SQL/</loc>
-    <lastmod>2021-06-30</lastmod>
+    <lastmod>2021-07-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://chun-wen.github.io/tags/Kendo/</loc>
-    <lastmod>2021-06-30</lastmod>
+    <lastmod>2021-07-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://chun-wen.github.io/tags/%E5%95%86%E6%A5%AD%E6%80%9D%E7%B6%AD/</loc>
-    <lastmod>2021-06-30</lastmod>
+    <lastmod>2021-07-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://chun-wen.github.io/tags/Kit/</loc>
-    <lastmod>2021-06-30</lastmod>
+    <lastmod>2021-07-02</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://chun-wen.github.io/tags/React/</loc>
+    <lastmod>2021-07-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://chun-wen.github.io/tags/%E5%85%AD%E8%A7%92%E5%AD%B8%E9%99%A2/</loc>
-    <lastmod>2021-06-30</lastmod>
+    <lastmod>2021-07-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
@@ -945,98 +966,105 @@
   
   <url>
     <loc>http://chun-wen.github.io/categories/javascript/</loc>
-    <lastmod>2021-06-30</lastmod>
+    <lastmod>2021-07-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://chun-wen.github.io/categories/hexo/</loc>
-    <lastmod>2021-06-30</lastmod>
+    <lastmod>2021-07-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://chun-wen.github.io/categories/vue/</loc>
-    <lastmod>2021-06-30</lastmod>
+    <lastmod>2021-07-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://chun-wen.github.io/categories/css/</loc>
-    <lastmod>2021-06-30</lastmod>
+    <lastmod>2021-07-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://chun-wen.github.io/categories/design/</loc>
-    <lastmod>2021-06-30</lastmod>
+    <lastmod>2021-07-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://chun-wen.github.io/categories/web/</loc>
-    <lastmod>2021-06-30</lastmod>
+    <lastmod>2021-07-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://chun-wen.github.io/categories/csharp/</loc>
-    <lastmod>2021-06-30</lastmod>
+    <lastmod>2021-07-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://chun-wen.github.io/categories/sql/</loc>
-    <lastmod>2021-06-30</lastmod>
+    <lastmod>2021-07-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://chun-wen.github.io/categories/kendo/</loc>
-    <lastmod>2021-06-30</lastmod>
+    <lastmod>2021-07-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://chun-wen.github.io/categories/learnexp/</loc>
-    <lastmod>2021-06-30</lastmod>
+    <lastmod>2021-07-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://chun-wen.github.io/categories/learnexp/business/</loc>
-    <lastmod>2021-06-30</lastmod>
+    <lastmod>2021-07-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://chun-wen.github.io/categories/javascript/CleanCode/</loc>
-    <lastmod>2021-06-30</lastmod>
+    <lastmod>2021-07-02</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://chun-wen.github.io/categories/javascript/react/</loc>
+    <lastmod>2021-07-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://chun-wen.github.io/categories/developProccess/</loc>
-    <lastmod>2021-06-30</lastmod>
+    <lastmod>2021-07-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://chun-wen.github.io/categories/developProccess/hexschool/</loc>
-    <lastmod>2021-06-30</lastmod>
+    <lastmod>2021-07-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>

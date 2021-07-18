@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chun-wen.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="前言：目前前端主要都是透過 AJAX 方法來非同步取得遠端資料，像是 jQuery、Fetch 都是基於 AJAX 概念下，所開發的 API。而我們今天要介紹的 Promise 有下面幾點特色。  解決了過往不同寫法的差異(如：$.ajax) 解決了過於巢狀的寫法。使整體結構更優於管理。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2021-07-18-[筆記]Promise 完整介紹">
+<meta property="og:url" content="http://chun-wen.github.io/javascript/20210718/1061363982/index.html">
+<meta property="og:site_name" content="Andy&#39;s blog">
+<meta property="og:description" content="前言：目前前端主要都是透過 AJAX 方法來非同步取得遠端資料，像是 jQuery、Fetch 都是基於 AJAX 概念下，所開發的 API。而我們今天要介紹的 Promise 有下面幾點特色。  解決了過往不同寫法的差異(如：$.ajax) 解決了過於巢狀的寫法。使整體結構更優於管理。">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/QpybxzX.png">
+<meta property="og:image" content="https://i.imgur.com/i0n9Yfz.png">
+<meta property="article:published_time" content="2021-07-18T10:23:44.839Z">
+<meta property="article:modified_time" content="2021-07-18T16:43:22.589Z">
+<meta property="article:author" content="andy">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/QpybxzX.png">
+
+<link rel="canonical" href="http://chun-wen.github.io/javascript/20210718/1061363982/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>2021-07-18-[筆記]Promise 完整介紹 | Andy's blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MVMTVD20GY"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-MVMTVD20GY');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Andy's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">If you always do what you've always done, you'll always get what you've always got.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="http://chun-wen.github.io/javascript/20210718/1061363982/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="andy">
+      <meta itemprop="description" content="記錄一些自學前端的技術文章">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Andy's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2021-07-18-[筆記]Promise 完整介紹
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2021-07-18 18:23:44" itemprop="dateCreated datePublished" datetime="2021-07-18T18:23:44+08:00">2021-07-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2021-07-19 00:43:22" itemprop="dateModified" datetime="2021-07-19T00:43:22+08:00">2021-07-19</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="文章字數">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">文章字數：</span>
+              <span>3.2k</span>
+            </span>
+            <span class="post-meta-item" title="所需閱讀時間">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+              <span>3 分鐘</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>前言：<br>目前前端主要都是透過 <code>AJAX</code> 方法來非同步取得遠端資料，像是 jQuery、Fetch 都是基於 AJAX 概念下，所開發的 <code>API</code>。而我們今天要介紹的 Promise 有下面幾點特色。</p>
+<ol>
+<li>解決了過往不同寫法的差異(如：<code>$.ajax</code>)</li>
+<li>解決了過於巢狀的寫法。使整體結構更優於管理。<span id="more"></span>
+</li>
+</ol>
+<hr>
+<p>參考資料：<br><a target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/articles/10208564">Day23-非同步實作篇 II！Promise</a><br><a target="_blank" rel="noopener" href="https://wcc723.github.io/development/2020/02/16/all-new-promise/">JavaScript Promise 全介紹</a><br><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise MDN</a></p>
+<hr>
+<h3 id="歷史"><a href="#歷史" class="headerlink" title="歷史"></a>歷史</h3><p>開始前，我想先介紹一下在還沒有 <code>$.ajax</code> 這個 <code>API</code> 出現前，網頁該如何遠端取得資料呢？<br>我們這時候就必須透過建立 <code>XMLHttpRequest</code> 物件，來進行資料取得。方法如下：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1. 建立物件</span></span><br><span class="line"><span class="keyword">var</span> http = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line"></span><br><span class="line"><span class="comment">//2.發出請求</span></span><br><span class="line">http.open(<span class="string">&quot;get&quot;</span>,<span class="string">&#x27;https://randomuser.me/api/&#x27;</span>,<span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//3.判斷回傳狀態</span></span><br><span class="line">http.onreadystatechange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">   <span class="keyword">if</span>(<span class="built_in">this</span>.status === <span class="number">200</span>)&#123; </span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">&quot;成功&quot;</span>) </span><br><span class="line">   &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//4.送出</span></span><br><span class="line">http.send();</span><br></pre></td></tr></table></figure>
+<p>寫完，我們可以發現，這樣的寫法在管理上其實非常不方便，也會讓程式碼不易閱讀。進而有了 <code>$.ajax</code> 這個 API 產生。</p>
+<p>但是我們在使用過後，其實發現 <code>jQuery</code> 方法雖然解決上述問題，但對於過於巢狀根同步處理所有非同步行為上還是有一定難度。</p>
+<p>進而有了 Promise 物件的產生，讓我們可以更方便實作 <code>AJAX</code> 。</p>
+<h3 id="簡介"><a href="#簡介" class="headerlink" title="簡介"></a>簡介</h3><p>Promise 本身是用來改善 JavaScript 非同步的語法結構。而<code>Async、Await</code>則是基於Promise語法讓非同步的語法的結構類似於 <code>同步語言</code>，更易讀且好管理。</p>
+<h3 id="結構"><a href="#結構" class="headerlink" title="結構"></a>結構</h3><p>Promise 本身是一個建構函式，我們可以透過<code>console.log</code>看到下列四種方式</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Promise</span>.all() <span class="comment">//傳入陣列</span></span><br><span class="line"><span class="built_in">Promise</span>.race() <span class="comment">//傳入陣列</span></span><br><span class="line"><span class="built_in">Promise</span>.resolve()</span><br><span class="line"><span class="built_in">Promise</span>.reject()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.imgur.com/QpybxzX.png" alt="圖片"></p>
+<p>Promise 建構函式 new 出的物件，則可以使用其中的原型方法（在 prototype 內），其中就包含 then、catch、finally，這些方法則必須在新產生的物件下才能呼叫。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> AJAJ = <span class="keyword">new</span> <span class="built_in">Promise</span>( <span class="function">() =&gt;</span> &#123; &#125;);</span><br><span class="line">AJAJ.then();  <span class="comment">//Promise回傳正確</span></span><br><span class="line">AJAJ.catch(); <span class="comment">//Promise回傳錯誤</span></span><br><span class="line">AJAJ.finally();  <span class="comment">//非同步執行完畢（無論是否正確完成）</span></span><br></pre></td></tr></table></figure>
+
+<p>此外，建立新的建構函式時，必須傳入<code>一個函式作為參數（executor function）</code>，此函式的參數包含 <code>resolve, reject</code>，這兩個方法分別代表成功與失敗的回傳結果，特別注意這兩個僅能回傳其中之一，回傳後表示此 Promise 事件結束。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> AJAJ = <span class="keyword">new</span> <span class="built_in">Promise</span>( <span class="function"><span class="keyword">function</span>(<span class="params">resolve,reject</span>)</span>&#123;</span><br><span class="line">    resolve(); <span class="comment">//回傳成功</span></span><br><span class="line">    reject();  <span class="comment">//回傳失敗</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="狀態"><a href="#狀態" class="headerlink" title="狀態"></a>狀態</h3><ul>
+<li>Pending -&gt; 尚未得到結果</li>
+<li>Resolved：事件已經執行完畢且成功操作，回傳 <code>resolve</code> 的結果</li>
+<li>Rejected：事件已經執行完畢但操作失敗，回傳 <code>rejected</code> 的結果</li>
+</ul>
+<p><img src="https://i.imgur.com/i0n9Yfz.png" alt="圖片"><br>圖片來源：卡斯伯文章</p>
+<p>接著，不論成功或失敗我們可以透過<code>then</code>、<code>catch</code> 、<code>finally</code>來取得結果。</p>
+<p>補充一下：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">在 .then(onFulfilled, onRejected)中可帶入兩個回呼函式 ，只是實務上我們很少這樣做就是</span><br><span class="line">onFulfilled：執行成功的函式，所帶入參數表示 <span class="built_in">Promise</span> 函式中 resolve 所帶入的值。</span><br><span class="line">onRejected：執行失敗的函式，帶入參數表示 <span class="built_in">Promise</span> 函式中 reject 所帶入的值。</span><br><span class="line"></span><br><span class="line"><span class="comment">//寫法一，在 then 鏈結中加入兩個 callback Function </span></span><br><span class="line">promise().then(<span class="function">(<span class="params">success</span>) =&gt;</span> &#123;</span><br><span class="line">   <span class="built_in">console</span>.log(<span class="string">&#x27;success&#x27;</span>)</span><br><span class="line">&#125;, <span class="function">(<span class="params">fail</span>) =&gt;</span> &#123;</span><br><span class="line">   <span class="built_in">console</span>.log(<span class="string">&#x27;fail&#x27;</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//寫法二</span></span><br><span class="line">promise()</span><br><span class="line">.then(<span class="function"><span class="params">success</span> =&gt;</span> &#123;</span><br><span class="line">   <span class="built_in">console</span>.log(<span class="string">&#x27;success&#x27;</span>)</span><br><span class="line">&#125;)</span><br><span class="line">.catch(<span class="function"><span class="params">fail</span> =&gt;</span> &#123;</span><br><span class="line">   <span class="built_in">console</span>.log(<span class="string">&#x27;fail&#x27;</span>)</span><br><span class="line">&#125;)</span><br><span class="line">.finally(<span class="function"><span class="params">last</span> =&gt;</span>&#123;</span><br><span class="line">   <span class="built_in">console</span>.log(<span class="string">&#x27;最終結果&#x27;</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="實作"><a href="#實作" class="headerlink" title="實作"></a>實作</h3><p>要將一個觀念熟記，自己動手寫一遍是最恰當的。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 創建自己 promise</span></span><br><span class="line"><span class="keyword">let</span> <span class="built_in">Promise</span> = <span class="keyword">new</span> <span class="built_in">Promise</span>(); </span><br><span class="line"><span class="comment">// 這樣撰寫，會出現Uncaught TypeError: Promise resolve undefined is not a function</span></span><br><span class="line"><span class="comment">// 因為我們在建立 Promise 實體時必須接一個 callback Function</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//  2. Promise 有三種狀態：pending、fulfilled、reject</span></span><br><span class="line"><span class="comment">//  3. 註記：回傳狀態只會有一種，resolve 或 reject</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> newPromise = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    resolve(<span class="string">&quot;success&quot;</span>);</span><br><span class="line">    <span class="comment">//reject(&quot;fail&quot;);</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 4. Promise 大部分都是透過 then 接受成功結果， reject 接受回傳失敗</span></span><br><span class="line"><span class="comment">// ，但其實我們也可以在 then 裡面接受失敗結果喔，只是通常我們不會這樣做就是</span></span><br><span class="line">newPromise</span><br><span class="line">    .then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="number">1</span>, res);</span><br><span class="line">    &#125;).catch(<span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(error);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.dir(newPromise);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">chainPromise</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (num) &#123;</span><br><span class="line">                resolve(<span class="string">`<span class="subst">$&#123;num&#125;</span> success`</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                reject(<span class="string">`<span class="subst">$&#123;num&#125;</span> fail`</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, <span class="number">10</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 5. 透過在 then 串接中，加入兩組 callback Function，使得函式可以接受到成功跟失敗狀態</span></span><br><span class="line">chainPromise(<span class="number">0</span>)</span><br><span class="line">    .then((<span class="function"><span class="params">res</span> =&gt;</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(res);</span><br><span class="line">    &#125;),(<span class="function"><span class="params">reject</span> =&gt;</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(reject);</span><br><span class="line">    &#125;));</span><br><span class="line"></span><br><span class="line">chainPromise(<span class="number">0</span>)</span><br><span class="line">    .then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(res);</span><br><span class="line">    &#125;)</span><br><span class="line">    .catch(<span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(error);</span><br><span class="line">    &#125;)</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/javascript/20210713/2451288997/" rel="prev" title="2021-07-13-[筆記]JavaScript 立即函式">
+      <i class="fa fa-chevron-left"></i> 2021-07-13-[筆記]JavaScript 立即函式
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/javascript/20210719/850015869/" rel="next" title="2021-07-19-[筆記]Fetch 筆記">
+      2021-07-19-[筆記]Fetch 筆記 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%B7%E5%8F%B2"><span class="nav-number">1.</span> <span class="nav-text">歷史</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B0%A1%E4%BB%8B"><span class="nav-number">2.</span> <span class="nav-text">簡介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B5%90%E6%A7%8B"><span class="nav-number">3.</span> <span class="nav-text">結構</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8B%80%E6%85%8B"><span class="nav-number">4.</span> <span class="nav-text">狀態</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%A6%E4%BD%9C"><span class="nav-number">5.</span> <span class="nav-text">實作</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">andy</p>
+  <div class="site-description" itemprop="description">記錄一些自學前端的技術文章</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">107</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/chun-wen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chun-wen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:hsbsbbdn@gmail.com" title="E-Mail → mailto:hsbsbbdn@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">andy</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="總字數">149k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">2:15</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://chun-wen.github.io/javascript/20210718/1061363982/";
+    this.page.identifier = "javascript/20210718/1061363982/";
+    this.page.title = "2021-07-18-[筆記]Promise 完整介紹";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://andyderblog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

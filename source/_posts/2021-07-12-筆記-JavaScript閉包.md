@@ -14,6 +14,7 @@ abbrlink: 3097947559
 ---
 六角學院-JavaScript核心篇
 [重新認識 JavaScript: Day 19 閉包 Closure](https://ithelp.ithome.com.tw/articles/10193009)
+[鐵人賽：另一種方式介紹 JavaScript 閉包](https://wcc723.github.io/javascript/2017/12/13/javascript-closure/)
 
 ---
 ### 閉包

@@ -4,6 +4,7 @@ tags:
   - JavaScript
 categories:
   - JavaScript
+abbrlink: 2455800070
 ---
 前言：
 `Async`、`Await` 本身是個語法糖，我們多數拿來搭配 `Promise.all` 、 迴圈、 `fetch` 等方法一起使用，讓程式碼看起來更直覺．

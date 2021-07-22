@@ -4,6 +4,7 @@ tags:
   - JavaScript
 categories:
   - JavaScript
+abbrlink: 2606147343
 ---
 前言：
 前端透過 AJAX 呼叫 API 時，在等待資料回傳時為了增加使用者體驗效果，我們可以在傳輸資料這段時間增加遮罩效果，讓使用者不能操作其他功能、同時增加使用者回饋效果。
@@ -16,10 +17,12 @@ categories:
 ---
 
 1. 我們需要一個 `div` ，來製造出遮罩範圍
+
 ```html
 // HTML部分
 <div class="loading">
-      <div class="loader-inner ball-pulse"></div> //這邊 Class 是引用 loader.css class
+      <div class="loader-inner ball-pulse"></div> 
+      //這邊 Class 是引用 loader.css class
 </div>
 ```
 
@@ -49,7 +52,7 @@ categories:
 }
 ```
 
-2. 我們需要替遮罩增加旋轉效果
+1. 我們需要替遮罩增加旋轉效果
 
 ```jsx
 因為我們有使用套件，所以可以直接使用
@@ -57,6 +60,7 @@ $('.loader-inner').loaders();
 ```
 
 3. 完整程式碼
+
 ```jsx
 // 利用 async 語法製造函式內同步執行
 async function exportExcel(url, postData) {

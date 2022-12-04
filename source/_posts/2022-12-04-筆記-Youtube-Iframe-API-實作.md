@@ -1,13 +1,14 @@
 ---
-title: '2022-12-04-[筆記]Youtube Ifame API 實作'
+title: '2022-12-04-[筆記]Youtube Iframe API 實作'
 tags:
   - JavaScript
   - Youtube
 categories:
   - JavaScript
+abbrlink: 1052275469
 ---
 前言：
-紀錄一下日常開發筆記。
+紀錄一下這次開發 Youtube Iframe API 實作遇到一些小問題
 
 <!-- more -->
 ---
@@ -22,7 +23,7 @@ categories:
 
 - 影片自動播放，並能從外部控制聲音開啟或靜音（示意圖如下）
 
-![示意圖](https://i.imgur.com/FOmueJu.png))
+![示意圖](https://i.imgur.com/FOmueJu.png)
 
 - 同個頁面需要各別控制影片靜音、開啟聲音
 

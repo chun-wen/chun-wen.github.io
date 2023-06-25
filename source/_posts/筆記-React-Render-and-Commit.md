@@ -4,6 +4,7 @@ tags:
   - react
 categories:
   - react
+abbrlink: 4145283182
 ---
 前言：
 We all know JS is a event trigger language. Therefore, we can found out that `React` Render proccess is some kind of event trigger flow.

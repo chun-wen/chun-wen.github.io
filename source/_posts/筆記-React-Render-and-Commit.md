@@ -18,14 +18,14 @@ We all know JS is a event trigger language. Therefore, we can found out that `Re
 ---
 We all know JS is a event trigger language. Therefore, we can found out that `React` Render proccess is some kind of event trigger flow.
 
-![react_website](https://hackmd.io/_uploads/B1ji62rd3.png)
+![react_website](https://hackmd-prod-images.s3-ap-northeast-1.amazonaws.com/uploads/upload_ab0decdac63ceb9f19a9ebc0ae7d876e.png?AWSAccessKeyId=AKIA3XSAAW6AWSKNINWO&Expires=1687704010&Signature=vOv6ONN6AUmzZpq0iFZqcKz0r08%3D)
 
 ### Step1
 There are two reasons for a component to render
 1. initial render 
 2. when state has been updated
 
-![react_website](https://hackmd.io/_uploads/HJcTZTrdh.png)
+![react_website](https://hackmd-prod-images.s3-ap-northeast-1.amazonaws.com/uploads/upload_6fc972fea3e565a6f79892594ec1c337.png?AWSAccessKeyId=AKIA3XSAAW6AWSKNINWO&Expires=1687703959&Signature=MhvYpWfV2cT%2BE8nuuDhKiPbCa6o%3D)
 
 
 #### What is state?
@@ -49,7 +49,7 @@ React only changes the DOM nodes if there’s a difference between renders.
 
 ### Last Step
 1. Browser painting
-![react_website](https://hackmd.io/_uploads/SyWMH6SOn.png)
+![react_website](https://hackmd-prod-images.s3-ap-northeast-1.amazonaws.com/uploads/upload_601f76cbc04c266f759a7e0abed7fdf1.png?AWSAccessKeyId=AKIA3XSAAW6AWSKNINWO&Expires=1687703937&Signature=9GGEMOU7ou0rTyecCZcjD5jisJg%3D)
 
 ---
 ### Conclusion

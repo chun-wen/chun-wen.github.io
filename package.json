@@ -18,7 +18,7 @@
     "hexo-renderer-ejs": "^0.3.1",
     "hexo-renderer-marked": "^2.0.0",
     "hexo-renderer-stylus": "^0.3.3",
-    "hexo-renderer-swig": "^1.1.0",
+    "hexo-renderer-swig": "^2.0.0",
     "hexo-server": "^0.3.3",
     "hexo-symbols-count-time": "^0.7.1",
     "hexo-theme-next": "^8.0.0",
